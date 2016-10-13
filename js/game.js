@@ -7,9 +7,10 @@ var objects = [];
 var raycaster, rayLine;
 
 var blocker = document.getElementById( 'blocker' );
-var instructions = document.getElementById( 'instructions' );
+var splashscreen = document.getElementById( 'splashscreen' );
 
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
+
 
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -34,7 +35,7 @@ if ( havePointerLock ) {
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
 
-            instructions.style.display = '';
+            splashscreen.style.display = '';
 
         }
 
@@ -42,7 +43,7 @@ if ( havePointerLock ) {
 
     var pointerlockerror = function ( event ) {
 
-        instructions.style.display = '';
+        splashscreen.style.display = '';
 
     };
 
@@ -54,10 +55,10 @@ if ( havePointerLock ) {
     document.addEventListener( 'pointerlockerror', pointerlockerror, false );
     document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
     document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
-    instructions.addEventListener( 'click', function ( event ) {
+    splashscreen.addEventListener( 'click', function ( event ) {
 
-        instructions.style.display = 'none';
-
+        splashscreen.style.display = 'none';
+		document.getElementById("intromusic").pause(); document.getElementById("intromusic").currentTime = 0;
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
 
@@ -67,7 +68,7 @@ if ( havePointerLock ) {
 
 } else {
 
-    instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
+    splashscreen.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
 
 }
 
