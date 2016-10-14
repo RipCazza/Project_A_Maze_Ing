@@ -8,7 +8,12 @@ var raycaster, rayLine;
 
 var blocker = document.getElementById( 'blocker' );
 var splashscreen = document.getElementById( 'splashscreen' );
+var pauseScreen = document.getElementById( 'pause' );
+var pauseIcon = document.getElementById( 'pauseIcon' );
 
+var timer = null;
+var sec = 0;
+var paused = false;
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 
@@ -24,27 +29,30 @@ if ( havePointerLock ) {
 
             controlsEnabled = true;
             controls.enabled = true;
-
             blocker.style.display = 'none';
 
         } else {
 
             controls.enabled = false;
-
+            paused = true;
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
 
-            splashscreen.style.display = '';
-
+            pauseScreen.style.visibility = 'visible';
+            pauseIcon.style.visibility = 'visible';
+			clearInterval(timer);
+			timer = null;
+			velocity.x = 0;velocity.y=0;velocity.z=0;
         }
 
     };
 
     var pointerlockerror = function ( event ) {
 
-        splashscreen.style.display = '';
-
+        pauseScreen.style.display = '-webkit-box';
+        pauseScreen.style.display = '-moz-box';
+        pauseScreen.style.display = 'box';
     };
 
     // Hook pointer lock state change events
@@ -63,6 +71,21 @@ if ( havePointerLock ) {
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
 
         element.requestPointerLock();
+		if(!timer) {timer = setInterval(setTime, 1000);}7
+		document.getElementById("timer-container").style.visibility = "visible";
+
+    }, false );
+
+    pauseScreen.addEventListener( 'click', function ( event ) {
+
+        pauseScreen.style.visibility = 'hidden';
+        pauseIcon.style.visibility = 'hidden';
+        // Ask the browser to lock the pointer
+        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+        controlsEnabled = true;
+        element.requestPointerLock();
+		if(!timer) {timer = setInterval(setTime, 1000);}
+		paused = false;
 
     }, false );
 
@@ -72,6 +95,22 @@ if ( havePointerLock ) {
 
 }
 
+function setTime() {
+    sec++;
+    document.getElementById("seconds").innerHTML = pad(sec % 60);
+    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60));
+  }
+
+function pad(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+      return "0" + valString;
+    } else {
+      return valString;
+    }
+  }  
+  
+  
 init();
 animate();
 
@@ -233,7 +272,7 @@ function animate() {
 
     requestAnimationFrame( animate );
 
-    if ( controlsEnabled ) {
+    if ( controlsEnabled && !paused ) {
         raycaster.ray.origin.copy( controls.getObject().position );
         raycaster.ray.origin.y -= 10;
 
