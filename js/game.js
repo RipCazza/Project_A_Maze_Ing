@@ -127,14 +127,69 @@ var velocity = new THREE.Vector3();
 
 function init() {
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+
 
     scene = new THREE.Scene();
 //        scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
 
-    var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
-    light.position.set( 0.5, 1, 0.75 );
-    scene.add( light );
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100000);
+
+
+    var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
+    sunLight.position.set(0.3, - 1, - 1).normalize();
+    scene.add(sunLight);
+    var light = new THREE.PointLight(0xffffff, 1.5);
+    light.position.set(-500, 1000, 500);
+    scene.add(light);
+    // This light's color gets applied to all the objects in the scene globally.
+    scene.add(new THREE.AmbientLight(0x404040));
+
+    // var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+    // light.position.set( 0.5, 1, 0.75 );
+    // scene.add( light );
+
+
+    var loader = new THREE.CubeTextureLoader();
+
+
+    var urls = [
+        "./images/posx.jpg", "./images/negx.jpg", "./images/posy.jpg",
+        "./images/negy.jpg", "./images/posz.jpg", "./images/negz.jpg"];
+    var textureCube = loader.load(urls);
+    console.log(textureCube);
+
+    // ball - cube reflection material
+    var ball = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        envMap: textureCube
+    }));
+    //ball.scale.x = ball.scale.y = ball.scale.z = Math.random() * 3 + 1;
+    ball.position.set(150, 10, 0);
+    scene.add(ball);
+    objects.push(ball);
+
+    var shader = THREE.ShaderLib["cube"];
+    shader.uniforms["tCube"].value = textureCube;
+    var material = new THREE.ShaderMaterial({
+        fragmentShader: shader.fragmentShader,
+        vertexShader: shader.vertexShader,
+        uniforms: shader.uniforms,
+        depthWrite: false,
+        side: THREE.BackSide
+    });
+
+    var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
+    skybox.position.set(0,0,0);
+    scene.add(skybox);
+
+    geometry = new THREE.BoxGeometry(20,20,20);
+    material = new THREE.MeshPhongMaterial({color: 0x0000ff});
+    cube = new THREE.Mesh(geometry,material);
+    cube.position.x = Math.floor(Math.random()*20-10) * 20;
+    cube.position.y = 10;
+    cube.position.z = Math.floor(Math.random()*20-10) * 20;
+    scene.add(cube);
+    objects.push(cube);
 
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
@@ -209,23 +264,6 @@ function init() {
     geometry = new THREE.PlaneGeometry( 500, 500, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
-//        for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
-//
-//            var vertex = geometry.vertices[ i ];
-//            vertex.x += Math.random() * 20 - 10;
-//            vertex.y += Math.random() * 2;
-//            vertex.z += Math.random() * 20 - 10;
-//
-//        }
-//
-//        for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-//
-//            var face = geometry.faces[ i ];
-//            face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-//            face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-//            face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-//
-//        }
     var texture = new THREE.TextureLoader().load( "./images/disco.png" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
@@ -236,21 +274,14 @@ function init() {
     scene.add( mesh );
 
 
-    geometry = new THREE.BoxGeometry (20,20,20);
-    material = new THREE.MeshPhongMaterial({color: 0x0000ff});
-    cube = new THREE.Mesh(geometry, material);
-    cube.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-    cube.position.y = 10;
-    cube.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-    scene.add(cube);
-    objects.push(cube);
-    console.log(cube.position.x);
-    console.log(cube.position.z);
+    // box
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.setClearColor( 0xffffff );
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    // renderer.setClearColor( 0xffffff );
+    // renderer.setPixelRatio( window.devicePixelRatio );
+    renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild( renderer.domElement );
 
     //
