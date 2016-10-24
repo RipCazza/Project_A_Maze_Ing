@@ -1,9 +1,10 @@
 var camera, scene, renderer;
-var geometry, material, mesh, cube;
+var geometry, material;
+var cube, cubeGlow;
 var controls;
-
 var objects = [];
-
+var velocity = new THREE.Vector3();
+var gui;
 var raycaster, rayLine;
 
 var blocker = document.getElementById( 'blocker' );
@@ -16,6 +17,7 @@ var sec = 0;
 var paused = false;
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
+THREEx.FullScreen.bindKey({ charCode : 'f'.charCodeAt(0) });
 
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -123,7 +125,6 @@ var moveRight = false;
 var canJump = false;
 
 var prevTime = performance.now();
-var velocity = new THREE.Vector3();
 
 function init() {
 
@@ -144,9 +145,9 @@ function init() {
     // This light's color gets applied to all the objects in the scene globally.
     scene.add(new THREE.AmbientLight(0x404040));
 
-    // var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
-    // light.position.set( 0.5, 1, 0.75 );
-    // scene.add( light );
+    var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+    light.position.set( 0.5, 1, 0.75 );
+    scene.add( light );
 
 
     var loader = new THREE.CubeTextureLoader();
@@ -156,8 +157,6 @@ function init() {
         "./images/posx.jpg", "./images/negx.jpg", "./images/posy.jpg",
         "./images/negy.jpg", "./images/posz.jpg", "./images/negz.jpg"];
     var textureCube = loader.load(urls);
-    console.log(textureCube);
-
     // ball - cube reflection material
     var ball = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({
         color: 0xffffff,
@@ -181,16 +180,6 @@ function init() {
     var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
     skybox.position.set(0,0,0);
     scene.add(skybox);
-
-    geometry = new THREE.BoxGeometry(20,20,20);
-    material = new THREE.MeshPhongMaterial({color: 0x0000ff});
-    cube = new THREE.Mesh(geometry,material);
-    cube.position.x = Math.floor(Math.random()*20-10) * 20;
-    cube.position.y = 10;
-    cube.position.z = Math.floor(Math.random()*20-10) * 20;
-    scene.add(cube);
-    objects.push(cube);
-
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
 
@@ -249,7 +238,6 @@ function init() {
             case 68: // d
                 moveRight = false;
                 break;
-
         }
 
     };
@@ -270,11 +258,48 @@ function init() {
     texture.repeat.set( 4, 4 );
     material = new THREE.MeshBasicMaterial( { map: texture} );
 
-    mesh = new THREE.Mesh( geometry, material );
-    scene.add( mesh );
+    var floor = new THREE.Mesh(geometry, material);
+    scene.add(floor);
+
+    // create custom material from the shader code above
+    //   that is within specially labeled script tags
+    var customMaterial = new THREE.ShaderMaterial(
+        {
+            uniforms:
+            {
+                "c":   { type: "f", value: 0.25 },
+                "p":   { type: "f", value: 1.2 },
+                glowColor: { type: "c", value: new THREE.Color(0x0000ff) },
+                viewVector: { type: "v3", value: camera.position }
+            },
+            vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
+            fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+            side: THREE.FrontSide,
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        }   );
+    //
 
 
-    // box
+    material = new THREE.MeshPhongMaterial({color: 0x0000ff});
+    var cubeGeom = new THREE.BoxGeometry(20,20,20,2,2,2);
+    var crateTexture = THREE.ImageUtils.loadTexture( 'images/crate.png' );
+    cube = new THREE.Mesh(cubeGeom, material);
+    cube.position.x = Math.floor(Math.random()*20-10) * 20;
+    cube.position.y = 10;
+    cube.position.z = Math.floor(Math.random()*20-10) * 20;
+    scene.add(cube);
+    objects.push(cube);
+    //
+    var smoothCubeGeom = cubeGeom.clone();
+    var modifier = new THREE.SubdivisionModifier( 2 );
+    modifier.modify( smoothCubeGeom );
+
+    cubeGlow = new THREE.Mesh( smoothCubeGeom, customMaterial.clone() );
+    cubeGlow.position.set(cube.position.x,cube.position.y,cube.position.z);
+    cubeGlow.scale.multiplyScalar(1.5);
+    scene.add( cubeGlow );
+
 
     // renderer.setClearColor( 0xffffff );
     // renderer.setPixelRatio( window.devicePixelRatio );
@@ -282,6 +307,8 @@ function init() {
         antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000);
+
     document.body.appendChild( renderer.domElement );
 
     //
@@ -302,6 +329,8 @@ function onWindowResize() {
 function animate() {
 
     requestAnimationFrame( animate );
+    cubeGlow.material.uniforms.viewVector.value =
+        new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
 
     if ( controlsEnabled && !paused ) {
         raycaster.ray.origin.copy( controls.getObject().position );
@@ -369,3 +398,5 @@ function animate() {
     renderer.render( scene, camera );
 
 }
+
+
