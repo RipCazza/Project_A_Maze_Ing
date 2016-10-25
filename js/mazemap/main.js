@@ -3,7 +3,7 @@ for (i = 0; i < 5; i++)
 {
     for (j = 0; j < 5; j++)
         {
-            cells.push(new cell(i,j));
+            cells.push(new cell(j,i));
         }
 }
 
@@ -30,6 +30,7 @@ function movedirection(currentcellnr, currentroutenr)
         {
             var direction = directions[Math.round(random() * (directions.length -1))];
             var newcurrentcellnr = currentcellnr + steps[direction];
+            
             
             if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % 5 == 0 && cells[newcurrentcellnr].positionx % 5 == 4) || (cells[currentcellnr].positionx % 5 == 4 && cells[newcurrentcellnr].positionx % 5 == 0)))
             {
