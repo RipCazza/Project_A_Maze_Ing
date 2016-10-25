@@ -11,7 +11,6 @@ for (i = 0; i < size; i++)
 }
 
 cells[((size*size)/2)].unvisited = false;
-var route = [cells[((size*size)/2)]];
 var currentcell = ((size*size)/2);
 var steps = [-size, 1, size,-1];
 var seed = 7359;
@@ -40,12 +39,10 @@ function movedirection(currentcellnr)
                 }
                 cells[currentcellnr].walls[direction] = false;
                 cells[newcurrentcellnr].unvisited = false;
-                route.push(cells[newcurrentcellnr]);
                 movedirection(newcurrentcellnr);
             }
             directions = RemoveElement(directions,direction);  
         }
-        route.pop();
         return;
 }
 
