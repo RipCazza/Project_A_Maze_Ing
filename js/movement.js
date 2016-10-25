@@ -1,7 +1,5 @@
 var controls;
 var velocity = new THREE.Vector3();
-var timer = null;
-var sec = 0;
 var paused = false;
 
 var blocker = document.getElementById( 'blocker' );
@@ -12,7 +10,6 @@ var pauseIcon = document.getElementById( 'pauseIcon' );
 var prevTime = performance.now();
 
 
-
 THREEx.FullScreen.bindKey({ charCode : 'f'.charCodeAt(0) });
 
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -20,34 +17,28 @@ var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement
 if ( havePointerLock ) {
 
     var element = document.body;
-
     var pointerlockchange = function ( event ) {
 
         if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
-
             controlsEnabled = true;
             controls.enabled = true;
             blocker.style.display = 'none';
-
-        } else {
-
+        }
+        else {
             controls.enabled = false;
             paused = true;
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
-
             pauseScreen.style.visibility = 'visible';
             pauseIcon.style.visibility = 'visible';
             clearInterval(timer);
             timer = null;
             velocity.x = 0;velocity.y=0;velocity.z=0;
         }
-
     };
 
     var pointerlockerror = function ( event ) {
-
         pauseScreen.style.display = '-webkit-box';
         pauseScreen.style.display = '-moz-box';
         pauseScreen.style.display = 'box';
@@ -57,25 +48,20 @@ if ( havePointerLock ) {
     document.addEventListener( 'pointerlockchange', pointerlockchange, false );
     document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
     document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
-
     document.addEventListener( 'pointerlockerror', pointerlockerror, false );
     document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
     document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
     splashscreen.addEventListener( 'click', function ( event ) {
-
         splashscreen.style.display = 'none';
         document.getElementById("intromusic").pause(); document.getElementById("intromusic").currentTime = 0;
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
-
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}7
         document.getElementById("timer-container").style.visibility = "visible";
-
     }, false );
 
     pauseScreen.addEventListener( 'click', function ( event ) {
-
         pauseScreen.style.visibility = 'hidden';
         pauseIcon.style.visibility = 'hidden';
         // Ask the browser to lock the pointer
@@ -84,30 +70,13 @@ if ( havePointerLock ) {
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}
         paused = false;
-
     }, false );
 
-} else {
+}
 
+else {
     splashscreen.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
-
 }
-
-function setTime() {
-    sec++;
-    document.getElementById("seconds").innerHTML = pad(sec % 60);
-    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60));
-}
-
-function pad(val) {
-    var valString = val + "";
-    if (valString.length < 2) {
-        return "0" + valString;
-    } else {
-        return valString;
-    }
-}
-
 
 var onKeyDown = function ( event ) {
 
@@ -136,7 +105,6 @@ var onKeyDown = function ( event ) {
             if ( canJump === true ) velocity.y += 350;
             canJump = false;
             break;
-
     }
 
 };
@@ -196,43 +164,19 @@ function Move(){
 
         if ( isOnObject === true ) {
             velocity.y = Math.max( 0, velocity.y );
-
             canJump = true;
         }
 
-//            var cameradirection = camera.getWorldDirection();
-//            var originpoint = controls.getObject().position.clone();
-//            originpoint.x += velocity.x*delta;
-//            originpoint.y += velocity.y*delta;
-//            originpoint.z += velocity.z*delta;
-//            var dx = originpoint.x - cube.position.x;
-//            var dz = originpoint.z - cube.position.z;
-//            var distance = Math.sqrt(dx*dx+dz*dz);
-//            if(dx < 0 && velocity.x < 0 || dx > 0 && velocity.x > 0)
-//            {
-//                controls.getObject().translateX( velocity.x * delta );
-//            }
-//            if(dz < 0 && velocity.z < 0 || dz > 0 && velocity.z > 0)
-//            {
-//                controls.getObject().translateZ( velocity.z * delta );
-//            }
-
-
         controls.getObject().translateX( velocity.x * delta );
-        controls.getObject().translateY( velocity.y * delta );
+        if(velocity.y>=0){controls.getObject().translateY( velocity.y * delta );}
         controls.getObject().translateZ( velocity.z * delta );
 
         if ( controls.getObject().position.y < 10 ) {
 
             velocity.y = 0;
             controls.getObject().position.y = 10;
-
             canJump = true;
-
         }
-
         prevTime = time;
-
     }
-
 }

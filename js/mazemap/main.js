@@ -1,16 +1,16 @@
 var cells = [];
-for (i = 0; i < 10; i++)
+for (i = 0; i < 5; i++)
 {
-    for (j = 0; j < 10; j++)
+    for (j = 0; j < 5; j++)
         {
             cells.push(new cell(i,j));
         }
 }
 
-cells[5].univisted = false;
-var route = [cells[5]];
+cells[0].unvisited = false;
+var route = [cells[0]];
 var currentcell = 0;
-var steps = [-10, 1, 10,-1];
+var steps = [-5, 1, 5,-1];
 var seed = 7359;
 var directionsstrings = ["noord","oost","zuid","west"];
 movedirection(currentcell,0);
@@ -32,7 +32,7 @@ function movedirection(currentcellnr, currentroutenr)
             var direction = directions[Math.round(random() * (directions.length -1))];
             var newcurrentcellnr = currentcellnr + steps[direction];
             
-            if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % 10 == 0 && cells[newcurrentcellnr].positionx == 9) || (cells[currentcellnr].positionx % 10 == 9 && cells[newcurrentcellnr].positionx == 0)))
+            if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % 5 == 0 && cells[newcurrentcellnr].positionx % 5 == 4) || (cells[currentcellnr].positionx % 5 == 4 && cells[newcurrentcellnr].positionx % 5 == 0)))
             {
                 console.log(currentcellnr + " " + directionsstrings[direction]);
                 var newcurrentroutenr = currentroutenr + 1;
@@ -44,7 +44,7 @@ function movedirection(currentcellnr, currentroutenr)
                     {
                         cells[newcurrentcellnr].walls[(direction -2)] = false;
                     }
-                cells[currentcellnr].walls[(direction)] = false;
+                cells[currentcellnr].walls[direction] = false;
                 cells[newcurrentcellnr].unvisited = false;
                 route.push(cells[newcurrentcellnr]);
                 console.log(newcurrentcellnr);
