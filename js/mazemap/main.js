@@ -1,7 +1,8 @@
 var cells = [];
-for (i = 0; i < 5; i++)
+var size = 15;
+for (i = 0; i < size; i++)
 {
-    for (j = 0; j < 5; j++)
+    for (j = 0; j < size; j++)
         {
             cells.push(new cell(j,i));
         }
@@ -10,7 +11,7 @@ for (i = 0; i < 5; i++)
 cells[0].unvisited = false;
 var route = [cells[0]];
 var currentcell = 0;
-var steps = [-5, 1, 5,-1];
+var steps = [-size, 1, size,-1];
 var seed = 7359;
 var directionsstrings = ["noord","oost","zuid","west"];
 movedirection(currentcell,0);
@@ -32,7 +33,7 @@ function movedirection(currentcellnr, currentroutenr)
             var newcurrentcellnr = currentcellnr + steps[direction];
             
             
-            if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % 5 == 0 && cells[newcurrentcellnr].positionx % 5 == 4) || (cells[currentcellnr].positionx % 5 == 4 && cells[newcurrentcellnr].positionx % 5 == 0)))
+            if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % size == 0 && cells[newcurrentcellnr].positionx % size == (size -1)) || (cells[currentcellnr].positionx % size == (size -1) && cells[newcurrentcellnr].positionx % size == 0)))
             {
                 console.log(currentcellnr + " " + directionsstrings[direction]);
                 var newcurrentroutenr = currentroutenr + 1;

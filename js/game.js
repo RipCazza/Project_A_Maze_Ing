@@ -116,11 +116,11 @@ function init() {
 
     var posx = -250, posz = -250;
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
-    for(var i=0;i<5;i++){
-        for(var j=0;j<5;j++){
+    for(var i=0;i<size;i++){
+        for(var j=0;j<size;j++){
             for(var k=0;k<4;k++)
             {
-                if(cells[5*i+j].walls[k] == true){
+                if(cells[size*i+j].walls[k] == true){
                     if(k==0 || k==2)
                     {
                         var wall = new THREE.Mesh(new THREE.CubeGeometry(40,10,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
