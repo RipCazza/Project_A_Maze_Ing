@@ -64,7 +64,7 @@ function init() {
 
     var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
     skybox.position.set(0,0,0);
-    scene.add(skybox);
+    //scene.add(skybox);
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
     controls.getObject().position.y=250;
@@ -148,10 +148,11 @@ function init() {
     // scene.add( cubeGlow );
 
     renderer = new THREE.WebGLRenderer({
-        antialias: true
+        antialias: true,
+        alpha: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000);
+    renderer.setClearColor( 0xffffff, 0);
 
     document.body.appendChild( renderer.domElement );
 

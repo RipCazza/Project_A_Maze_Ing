@@ -90,64 +90,64 @@
 		}
     </style>
 </head>
-<body onload="init()">
-<script src="./js/Three58.js"></script>
-<script src="./js/three.js"></script>
-<script src="./js/SubdivisionModifier.js"></script>
-<script src="./js/PointerLockControls.js"></script>
-<script src="./js/THREEx.FullScreen.js"></script>
-<script src="./js/mazemap/Cell.js"></script>
-<script src="./js/mazemap/main.js"></script>
-<script id="vertexShader" type="x-shader/x-vertex">
-uniform vec3 viewVector;
-uniform float c;
-uniform float p;
-varying float intensity;
-void main()
-{
-    vec3 vNormal = normalize( normalMatrix * normal );
-	vec3 vNormel = normalize( normalMatrix * viewVector );
-	intensity = pow( c - dot(vNormal, vNormel), p );
+<body onload="init()" background="images/disco.png">
+    <script src="./js/Three58.js"></script>
+    <script src="./js/three.js"></script>
+    <script src="./js/SubdivisionModifier.js"></script>
+    <script src="./js/PointerLockControls.js"></script>
+    <script src="./js/THREEx.FullScreen.js"></script>
+    <script src="./js/mazemap/Cell.js"></script>
+    <script src="./js/mazemap/main.js"></script>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        uniform vec3 viewVector;
+        uniform float c;
+        uniform float p;
+        varying float intensity;
+        void main()
+        {
+            vec3 vNormal = normalize( normalMatrix * normal );
+                vec3 vNormel = normalize( normalMatrix * viewVector );
+                intensity = pow( c - dot(vNormal, vNormel), p );
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-}
-</script>
-<script id="fragmentShader" type="x-shader/x-vertex">
-uniform vec3 glowColor;
-varying float intensity;
-void main()
-{
-	vec3 glow = glowColor * intensity;
-    gl_FragColor = vec4( glow, 1.0 );
-}
-</script>
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+        }
+    </script>
+    <script id="fragmentShader" type="x-shader/x-vertex">
+        uniform vec3 glowColor;
+        varying float intensity;
+        void main()
+        {
+                vec3 glow = glowColor * intensity;
+            gl_FragColor = vec4( glow, 1.0 );
+        }
+    </script>
 
-	<span id="timer-container">
-		Time: <span id="minutes">00</span>:<span id="seconds">00</span>
-	</span>
-<div id="blocker">
-	<span class="glyphicon glyphicon-pause" id="pauseIcon"> </span>
-    <div id="splashscreen"><img src="./images/coollogo_com-195583829.png" width="602" height="375"/><br/><br/><br/>
-        <span style="font-size:40px">START</span>
-        <br />
-        Controls:<br>
-		W, A, S, D = Move<br>
-		SPACE = Jump<br>
-		MOUSE = Look around<br>
-        F = Enter Fullscreen Mode
+    <span id="timer-container">
+            Time: <span id="minutes">00</span>:<span id="seconds">00</span>
+    </span>
+    <div id="blocker">
+        <span class="glyphicon glyphicon-pause" id="pauseIcon"> </span>
+        <div id="splashscreen"><img src="./images/coollogo_com-195583829.png" width="602" height="375"/><br/><br/><br/>
+            <span style="font-size:40px">START</span>
+            <br />
+            Controls:<br>
+                    W, A, S, D = Move<br>
+                    SPACE = Jump<br>
+                    MOUSE = Look around<br>
+            F = Enter Fullscreen Mode
+        </div>
+        <div id ="pause">
+            <span style="font-size: 40px">Game Paused</span>
+            <br>
+            Click to continue
+        </div>
+       <script src="./js/game.js"></script>
+       <script src="./js/movement.js"></script>
+
     </div>
-    <div id ="pause">
-        <span style="font-size: 40px">Game Paused</span>
-        <br>
-        Click to continue
-    </div>
-   <script src="./js/game.js"></script>
-   <script src="./js/movement.js"></script>
-
-</div>
-<audio autoplay loop id="intromusic">
- <source src="press_start.mp3" type="audio/mpeg">
- Your browser does not support the audio element.
-</audio>
+    <audio autoplay loop id="intromusic">
+         <source src="press_start.mp3" type="audio/mpeg">
+         Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
