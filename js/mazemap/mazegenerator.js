@@ -15,10 +15,10 @@ var route = [cells[((size*size)/2)]];
 var currentcell = ((size*size)/2);
 var steps = [-size, 1, size,-1];
 var seed = 7359;
-movedirection(currentcell,0);
+movedirection(currentcell);
 
 // Makes a route out of the cells
-function movedirection(currentcellnr, currentroutenr)
+function movedirection(currentcellnr)
 {
     // Directions ["noord","oost","zuid","west"]
     var directions = [0,1,2,3];
@@ -30,7 +30,6 @@ function movedirection(currentcellnr, currentroutenr)
             // Checks if not of out of range on y and x or already visited
             if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % size == 0 && cells[newcurrentcellnr].positionx % size == (size -1)) || (cells[currentcellnr].positionx % size == (size -1) && cells[newcurrentcellnr].positionx % size == 0)))
             {
-                var newcurrentroutenr = currentroutenr + 1;
                 if (direction < 2)
                 {
                     cells[newcurrentcellnr].walls[(direction +2)] = false;
@@ -42,7 +41,7 @@ function movedirection(currentcellnr, currentroutenr)
                 cells[currentcellnr].walls[direction] = false;
                 cells[newcurrentcellnr].unvisited = false;
                 route.push(cells[newcurrentcellnr]);
-                movedirection(newcurrentcellnr, newcurrentroutenr);
+                movedirection(newcurrentcellnr);
             }
             directions = RemoveElement(directions,direction);  
         }
