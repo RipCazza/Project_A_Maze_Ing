@@ -23,7 +23,6 @@ for (var x = 0; x < cells.length; x++)
     }
 }
 
-
 function movedirection(currentcellnr, currentroutenr)
 {
     var directions = [0,1,2,3];

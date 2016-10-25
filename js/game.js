@@ -115,16 +115,19 @@ function init() {
     objects.push(cube);
 
     var posx = -250, posz = -250;
-    var wallPos = [[15,0],[0,-15],[-15,0],[0,15]];
+    var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
     for(var i=0;i<5;i++){
         for(var j=0;j<5;j++){
-            for(var k=0;k<4;k++){
+            for(var k=0;k<4;k++)
+            {
                 if(cells[5*i+j].walls[k] == true){
-                    if(k==0 || k==2){
-                var wall = new THREE.Mesh(new THREE.CubeGeometry(40,10,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
-                wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                scene.add(wall);}
-                    else{
+                    if(k==0 || k==2)
+                    {
+                        var wall = new THREE.Mesh(new THREE.CubeGeometry(40,10,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
+                        wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                        scene.add(wall);}
+                    else
+                    {
                         var wall = new THREE.Mesh(new THREE.CubeGeometry(10,10,40), new THREE.MeshPhongMaterial({color: 0x00ff00}));
                         wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                         scene.add(wall);
