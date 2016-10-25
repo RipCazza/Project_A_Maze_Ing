@@ -71,7 +71,7 @@ function init() {
 
     // floor
 
-    geometry = new THREE.PlaneGeometry( 460, 460, 100, 100 );
+    geometry = new THREE.PlaneGeometry( 30*size+10, 30*size+10, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
     var texture = new THREE.TextureLoader().load( "./images/grass2.jpg" );
@@ -112,7 +112,7 @@ function init() {
     // scene.add(cube);
     // objects.push(cube);
 
-    var posx = -210, posz = -210;
+    var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
     for(var i=0;i<size;i++){
         for(var j=0;j<size;j++){
@@ -134,7 +134,7 @@ function init() {
             }
             posx+=30;
         }
-        posx=-210;posz+=30;
+        posx=-15*(size-1);posz+=30;
     }
     // var smoothCubeGeom = cubeGeom.clone();
     // var modifier = new THREE.SubdivisionModifier( 2 );
