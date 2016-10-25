@@ -43,14 +43,14 @@ function init() {
         "./images/negy.jpg", "./images/posz.jpg", "./images/negz.jpg"];
     var textureCube = loader.load(urls);
 
-    var ball = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        envMap: textureCube
-    }));
-
-    ball.position.set(150, 10, 0);
-    scene.add(ball);
-    objects.push(ball);
+    // var ball = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({
+    //     color: 0xffffff,
+    //     envMap: textureCube
+    // }));
+    //
+    // ball.position.set(150, 10, 0);
+    // scene.add(ball);
+    // objects.push(ball);
 
     var shader = THREE.ShaderLib["cube"];
     shader.uniforms["tCube"].value = textureCube;
@@ -67,13 +67,11 @@ function init() {
     //scene.add(skybox);
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
-    controls.getObject().position.y=250;
-
     raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
 
     // floor
 
-    geometry = new THREE.PlaneGeometry( 500, 500, 100, 100 );
+    geometry = new THREE.PlaneGeometry( 30*size+10, 30*size+10, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
     var texture = new THREE.TextureLoader().load( "./images/grass2.jpg" );
@@ -105,16 +103,16 @@ function init() {
     //
 
 
-    material = new THREE.MeshPhongMaterial({color: 0x0000ff});
-    var cubeGeom = new THREE.BoxGeometry(20,20,20,2,2,2);
-    cube = new THREE.Mesh(cubeGeom, material);
-    cube.position.x = -250;//Math.floor(Math.random()*20-10) * 20;
-    cube.position.y = 10;
-    cube.position.z = -250;//Math.floor(Math.random()*20-10) * 20;
-    scene.add(cube);
-    objects.push(cube);
+    // material = new THREE.MeshPhongMaterial({color: 0x0000ff});
+    // var cubeGeom = new THREE.BoxGeometry(20,20,20,2,2,2);
+    // cube = new THREE.Mesh(cubeGeom, material);
+    // cube.position.x = -200;//Math.floor(Math.random()*20-10) * 20;
+    // cube.position.y = 10;
+    // cube.position.z = -200;//Math.floor(Math.random()*20-10) * 20;
+    // scene.add(cube);
+    // objects.push(cube);
 
-    var posx = -250, posz = -250;
+    var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
     for(var i=0;i<size;i++){
         for(var j=0;j<size;j++){
@@ -124,19 +122,19 @@ function init() {
                     if(k==0 || k==2)
                     {
                         var wall = new THREE.Mesh(new THREE.CubeGeometry(40,10,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
-                        wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                        scene.add(wall);}
+                        wall.position.set( posx + wallPos[k][0], 5, posz + wallPos[k][1]);
+                        scene.add(wall);objects.push(wall)}
                     else
                     {
                         var wall = new THREE.Mesh(new THREE.CubeGeometry(10,10,40), new THREE.MeshPhongMaterial({color: 0x00ff00}));
-                        wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                        scene.add(wall);
+                        wall.position.set( posx + wallPos[k][0], 5, posz + wallPos[k][1]);
+                        scene.add(wall);objects.push(wall);
                     }
                 }
             }
             posx+=30;
         }
-        posx=-250;posz+=30;
+        posx=-15*(size-1);posz+=30;
     }
     // var smoothCubeGeom = cubeGeom.clone();
     // var modifier = new THREE.SubdivisionModifier( 2 );

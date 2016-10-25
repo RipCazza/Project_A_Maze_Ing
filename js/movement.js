@@ -168,7 +168,7 @@ function Move(){
         }
 
         controls.getObject().translateX( velocity.x * delta );
-        if(velocity.y>=0){controls.getObject().translateY( velocity.y * delta );}
+        controls.getObject().translateY( velocity.y * delta );
         controls.getObject().translateZ( velocity.z * delta );
 
         if ( controls.getObject().position.y < 10 ) {
