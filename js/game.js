@@ -130,7 +130,7 @@ function init() {
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                                                     scene.add(wall);objects.push(wall)
                                                 // shortwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
                                                     if (k == 0)
                                                     {
                                                         wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
@@ -148,7 +148,7 @@ function init() {
                         wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                         scene.add(wall);objects.push(wall);
                                                 // shortwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
                                                 if (k == 1)
                                                 {
                                                     wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
