@@ -102,7 +102,7 @@ var onKeyDown = function ( event ) {
             break;
 
         case 32: // space
-            if ( canJump === true ) velocity.y += 350;
+            if ( canJump === true ) velocity.y = 350;
             canJump = false;
             break;
     }
