@@ -114,24 +114,66 @@ function init() {
 
     var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
-    var wallmat = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('bos lvl.jpg')});
+    var wallmat = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('./images/bos lvl.jpg')});
     for(var i=0;i<size;i++){
         for(var j=0;j<size;j++){
             for(var k=0;k<4;k++)
             {
-                if(cells[size*i+j].walls[k] == true){
-                    if(k==0 || k==2)
-                    {
-                        var wall = new THREE.Mesh(new THREE.CubeGeometry(40,20,10),wallmat);
-                        wall.position.set( posx + wallPos[k][0], 5, posz + wallPos[k][1]);
-                        scene.add(wall);objects.push(wall)}
+                for(var k=0;k<4;k++)
+                {
+                                    // walls
+                    if(cells[size*i+j].walls[k] == true){
+                        if(k==0 || k==2)
+                        {
+                                                    // longwall
+                                                    var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
+                            wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                                                    scene.add(wall);objects.push(wall)
+                                                // shortwall
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
+                                                    if (k == 0)
+                                                    {
+                                                        wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                                                    }
+                                                    else
+                                                    {
+                                                        wall.position.set(-15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                                                    }
+                                                    scene.add(wall);objects.push(wall) ;
+                                                }
                     else
                     {
-                        var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,40),wallmat);
-                        wall.position.set( posx + wallPos[k][0], 5, posz + wallPos[k][1]);
+                                                //longwall
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),wallmat);
+                        wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                         scene.add(wall);objects.push(wall);
+                                                // shortwall
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), new THREE.MeshPhongMaterial({color: 0x00ff00}));
+                                                if (k == 1)
+                                                {
+                                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
+                                                }
+                                                else
+                                                {
+                                                    wall.position.set(posx + wallPos[k][0], 10, -15 + posz + wallPos[k][1]);
+                                                }
+                                                scene.add(wall);objects.push(wall);
                     }
                 }
+            }
+                        // power-up / trap blocks
+                            if(cells[size*i+j].cellfunction == 1)
+                            {
+                                var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshPhongMaterial({color: 0xffffff}));
+                           test.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
+                            scene.add(test);
+                        }
+                        else if(cells[size*i+j].cellfunction == 2)
+                            {
+                                var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshPhongMaterial({color: 0x000000}));
+                            test.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
+                            scene.add(test);
+                        }
             }
             posx+=30;
         }
@@ -145,6 +187,15 @@ function init() {
     // cubeGlow.position.set(cube.position.x,cube.position.y,cube.position.z);
     // cubeGlow.scale.multiplyScalar(1.5);
     // scene.add( cubeGlow );
+
+    var telematerial = new THREE.MeshPhongMaterial({color: 0x000077, transparent: true, opacity: 0.7});
+    var teleportGeo = new THREE.SphereGeometry(3,32,16);
+    var teleport = new THREE.Mesh(teleportGeo, telematerial);
+    teleport.position.set(0,40,0);
+    scene.add(teleport);
+    var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshPhongMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
+    glow.position.set(0,40,0);
+    scene.add( glow );
 
     renderer = new THREE.WebGLRenderer({
         antialias: true,

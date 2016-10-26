@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02923654-a8d3-4522-b8ed-2bf8161584a9" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/boom.jpg" afterPath="$PROJECT_DIR$/images/boom.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/bos lvl.jpg" afterPath="$PROJECT_DIR$/images/bos lvl.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/plant.jpg" afterPath="$PROJECT_DIR$/images/plant.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/game.js" afterPath="$PROJECT_DIR$/js/game.js" />
     </list>
     <ignored path="a-maze-ing.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +33,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
+            <state relative-caret-position="425">
               <caret line="46" column="88" selection-start-line="46" selection-start-column="88" selection-end-line="46" selection-end-column="88" />
               <folding>
                 <element signature="n#script#7;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -41,34 +43,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="17">
               <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="three.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/three.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="9960" column="0" selection-start-line="9960" selection-start-column="0" selection-end-line="9960" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="99" column="21" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="21" />
-              <folding>
-                <element signature="e#3450#3511#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="243">
+              <caret line="196" column="26" selection-start-line="196" selection-start-column="26" selection-end-line="196" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -86,7 +76,7 @@
       <file leaf-file-name="movement.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/movement.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
+            <state relative-caret-position="408">
               <caret line="24" column="29" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="29" />
               <folding />
             </state>
@@ -123,9 +113,9 @@
         <option value="$PROJECT_DIR$/js/test2.js" />
         <option value="$PROJECT_DIR$/js/movement.js" />
         <option value="$PROJECT_DIR$/js/mazemap/main.js" />
-        <option value="$PROJECT_DIR$/js/game.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/js/game.js" />
       </list>
     </option>
   </component>
@@ -194,13 +184,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -215,6 +204,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -230,17 +220,18 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\denny\Documents\WebStorm Projects\Project_A_Maze_Ing\js" />
-      <recent name="C:\Users\denny\Documents\WebStorm Projects\Project_A_Maze_Ing\skyboxtest\images\Bridge2" />
-      <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing\images" />
-      <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\denny\Documents\WebStorm Projects\Project_A_Maze_Ing\js" />
       <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing\CameraRayCasting" />
       <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing" />
       <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing\js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\denny\Documents\WebStorm Projects\Project_A_Maze_Ing\images" />
+      <recent name="C:\Users\denny\Documents\WebStorm Projects\Project_A_Maze_Ing\js" />
+      <recent name="C:\Users\denny\Documents\WebStorm Projects\Project_A_Maze_Ing\skyboxtest\images\Bridge2" />
+      <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing\images" />
+      <recent name="C:\Users\denny\Documents\WebStorm Projects\a-maze-ing" />
     </key>
   </component>
   <component name="RunManager">
@@ -325,17 +316,18 @@
       <workItem from="1477393767519" duration="2217000" />
       <workItem from="1477479318005" duration="667000" />
       <workItem from="1477481708839" duration="2061000" />
+      <workItem from="1477487993253" duration="878000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40821000" />
+    <option name="totallyTimeSpent" value="41699000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20089285" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20089285" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="539" y="199" width="287" height="329" />
@@ -391,16 +383,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3450#3511#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/three.js" />
     <entry file="file://$PROJECT_DIR$/CameraRayCasting/libs/three.js" />
     <entry file="file://$PROJECT_DIR$/CameraRayCasting/libs/Detector.js" />
@@ -437,9 +419,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="16" column="37" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#3450#3511#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -447,9 +427,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3450#3511#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -468,9 +446,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3450#3511#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -536,19 +512,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/mazemap/main.js" />
-    <entry file="file://$PROJECT_DIR$/js/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="99" column="21" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="21" />
-          <folding>
-            <element signature="e#3450#3511#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/movement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
+        <state relative-caret-position="408">
           <caret line="24" column="29" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="29" />
           <folding />
         </state>
@@ -556,7 +522,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/three.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="169320">
           <caret line="9960" column="0" selection-start-line="9960" selection-start-column="0" selection-end-line="9960" selection-end-column="0" />
           <folding />
         </state>
@@ -564,7 +530,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
+        <state relative-caret-position="425">
           <caret line="46" column="88" selection-start-line="46" selection-start-column="88" selection-end-line="46" selection-end-column="88" />
           <folding>
             <element signature="n#script#7;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -575,8 +541,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="17">
           <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/boom.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="196" column="26" selection-start-line="196" selection-start-column="26" selection-end-line="196" selection-end-column="26" />
           <folding />
         </state>
       </provider>
