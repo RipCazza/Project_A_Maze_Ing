@@ -14,7 +14,20 @@ cells[((size*size)/2)].unvisited = false;
 var currentcell = ((size*size)/2);
 var steps = [-size, 1, size,-1];
 var seed = 7359;
+//var seed = Math.random() * 1000;
+var temcounter = 0;
+var tempcounter = 0;
 movedirection(currentcell);
+console.log ("goodthing: "  + temcounter);
+console.log ("badthing: "  + tempcounter);
+
+for (var x = 0; x < (size*size); x++)
+    {
+        if (cells[x].cellfunction)
+            {
+                console.log("cell: " + x);
+            }
+    }
 
 // Makes a route out of the cells
 function movedirection(currentcellnr)
@@ -22,28 +35,44 @@ function movedirection(currentcellnr)
     // Directions ["noord","oost","zuid","west"]
     var directions = [0,1,2,3];
     for (var i = 0; i < 4; i++)
-        {
-            var direction = directions[Math.round(random() * (directions.length -1))];
-            var newcurrentcellnr = currentcellnr + steps[direction];
+    {
+        var direction = directions[Math.round(random() * (directions.length -1))];
+        var newcurrentcellnr = currentcellnr + steps[direction];
             
-            // Checks if not of out of range on y and x or already visited
-            if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % size == 0 && cells[newcurrentcellnr].positionx % size == (size -1)) || (cells[currentcellnr].positionx % size == (size -1) && cells[newcurrentcellnr].positionx % size == 0)))
+        // Checks if not of out of range on y and x or already visited
+        if (cells[newcurrentcellnr] != undefined && cells[newcurrentcellnr].unvisited && !((cells[currentcellnr].positionx % size == 0 && cells[newcurrentcellnr].positionx % size == (size -1)) || (cells[currentcellnr].positionx % size == (size -1) && cells[newcurrentcellnr].positionx % size == 0)))
+        {
+            if (direction < 2)
             {
-                if (direction < 2)
-                {
-                    cells[newcurrentcellnr].walls[(direction +2)] = false;
-                }
-                else
-                {
-                    cells[newcurrentcellnr].walls[(direction -2)] = false;
-                }
-                cells[currentcellnr].walls[direction] = false;
-                cells[newcurrentcellnr].unvisited = false;
-                movedirection(newcurrentcellnr);
+                cells[newcurrentcellnr].walls[(direction +2)] = false;
             }
-            directions = RemoveElement(directions,direction);  
+            else
+            {
+                cells[newcurrentcellnr].walls[(direction -2)] = false;
+            }
+            cells[currentcellnr].walls[direction] = false;
+            cells[newcurrentcellnr].unvisited = false;
+            movedirection(newcurrentcellnr);
         }
-        return;
+        directions = RemoveElement(directions,direction);  
+    }
+    // trap/power-up randomizer
+    var traprandomizer = random();
+    if (traprandomizer < 0.10)
+    {
+       if (traprandomizer < 0.05)
+       {
+            temcounter++;
+           cells[currentcellnr].cellfunction = 1;
+       }
+
+        else if (traprandomizer > 0.05)
+        {
+            tempcounter++;
+           cells[currentcellnr].cellfunction = 2
+        }
+    }
+    return;
 }
 
 // Uses seed for predictable outcome
