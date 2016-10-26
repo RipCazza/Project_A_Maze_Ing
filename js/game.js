@@ -36,12 +36,12 @@ function init() {
     light.position.set( 0.5, 1, 0.75 );
     scene.add( light );
 
-    var loader = new THREE.CubeTextureLoader();
-
-    var urls = [
-        "./images/posx.jpg", "./images/negx.jpg", "./images/posy.jpg",
-        "./images/negy.jpg", "./images/posz.jpg", "./images/negz.jpg"];
-    var textureCube = loader.load(urls);
+    // var loader = new THREE.CubeTextureLoader();
+    //
+    // var urls = [
+    //     "./images/posx.jpg", "./images/negx.jpg", "./images/posy.jpg",
+    //     "./images/negy.jpg", "./images/posz.jpg", "./images/negz.jpg"];
+    // var textureCube = loader.load(urls);
 
     // var ball = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({
     //     color: 0xffffff,
@@ -52,18 +52,18 @@ function init() {
     // scene.add(ball);
     // objects.push(ball);
 
-    var shader = THREE.ShaderLib["cube"];
-    shader.uniforms["tCube"].value = textureCube;
-    var material = new THREE.ShaderMaterial({
-        fragmentShader: shader.fragmentShader,
-        vertexShader: shader.vertexShader,
-        uniforms: shader.uniforms,
-        depthWrite: false,
-        side: THREE.BackSide
-    });
-
-    var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
-    skybox.position.set(0,0,0);
+    // var shader = THREE.ShaderLib["cube"];
+    // shader.uniforms["tCube"].value = textureCube;
+    // var material = new THREE.ShaderMaterial({
+    //     fragmentShader: shader.fragmentShader,
+    //     vertexShader: shader.vertexShader,
+    //     uniforms: shader.uniforms,
+    //     depthWrite: false,
+    //     side: THREE.BackSide
+    // });
+    //
+    // var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
+    // skybox.position.set(0,0,0);
     //scene.add(skybox);
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
@@ -85,22 +85,22 @@ function init() {
 
     // create custom material from the shader code
 
-    var customMaterial = new THREE.ShaderMaterial(
-        {
-            uniforms:
-            {
-                "c":   { type: "f", value: 0.25 },
-                "p":   { type: "f", value: 1.2 },
-                glowColor: { type: "c", value: new THREE.Color(0x0000ff) },
-                viewVector: { type: "v3", value: camera.position }
-            },
-            vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
-            fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
-            side: THREE.FrontSide,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-        }   );
-    //
+    // var customMaterial = new THREE.ShaderMaterial(
+    //     {
+    //         uniforms:
+    //         {
+    //             "c":   { type: "f", value: 0.25 },
+    //             "p":   { type: "f", value: 1.2 },
+    //             glowColor: { type: "c", value: new THREE.Color(0x0000ff) },
+    //             viewVector: { type: "v3", value: camera.position }
+    //         },
+    //         vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
+    //         fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+    //         side: THREE.FrontSide,
+    //         blending: THREE.AdditiveBlending,
+    //         transparent: true
+    //     }   );
+    // //
 
 
     // material = new THREE.MeshPhongMaterial({color: 0x0000ff});
@@ -122,12 +122,12 @@ function init() {
                 if(cells[size*i+j].walls[k] == true){
                     if(k==0 || k==2)
                     {
-                        var wall = new THREE.Mesh(new THREE.CubeGeometry(40,10,10),wallmat);
+                        var wall = new THREE.Mesh(new THREE.CubeGeometry(40,20,10),wallmat);
                         wall.position.set( posx + wallPos[k][0], 5, posz + wallPos[k][1]);
                         scene.add(wall);objects.push(wall)}
                     else
                     {
-                        var wall = new THREE.Mesh(new THREE.CubeGeometry(10,10,40),wallmat);
+                        var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,40),wallmat);
                         wall.position.set( posx + wallPos[k][0], 5, posz + wallPos[k][1]);
                         scene.add(wall);objects.push(wall);
                     }
