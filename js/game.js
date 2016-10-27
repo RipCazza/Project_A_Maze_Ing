@@ -65,7 +65,20 @@ function init() {
 	var wallGroup = new THREE.Object3D();
     var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
-    var wallmat = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('./images/bos lvl.jpg')});
+	var shortwallTexture = new THREE.TextureLoader().load('./images/walltexture.png');
+	var longwallTexture = new THREE.TextureLoader().load('./images/walltexture.png');
+	longwallTexture.wrapS = THREE.RepeatWrapping;
+	longwallTexture.wrapT = THREE.RepeatWrapping;
+	longwallTexture.repeat.set(2,1);
+    var wallmat = new THREE.MeshBasicMaterial( { map: shortwallTexture});
+    var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
+	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
+	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
+	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
+	var shortwallmat = new THREE.MeshFaceMaterial(faces);
+	var longwallmat = new THREE.MeshFaceMaterial(faces2);
+
+
     for(var i=0;i<size;i++){
         for(var j=0;j<size;j++){
             for(var k=0;k<4;k++)
@@ -77,11 +90,11 @@ function init() {
                         if(k==0 || k==2)
                         {
                                                     // longwall
-                                                    var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
+                                                    var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),longwallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                                                     wallGroup.add(wall);objects.push(wall)
                                                 // shortwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), shortwallmat);
                                                     if (k == 0)
                                                     {
                                                         wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
@@ -95,11 +108,11 @@ function init() {
                     else
                     {
                                                 //longwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),wallmat);
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),longwallmat);
                         wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                         wallGroup.add(wall);objects.push(wall);
                                                 // shortwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
+                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), shortwallmat);
                                                 if (k == 1)
                                                 {
                                                     wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
