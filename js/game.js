@@ -88,7 +88,6 @@ function init() {
                     {
                         if(k==0 || k==2)
                         {
-<<<<<<< HEAD
                             // longwall
                             var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
