@@ -44,6 +44,7 @@ function init() {
 
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
+	controls.getObject().position.set(-15*(size-1),0,-15*(size-1));
     raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
 
     // floor
@@ -89,20 +90,20 @@ function init() {
                         if(k==0 || k==2)
                         {
                             // longwall
-                            var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
+                            var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),longwallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                             wallGroup.add(wall);objects.push(wall)
                         }
                         else
                         {
                             //longwall
-                            var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),wallmat);
+                            var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20), longwallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                             wallGroup.add(wall);objects.push(wall);
                     }
                 }
                 // shortwalls
-                            var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
+                            var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), shortwallmat);
                             if (k == 0)
                             {
                                 wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
@@ -147,10 +148,10 @@ function init() {
     var telematerial = new THREE.MeshBasicMaterial({color: 0x000077, transparent: true, opacity: 0.7});
     var teleportGeo = new THREE.SphereGeometry(3,32,16);
     var teleport = new THREE.Mesh(teleportGeo, telematerial);
-    teleport.position.set(teleportPosition[0],10,teleportPosition[1]);
+    teleport.position.set(15*(size-1),10,15*(size-1));
     scene.add(teleport);
     var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshBasicMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
-    glow.position.set(teleportPosition[0],10,teleportPosition[1]);
+    glow.position.set(15*(size-1),10,15*(size-1));
     scene.add( glow );
 
     renderer = new THREE.WebGLRenderer({
