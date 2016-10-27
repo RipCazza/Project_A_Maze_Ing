@@ -126,48 +126,46 @@ function init() {
         for(var j=0;j<size;j++){
             for(var k=0;k<4;k++)
             {
-                for(var k=0;k<4;k++)
-                {
-                                    // walls
-                    if(cells[size*i+j].walls[k] == true){
+                  // walls
+                    if(cells[size*i+j].walls[k] == true)
+                    {
                         if(k==0 || k==2)
                         {
-                                                    // longwall
-                                                    var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
+                            // longwall
+                            var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                                                    wallGroup.add(wall);objects.push(wall)
-                                                // shortwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
-                                                    if (k == 0)
-                                                    {
-                                                        wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                                                    }
-                                                    else
-                                                    {
-                                                        wall.position.set(-15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                                                    }
-                                                    wallGroup.add(wall);objects.push(wall);
-                                                }
-                    else
-                    {
-                                                //longwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),wallmat);
-                        wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                        wallGroup.add(wall);objects.push(wall);
-                                                // shortwall
-                                                var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
-                                                if (k == 1)
-                                                {
-                                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
-                                                }
-                                                else
-                                                {
-                                                    wall.position.set(posx + wallPos[k][0], 10, -15 + posz + wallPos[k][1]);
-                                                }
-                                                wallGroup.add(wall);objects.push(wall);
+                            wallGroup.add(wall);objects.push(wall)
+                        }
+                        else
+                        {
+                            //longwall
+                            var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),wallmat);
+                            wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                            wallGroup.add(wall);objects.push(wall);
                     }
                 }
-            }
+                // shortwalls
+                            var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
+                            if (k == 0)
+                            {
+                                wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                                wallGroup.add(wall);objects.push(wall);
+                            }
+                            if ((k == 2) && (i == (size -1)))
+                                {
+                                    wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                                    wallGroup.add(wall);objects.push(wall);
+                                }
+                            if ((k == 3) && (j == 0))
+                                {
+                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
+                                    wallGroup.add(wall);objects.push(wall);
+                                }
+                            if ((k == 1) && (j == 0) && (i == (size -1)))
+                                {
+                                    wall.position.set(posx + wallPos[k][0], 10, -15 + posz + wallPos[k][1]);
+                                    wallGroup.add(wall);objects.push(wall);
+                                }
                         // power-up / trap blocks
                             if(cells[size*i+j].cellfunction == 1)
                             {
