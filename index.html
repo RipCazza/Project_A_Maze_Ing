@@ -7,14 +7,15 @@
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
-<body onload="init()">
+<body>
+     <script src="./js/jquery-3.1.1.min.js"></script>   
     <script src="./js/Three58.js"></script>
     <script src="./js/three.js"></script>
     <script src="./js/SubdivisionModifier.js"></script>
     <script src="./js/PointerLockControls.js"></script>
     <script src="./js/THREEx.FullScreen.js"></script>
     <script src="./js/mazemap/Cell.js"></script>
-    <script src="./js/mazemap/mazegenerator.js"></script>
+<!--    <script src="./js/mazemap/mazegenerator.js"></script>-->
     <script id="vertexShader" type="x-shader/x-vertex">
         uniform vec3 viewVector;
         uniform float c;
@@ -51,15 +52,20 @@
                     W, A, S, D = Move<br>
                     SPACE = Jump<br>
                     MOUSE = Look around<br>
-            F = Enter Fullscreen Mode
+            F = Enter Fullscreen Mode<br>
+                <h2>Seed</h2>
+                <input type="number" id="SeedNumber" value="7359"><br>
+            <button type="button" id="Submit">Submit seed</button><br><br>
+             <button type="button" onclick="alert('Hello world!')">Random please</button>
         </div>
         <div id ="pause">
             <span style="font-size: 40px">Game Paused</span>
             <br>
             Click to continue
         </div>
-                <script src="./js/stats.min.js"></script>
-       <script src="./js/game.js"></script>
+        
+        <script src="./js/stats.min.js"></script>
+<!--       <script src="./js/game.js"></script>-->
        <script src="./js/movement.js"></script>
 
     </div>
@@ -67,5 +73,26 @@
          <source src="press_start.mp3" type="audio/mpeg">
          Your browser does not support the audio element.
     </audio>
+    <script>
+//        var button = document.getElementById("Submit");
+        $("#Submit").on('click',function(){
+//            var script = document.createElement("script");
+//            script.type = "text/javascript";
+//            script.src = "./js/mazemap/mazegenerator.js";
+//            document.getElementsByTagName("head")[0].appendChild(script);
+//                        var script2 = document.createElement("script");
+//            script2.type = "text/javascript";
+//            script2.src = "./js/game.js";
+//            document.getElementsByTagName("head")[0].appendChild(script2);
+//                        var script3 = document.createElement("script");
+//            script3.type = "text/javascript";
+//            script3.src = "./js/movement.js";
+//            document.getElementsByTagName("head")[0].appendChild(script3);
+            $.getScript("./js/mazemap/mazegenerator.js");
+                    $.getScript("./js/game.js", function(){init();});
+//                    $.getScript("./js/movement.js");
+//            init();
+        });
+    </script>
 </body>
 </html>

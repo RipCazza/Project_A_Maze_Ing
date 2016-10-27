@@ -14,7 +14,6 @@ var moveLeft = false;
 var moveRight = false;
 var canJump = false;
 
-var timer = null;
 var sec = 0;
 
 /// Framerate checker
@@ -188,20 +187,3 @@ function animate() {
         stats.end();
 
 }
-
-function setTime() {
-    sec++;
-    document.getElementById("seconds").innerHTML = pad(sec % 60);
-    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60));
-}
-
-function pad(val) {
-    var valString = val + "";
-    if (valString.length < 2) {
-        return "0" + valString;
-    } else {
-        return valString;
-    }
-}
-
-
