@@ -1,4 +1,5 @@
-var controls;
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+var controls = new THREE.PointerLockControls( camera );
 var timer = null;
 var velocity = new THREE.Vector3();
 var paused = false;
@@ -9,7 +10,7 @@ var pauseScreen = document.getElementById( 'pause' );
 var pauseIcon = document.getElementById( 'pauseIcon' );
 
 var prevTime = performance.now();
-
+var controlsEnabled = false;
 
 THREEx.FullScreen.bindKey({ charCode : 'f'.charCodeAt(0) });
 
@@ -45,6 +46,7 @@ if ( havePointerLock ) {
         pauseScreen.style.display = 'box';
     };
 
+	
     // Hook pointer lock state change events
     document.addEventListener( 'pointerlockchange', pointerlockchange, false );
     document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
