@@ -42,35 +42,6 @@ function init() {
     light.position.set( 0.5, 1, 0.75 );
     scene.add( light );
 
-    // var loader = new THREE.CubeTextureLoader();
-    //
-    // var urls = [
-    //     "./images/posx.jpg", "./images/negx.jpg", "./images/posy.jpg",
-    //     "./images/negy.jpg", "./images/posz.jpg", "./images/negz.jpg"];
-    // var textureCube = loader.load(urls);
-
-    // var ball = new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), new THREE.MeshBasicMaterial({
-    //     color: 0xffffff,
-    //     envMap: textureCube
-    // }));
-    //
-    // ball.position.set(150, 10, 0);
-    // scene.add(ball);
-    // objects.push(ball);
-
-    // var shader = THREE.ShaderLib["cube"];
-    // shader.uniforms["tCube"].value = textureCube;
-    // var material = new THREE.ShaderMaterial({
-    //     fragmentShader: shader.fragmentShader,
-    //     vertexShader: shader.vertexShader,
-    //     uniforms: shader.uniforms,
-    //     depthWrite: false,
-    //     side: THREE.BackSide
-    // });
-    //
-    // var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
-    // skybox.position.set(0,0,0);
-    //scene.add(skybox);
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
     raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
@@ -91,37 +62,10 @@ function init() {
 
     // create custom material from the shader code
 
-    // var customMaterial = new THREE.ShaderMaterial(
-    //     {
-    //         uniforms:
-    //         {
-    //             "c":   { type: "f", value: 0.25 },
-    //             "p":   { type: "f", value: 1.2 },
-    //             glowColor: { type: "c", value: new THREE.Color(0x0000ff) },
-    //             viewVector: { type: "v3", value: camera.position }
-    //         },
-    //         vertexShader:   document.getElementById( 'vertexShader'   ).textContent,
-    //         fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
-    //         side: THREE.FrontSide,
-    //         blending: THREE.AdditiveBlending,
-    //         transparent: true
-    //     }   );
-    // //
-
-
-    // material = new THREE.MeshPhongMaterial({color: 0x0000ff});
-    // var cubeGeom = new THREE.BoxGeometry(20,20,20,2,2,2);
-    // cube = new THREE.Mesh(cubeGeom, material);
-    // cube.position.x = -200;//Math.floor(Math.random()*20-10) * 20;
-    // cube.position.y = 10;
-    // cube.position.z = -200;//Math.floor(Math.random()*20-10) * 20;
-    // scene.add(cube);
-    // objects.push(cube);
-
 	var wallGroup = new THREE.Object3D();
     var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
-    var wallmat = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('./images/bos lvl.jpg')});
+    var wallmat = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('./images/bos lvl.jpg')});
     for(var i=0;i<size;i++){
         for(var j=0;j<size;j++){
             for(var k=0;k<4;k++)
@@ -171,13 +115,13 @@ function init() {
                         // power-up / trap blocks
                             if(cells[size*i+j].cellfunction == 1)
                             {
-                                var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshPhongMaterial({color: 0xffffff}));
+                                var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshBasicMaterial({color: 0xffffff}));
                            test.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
                             scene.add(test);
                         }
                         else if(cells[size*i+j].cellfunction == 2)
                             {
-                                var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshPhongMaterial({color: 0x000000}));
+                                var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshBasicMaterial({color: 0x000000}));
                             test.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
                             scene.add(test);
                         }
@@ -188,21 +132,13 @@ function init() {
     }
 	scene.add(wallGroup);
 
-    // var smoothCubeGeom = cubeGeom.clone();
-    // var modifier = new THREE.SubdivisionModifier( 2 );
-    // modifier.modify( smoothCubeGeom );
-    //
-    // cubeGlow = new THREE.Mesh( smoothCubeGeom, customMaterial.clone() );
-    // cubeGlow.position.set(cube.position.x,cube.position.y,cube.position.z);
-    // cubeGlow.scale.multiplyScalar(1.5);
-    // scene.add( cubeGlow );
-	
-    var telematerial = new THREE.MeshPhongMaterial({color: 0x000077, transparent: true, opacity: 0.7});
+
+    var telematerial = new THREE.MeshBasicMaterial({color: 0x000077, transparent: true, opacity: 0.7});
     var teleportGeo = new THREE.SphereGeometry(3,32,16);
     var teleport = new THREE.Mesh(teleportGeo, telematerial);
     teleport.position.set(teleportPosition[0],10,teleportPosition[1]);
     scene.add(teleport);
-    var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshPhongMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
+    var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshBasicMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
     glow.position.set(teleportPosition[0],10,teleportPosition[1]);
     scene.add( glow );
 
