@@ -17,11 +17,17 @@ var canJump = false;
 var timer = null;
 var sec = 0;
 
+/// Framerate checker
+var stats = new Stats();
+stats.showPanel( 0 );
+document.body.appendChild( stats.dom );
+///
+
 function init() {
 
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100000);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
 
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -219,11 +225,16 @@ function onWindowResize() {
 }
 
 function animate() {
-
+    //framerate checker
+    var time = performance.now() / 1000;
+    stats.begin();
+    
     requestAnimationFrame( animate );
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     Move();
     renderer.render( scene, camera );
+    // framerate checker
+        stats.end();
 
 }
 
