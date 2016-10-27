@@ -13,18 +13,11 @@ for (i = 0; i < size; i++)
 cells[((size*size)/2)].unvisited = false;
 var currentcell = ((size*size)/2);
 var steps = [-size, 1, size,-1];
-var seed = 7359;
-//var seed = Math.random() * 1000;
+//var seed = 7359;
+var seed = Math.random() * 1000;
 var temcounter = 0;
 var tempcounter = 0;
 movedirection(currentcell);
-
-//Determine the position of the teleport depending on the seed
-var temp = -15*(size-1);
-var corners = [[temp,temp],[temp,-temp],[-temp,temp],[-temp,-temp]];
-var rand = Math.floor(4*random());
-console.log("x is:" + rand);
-var teleportPosition = corners[rand];
 	
 console.log ("goodthing: "  + temcounter);
 console.log ("badthing: "  + tempcounter);
