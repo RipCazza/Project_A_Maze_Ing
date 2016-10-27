@@ -118,11 +118,11 @@ function init() {
                                     wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
                                     wallGroup.add(wall);objects.push(wall);
                                 }
-                            if ((k == 1) && (j == 0) && (i == (size -1)))
-                                {
-                                    wall.position.set(posx + wallPos[k][0], 10, -15 + posz + wallPos[k][1]);
-                                    wallGroup.add(wall);objects.push(wall);
-                                }
+//                            if ((k == 1) && (j == 0) && (i == 0))
+//                                {
+//                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
+//                                    wallGroup.add(wall);objects.push(wall);
+//                                }
                         // power-up / trap blocks
                             if(cells[size*i+j].cellfunction == 1)
                             {
