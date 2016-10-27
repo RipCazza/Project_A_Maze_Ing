@@ -112,6 +112,7 @@ function init() {
     // scene.add(cube);
     // objects.push(cube);
 
+	var wallGroup = new THREE.Object3D();
     var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
     var wallmat = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('./images/bos lvl.jpg')});
@@ -128,7 +129,7 @@ function init() {
                                                     // longwall
                                                     var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),wallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                                                    scene.add(wall);objects.push(wall)
+                                                    wallGroup.add(wall);objects.push(wall)
                                                 // shortwall
                                                 var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
                                                     if (k == 0)
@@ -139,14 +140,14 @@ function init() {
                                                     {
                                                         wall.position.set(-15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                                                     }
-                                                    scene.add(wall);objects.push(wall) ;
+                                                    wallGroup.add(wall);objects.push(wall);
                                                 }
                     else
                     {
                                                 //longwall
                                                 var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20),wallmat);
                         wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
-                        scene.add(wall);objects.push(wall);
+                        wallGroup.add(wall);objects.push(wall);
                                                 // shortwall
                                                 var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), wallmat);
                                                 if (k == 1)
@@ -157,7 +158,7 @@ function init() {
                                                 {
                                                     wall.position.set(posx + wallPos[k][0], 10, -15 + posz + wallPos[k][1]);
                                                 }
-                                                scene.add(wall);objects.push(wall);
+                                                wallGroup.add(wall);objects.push(wall);
                     }
                 }
             }
@@ -179,6 +180,8 @@ function init() {
         }
         posx=-15*(size-1);posz+=30;
     }
+	scene.add(wallGroup);
+
     // var smoothCubeGeom = cubeGeom.clone();
     // var modifier = new THREE.SubdivisionModifier( 2 );
     // modifier.modify( smoothCubeGeom );
@@ -187,14 +190,14 @@ function init() {
     // cubeGlow.position.set(cube.position.x,cube.position.y,cube.position.z);
     // cubeGlow.scale.multiplyScalar(1.5);
     // scene.add( cubeGlow );
-
+	
     var telematerial = new THREE.MeshPhongMaterial({color: 0x000077, transparent: true, opacity: 0.7});
     var teleportGeo = new THREE.SphereGeometry(3,32,16);
     var teleport = new THREE.Mesh(teleportGeo, telematerial);
-    teleport.position.set(0,40,0);
+    teleport.position.set(teleportPosition[0],10,teleportPosition[1]);
     scene.add(teleport);
     var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshPhongMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
-    glow.position.set(0,40,0);
+    glow.position.set(teleportPosition[0],10,teleportPosition[1]);
     scene.add( glow );
 
     renderer = new THREE.WebGLRenderer({
