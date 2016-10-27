@@ -13,8 +13,17 @@ for (i = 0; i < size; i++)
 cells[((size*size)/2)].unvisited = false;
 var currentcell = ((size*size)/2);
 var steps = [-size, 1, size,-1];
-//var seed = 7359;
-var seed = Math.random() * 1000;
+var seed;// = 7359;
+var seednumber = document.getElementById("SeedNumber").value;
+if(seednumber != "")
+{
+    seed = seednumber;
+}
+if (randomized || seednumber == "")
+{ 
+    seed = Math.round(Math.random() * 1000);
+}
+console.log(seed);
 var temcounter = 0;
 var tempcounter = 0;
 movedirection(currentcell);
