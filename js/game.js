@@ -1,10 +1,9 @@
-var camera, scene, renderer;
+var scene, renderer;
 var geometry, material;
 var cube, cubeGlow;
 var objects = [];
 var gui;
 var raycaster, rayLine;
-var controlsEnabled = false;
 var walls = [];
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
@@ -25,9 +24,6 @@ document.body.appendChild( stats.dom );
 function init() {
 
     scene = new THREE.Scene();
-
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
     scene.add(sunLight);
@@ -41,7 +37,6 @@ function init() {
     light.position.set( 0.5, 1, 0.75 );
     scene.add( light );
 
-    controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
 	controls.getObject().position.set(-15*(size-1),0,-15*(size-1));
     raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
