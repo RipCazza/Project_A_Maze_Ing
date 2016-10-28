@@ -48,12 +48,13 @@
 		<div id="seed"><h2>Seed</h2>
             <input type="text" id="SeedNumber" value="3921"><br><br>
             <button type="button" id="Submit">Submit seed</button>
-             <button type="button" id="Random">Random seed</button></div><br><br>
-            Controls:<br>
+             <button type="button" id="Random">Random seed</button></div><br>
+			 Controls:<br>
                     W, A, S, D = Move<br>
                     SPACE = Jump<br>
                     MOUSE = Look around<br>
             F = Enter Fullscreen Mode<br>
+			N = Next Level
 
         </div>
         <div id ="pause">
@@ -74,15 +75,25 @@
         var randomized = false;
         $("#Submit").on('click',function()
         {
-			hideSplashScreen();
-            $.getScript("./js/mazemap/mazegenerator.js");
+		var seed = 0;
+		var seednumber = document.getElementById("SeedNumber").value;
+		if(seednumber != "")
+		{
+			seed = seednumber;
+		}
+		else
+		{ 
+			seed = Math.round(Math.random() * 1000);
+		}
+		console.log(seed);
+		hideSplashScreen();
+            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed);});
             $.getScript("./js/game.js", function(){init(1);});
         });
          $("#Random").on('click',function()
         {
 			hideSplashScreen();
-            randomized = true;
-            $.getScript("./js/mazemap/mazegenerator.js");
+            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(Math.round(Math.random() * 1000));});
             $.getScript("./js/game.js", function(){init(1);});
         });
     </script>

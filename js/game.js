@@ -12,7 +12,7 @@ var moveBackward = false;
 var moveLeft = false;
 var moveRight = false;
 var canJump = false;
-
+var lvl = 1;
 
 /// Framerate checker
 var stats = new Stats();
@@ -21,8 +21,7 @@ document.body.appendChild( stats.dom );
 ///
 
 function init(level) {
-
-	$("body").css("background-image", "url('images/level" + level + "/background.jpg')");
+	lvl = level;
     scene = new THREE.Scene();
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -43,22 +42,41 @@ function init(level) {
 
     // floor
 
+	initMaze();
+    renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor( 0xffffff, 0);
+
+    document.body.appendChild( renderer.domElement );
+
+    window.addEventListener( 'resize', onWindowResize, false );
+
+    animate();
+}
+
+function initMaze(){
+	$("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
+
     geometry = new THREE.PlaneGeometry( 30*size+10, 30*size+10, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
-	var path = "./images/level" + level + "/";
+	var path = "./images/level" + lvl + "/";
     var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 16, 16 );
     material = new THREE.MeshBasicMaterial( { map: texture} );
 
-    var floor = new THREE.Mesh(geometry, material);
+    floor = new THREE.Mesh(geometry, material);
     scene.add(floor);
 
     // create custom material from the shader code
 
-	var wallGroup = new THREE.Object3D();
+	wallGroup = new THREE.Object3D();
+	itemGroup = new THREE.Object3D();
     var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
@@ -137,13 +155,13 @@ function init(level) {
                             {
                                 var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshBasicMaterial({color: 0xffffff}));
                            test.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
-                            scene.add(test);
+                            itemGroup.add(test);
                         }
                         else if(cells[size*i+j].cellfunction == 2)
                             {
                                 var test = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshBasicMaterial({color: 0x000000}));
                             test.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
-                            scene.add(test);
+                            itemGroup.add(test);
                         }
             }
             posx+=30;
@@ -157,23 +175,11 @@ function init(level) {
     var teleportGeo = new THREE.SphereGeometry(3,32,16);
     var teleport = new THREE.Mesh(teleportGeo, telematerial);
     teleport.position.set(15*(size-1),10,15*(size-1));
-    scene.add(teleport);
+    itemGroup.add(teleport);
     var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshBasicMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
     glow.position.set(15*(size-1),10,15*(size-1));
-    scene.add( glow );
-
-    renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor( 0xffffff, 0);
-
-    document.body.appendChild( renderer.domElement );
-
-    window.addEventListener( 'resize', onWindowResize, false );
-
-    animate();
+    itemGroup.add( glow );
+	scene.add(itemGroup);
 }
 
 function onWindowResize() {
@@ -187,12 +193,11 @@ function animate() {
     //framerate checker
     var time = performance.now() / 1000;
     stats.begin();
-    
-    requestAnimationFrame( animate );
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     Move();
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
+    requestAnimationFrame( animate );
 
 }
