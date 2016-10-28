@@ -5,6 +5,7 @@ var objects = [];
 var gui;
 var raycaster, rayLine;
 var walls = [];
+var speedmodifier = 1;
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 var moveForward = false;
@@ -20,12 +21,13 @@ stats.showPanel( 0 );
 document.body.appendChild( stats.dom );
 ///
 
-function checkCollision() {
+function checkCell() {
     var xPos = controls.getObject().position.x;
     var zPos = controls.getObject().position.z;
     var xMod = Math.floor(xPos / 30 + size / 2);
     var zMod = Math.floor(size - (zPos / 30 + size / 2));
     var cell = zMod * size + xMod;
+    console.log(cell);
     return cell;
 }
 
@@ -71,8 +73,8 @@ function init(level) {
     // create custom material from the shader code
 
 	var wallGroup = new THREE.Object3D();
-    var posx = -15*(size-1), posz = -15*(size-1);
-    var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
+    var posx = -15*(size-1), posz = 15*(size-1);
+    var wallPos = [[0,15],[15,0],[0,-15],[-15,0]];
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
@@ -160,7 +162,7 @@ function init(level) {
             }
             posx+=30;
         }
-        posx=-15*(size-1);posz+=30;
+        posx=-15*(size-1);posz-=30;
     }
 	scene.add(wallGroup);
 
@@ -203,9 +205,25 @@ function animate() {
     requestAnimationFrame( animate );
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     Move();
-    checkCollision();
+    var cellnumber = checkCell();
+    checkCellFunction(cellnumber);
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
 
+}
+
+function checkCellFunction(cellnumber)
+{
+    if (cells[cellnumber].cellfunction == 1)
+    {
+        speedmodifier = 0.8;
+        return;
+    }
+    else if (cells[cellnumber].cellfunction == 2)
+    {
+        speedmodifier = 2;
+        return;
+    }
+    return;
 }

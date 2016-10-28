@@ -170,11 +170,11 @@ function Move(){
 
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
 
-        if ( moveForward ) velocity.z -= 400.0 * delta;
-        if ( moveBackward ) velocity.z += 400.0 * delta;
+        if ( moveForward ) velocity.z -= 400.0 * speedmodifier * delta;
+        if ( moveBackward ) velocity.z += 400.0 * speedmodifier * delta;
 
-        if ( moveLeft ) velocity.x -= 400.0 * delta;
-        if ( moveRight ) velocity.x += 400.0 * delta;
+        if ( moveLeft ) velocity.x -= 400.0 * speedmodifier * delta;
+        if ( moveRight ) velocity.x += 400.0 * speedmodifier * delta;
 
         if ( isOnObject === true ) {
             velocity.y = Math.max( 0, velocity.y );
@@ -192,8 +192,8 @@ function Move(){
             canJump = true;
         }
         prevTime = time;
-        console.log(controls.getObject().position.x);
-        console.log(controls.getObject().position.z);
+        console.log("positionx: " + controls.getObject().position.x);
+        console.log("positionz: " + controls.getObject().position.z);
     }
 }
 function setTime() {
