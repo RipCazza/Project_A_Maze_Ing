@@ -44,14 +44,11 @@
     </span>
     <div id="blocker">
         <span class="glyphicon glyphicon-pause" id="pauseIcon"> </span>
-        <div id="splashscreen"><img src="./images/coollogo_com-195583829.png" width="402" height="250"/>
+        <div id="splashscreen"><img src="./images/coollogo_com-195583829.png" width="602" height="375"/>
 		<div id="seed"><h2>Seed</h2>
             <input type="text" id="SeedNumber" value="3921"><br><br>
-            <button type="button" id="Submit">Submit seed</button><br><br>
-             <button type="button" id="Random">Random please</button></div>
-		                
-            <span id="start" style="font-size:40px">START</span>
-            <br />
+            <button type="button" id="Submit">Submit seed</button>
+             <button type="button" id="Random">Random seed</button></div><br><br>
             Controls:<br>
                     W, A, S, D = Move<br>
                     SPACE = Jump<br>
@@ -77,14 +74,16 @@
         var randomized = false;
         $("#Submit").on('click',function()
         {
+			hideSplashScreen();
             $.getScript("./js/mazemap/mazegenerator.js");
-            $.getScript("./js/game.js", function(){init();});
+            $.getScript("./js/game.js", function(){init(1);});
         });
          $("#Random").on('click',function()
         {
+			hideSplashScreen();
             randomized = true;
             $.getScript("./js/mazemap/mazegenerator.js");
-            $.getScript("./js/game.js", function(){init();});
+            $.getScript("./js/game.js", function(){init(1);});
         });
     </script>
 </body>
