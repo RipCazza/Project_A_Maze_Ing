@@ -3,12 +3,11 @@ var controls = new THREE.PointerLockControls( camera );
 var timer = null;
 var velocity = new THREE.Vector3();
 var paused = false;
-
 var blocker = document.getElementById( 'blocker' );
 var splashscreen = document.getElementById( 'splashscreen' );
 var pauseScreen = document.getElementById( 'pause' );
 var pauseIcon = document.getElementById( 'pauseIcon' );
-
+var wallGroup, floor;
 var sec = 0;
 
 var prevTime = performance.now();
@@ -147,10 +146,27 @@ var onKeyUp = function ( event ) {
         case 68: // d
             moveRight = false;
             break;
+			
+		case 78: //n
+		if(lvl<3){
+			cancelAnimationFrame(animate);// Stop the animation
+			scene.remove(wallGroup);
+			scene.remove(floor);
+			scene.remove(itemGroup);
+			cells = [];
+		    var newseed = Math.round(Math.random() * 1000);
+			console.log(newseed);
+			GenerateMaze(newseed);
+			lvl++;
+			initMaze();
+			requestAnimationFrame(animate);
+		}
     }
 
 };
-
+function empty(elem) {
+    while (elem.lastChild) elem.removeChild(elem.lastChild);
+}
 document.addEventListener( 'keydown', onKeyDown, false );
 document.addEventListener( 'keyup', onKeyUp, false );
 
@@ -170,11 +186,11 @@ function Move(){
 
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
 
-        if ( moveForward ) velocity.z -= 400.0 * delta;
-        if ( moveBackward ) velocity.z += 400.0 * delta;
+        if ( moveForward ) velocity.z -= 400.0 * speedmodifier * delta;
+        if ( moveBackward ) velocity.z += 400.0 * speedmodifier * delta;
 
-        if ( moveLeft ) velocity.x -= 400.0 * delta;
-        if ( moveRight ) velocity.x += 400.0 * delta;
+        if ( moveLeft ) velocity.x -= 400.0 * speedmodifier * delta;
+        if ( moveRight ) velocity.x += 400.0 * speedmodifier * delta;
 
         if ( isOnObject === true ) {
             velocity.y = Math.max( 0, velocity.y );
@@ -192,6 +208,8 @@ function Move(){
             canJump = true;
         }
         prevTime = time;
+        console.log("positionx: " + controls.getObject().position.x);
+        console.log("positionz: " + controls.getObject().position.z);
     }
 }
 function setTime() {
