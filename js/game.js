@@ -13,7 +13,6 @@ var moveLeft = false;
 var moveRight = false;
 var canJump = false;
 
-var sec = 0;
 
 /// Framerate checker
 var stats = new Stats();
@@ -21,8 +20,18 @@ stats.showPanel( 0 );
 document.body.appendChild( stats.dom );
 ///
 
-function init() {
+function checkCollision() {
+    var xPos = controls.getObject().position.x;
+    var zPos = controls.getObject().position.z;
+    var xMod = Math.floor(xPos / 30 + size / 2);
+    var zMod = Math.floor(size - (zPos / 30 + size / 2));
+    var cell = zMod * size + xMod;
+    return cell;
+}
 
+function init(level) {
+
+	$("body").css("background-image", "url('images/level" + level + "/background.jpg')");
     scene = new THREE.Scene();
     
     // LIGHT
@@ -49,7 +58,8 @@ function init() {
     geometry = new THREE.PlaneGeometry( 30*size+10, 30*size+10, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
-    var texture = new THREE.TextureLoader().load( "./images/grass2.jpg" );
+	var path = "./images/level" + level + "/";
+    var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 16, 16 );
@@ -63,8 +73,8 @@ function init() {
 	var wallGroup = new THREE.Object3D();
     var posx = -15*(size-1), posz = -15*(size-1);
     var wallPos = [[0,-15],[15,0],[0,15],[-15,0]];
-	var shortwallTexture = new THREE.TextureLoader().load('./images/walltexture.png');
-	var longwallTexture = new THREE.TextureLoader().load('./images/walltexture.png');
+	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
@@ -193,6 +203,7 @@ function animate() {
     requestAnimationFrame( animate );
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     Move();
+    checkCollision();
     renderer.render( scene, camera );
     // framerate checker
         stats.end();

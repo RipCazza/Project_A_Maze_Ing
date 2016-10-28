@@ -3,7 +3,6 @@
 	src: url("../fonts/PressStart2P.ttf");
 }
 html, body {
-	background: url("../images/lvl1.jpg");
 	background-attachment: fixed;
 	background-size: cover;
 	background-repeat:no-repeat;
@@ -12,7 +11,6 @@ html, body {
 }
 
 body {
-	background-color: #ffffff;
 	margin: 0;
 	overflow: hidden;
 	font-family: pressStart;
@@ -48,9 +46,6 @@ body {
 
 	color: #ffffff;
 	text-align: center;
-
-	cursor: pointer;
-
 }
 
 #splashscreen {
@@ -60,6 +55,9 @@ body {
 
 #pause {
 	visibility: hidden;
+	display: -webkit-box;
+	display: -moz-box;
+	cursor: pointer;
 }
 
 #pauseIcon {
@@ -81,5 +79,10 @@ body {
 	visibility: hidden;
 }
 
-#seed, #start {
-margin-top: 10px;}
+input, select, textarea, button{
+    color: #000;
+}
+
+textarea:focus, input:focus {
+    color: #000;
+}
