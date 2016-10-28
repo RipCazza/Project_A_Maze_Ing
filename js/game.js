@@ -5,6 +5,7 @@ var objects = [];
 var gui;
 var raycaster, rayLine;
 var walls = [];
+var myCell;
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 var moveForward = false;
@@ -20,13 +21,26 @@ stats.showPanel( 0 );
 document.body.appendChild( stats.dom );
 ///
 
-function checkCollision() {
+function checkCell() {
     var xPos = controls.getObject().position.x;
     var zPos = controls.getObject().position.z;
     var xMod = Math.floor(xPos / 30 + size / 2);
     var zMod = Math.floor(size - (zPos / 30 + size / 2));
     var cell = zMod * size + xMod;
     return cell;
+}
+
+function checkCollision(test) {
+    //test
+    var xCell = (test.positionx - size / 2) * 30 + 15;
+    var zCell = (test.positiony - size / 2) * 30 + 15;
+    var walls = test.walls;
+    var xPos = controls.getObject().position.x;
+    var zPos = controls.getObject().position.z;
+    console.log([xCell, xPos]);
+    if (xPos <= xCell - 8 && walls[3] == true) {
+        controls.getObject().position.x = xCell - 8;
+    }
 }
 
 function init(level) {
@@ -199,8 +213,12 @@ function animate() {
     
     requestAnimationFrame( animate );
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
+    cellPos = checkCell();
+    if(cellPos >= 0 && cellPos < size * size) {
+        myCell = cells[cellPos];
+    }
     Move();
-    checkCollision();
+    checkCollision(myCell);
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
