@@ -28,20 +28,27 @@ function checkCell() {
     var xMod = Math.floor(xPos / 30 + size / 2);
     var zMod = Math.floor(size - (zPos / 30 + size / 2));
     var cell = zMod * size + xMod;
-    console.log(cell);
     return cell;
 }
 
-function checkCollision(test) {
-    //test
-    var xCell = (test.positionx - size / 2) * 30 + 15;
-    var zCell = (test.positiony - size / 2) * 30 + 15;
-    var walls = test.walls;
+function checkCollision(myCell) {
+    var xCell = (myCell.positionx - size / 2) * 30 + 15;
+    var zCell = -((myCell.positiony - size / 2) * 30 + 15);
+    var walls = myCell.walls;
     var xPos = controls.getObject().position.x;
     var zPos = controls.getObject().position.z;
-    console.log([xCell, xPos]);
+
     if (xPos <= xCell - 8 && walls[3] == true) {
         controls.getObject().position.x = xCell - 8;
+    }
+    if (xPos >= xCell + 8 && walls[1] == true) {
+        controls.getObject().position.x = xCell + 8;
+    }
+    if (zPos <= zCell - 8 && walls[2] == true) {
+        controls.getObject().position.z = zCell - 8;
+    }
+    if (zPos >= zCell + 8 && walls[0] == true) {
+        controls.getObject().position.z = zCell + 8;
     }
 }
 
