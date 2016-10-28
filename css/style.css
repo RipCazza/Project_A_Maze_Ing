@@ -3,7 +3,6 @@
 	src: url("../fonts/PressStart2P.ttf");
 }
 html, body {
-	background: url("../images/lvl1.jpg");
 	background-attachment: fixed;
 	background-size: cover;
 	background-repeat:no-repeat;
@@ -12,7 +11,6 @@ html, body {
 }
 
 body {
-	background-color: #ffffff;
 	margin: 0;
 	overflow: hidden;
 	font-family: pressStart;

@@ -76,14 +76,14 @@
         {
 			hideSplashScreen();
             $.getScript("./js/mazemap/mazegenerator.js");
-            $.getScript("./js/game.js", function(){init();});
+            $.getScript("./js/game.js", function(){init(1);});
         });
          $("#Random").on('click',function()
         {
 			hideSplashScreen();
             randomized = true;
             $.getScript("./js/mazemap/mazegenerator.js");
-            $.getScript("./js/game.js", function(){init();});
+            $.getScript("./js/game.js", function(){init(1);});
         });
     </script>
 </body>
