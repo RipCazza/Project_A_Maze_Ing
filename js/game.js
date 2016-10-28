@@ -13,7 +13,6 @@ var moveLeft = false;
 var moveRight = false;
 var canJump = false;
 
-var sec = 0;
 
 /// Framerate checker
 var stats = new Stats();

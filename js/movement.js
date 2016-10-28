@@ -9,6 +9,8 @@ var splashscreen = document.getElementById( 'splashscreen' );
 var pauseScreen = document.getElementById( 'pause' );
 var pauseIcon = document.getElementById( 'pauseIcon' );
 
+var sec = 0;
+
 var prevTime = performance.now();
 var controlsEnabled = false;
 
@@ -54,7 +56,7 @@ if ( havePointerLock ) {
     document.addEventListener( 'pointerlockerror', pointerlockerror, false );
     document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
     document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
-    splashscreen.addEventListener( 'click', function ( event ) {
+/*     splashscreen.addEventListener( 'click', function ( event ) {
         splashscreen.style.display = 'none';
         document.getElementById("intromusic").pause(); document.getElementById("intromusic").currentTime = 0;
         // Ask the browser to lock the pointer
@@ -62,7 +64,17 @@ if ( havePointerLock ) {
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}7
         document.getElementById("timer-container").style.visibility = "visible";
-    }, false );
+    }, false ); */
+	
+	function hideSplashScreen(){
+		        splashscreen.style.display = 'none';
+        document.getElementById("intromusic").pause(); document.getElementById("intromusic").currentTime = 0;
+        // Ask the browser to lock the pointer
+        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+        element.requestPointerLock();
+        if(!timer) {timer = setInterval(setTime, 1000);}7
+        document.getElementById("timer-container").style.visibility = "visible";
+	}
 
     pauseScreen.addEventListener( 'click', function ( event ) {
         pauseScreen.style.visibility = 'hidden';
@@ -197,4 +209,3 @@ function pad(val) {
         return valString;
     }
 }
-

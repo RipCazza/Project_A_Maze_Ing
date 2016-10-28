@@ -48,9 +48,6 @@ body {
 
 	color: #ffffff;
 	text-align: center;
-
-	cursor: pointer;
-
 }
 
 #splashscreen {
@@ -60,6 +57,9 @@ body {
 
 #pause {
 	visibility: hidden;
+	display: -webkit-box;
+	display: -moz-box;
+	cursor: pointer;
 }
 
 #pauseIcon {
@@ -81,5 +81,10 @@ body {
 	visibility: hidden;
 }
 
-#seed, #start {
-margin-top: 10px;}
+input, select, textarea, button{
+    color: #000;
+}
+
+textarea:focus, input:focus {
+    color: #000;
+}
