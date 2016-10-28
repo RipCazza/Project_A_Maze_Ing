@@ -1,9 +1,8 @@
 //--- MAZE GENERATOR----
 //the cells of the maze
 var cells = [];
-var size = 20;
 
-function GenerateMaze(seed)
+function GenerateMaze(seed, size)
 {
 	for (i = 0; i < size; i++)
 {

@@ -72,7 +72,7 @@
          Your browser does not support the audio element.
     </audio>
     <script>
-        var randomized = false;
+		var size = 20;
         $("#Submit").on('click',function()
         {
 		var seed = 0;
@@ -87,13 +87,13 @@
 		}
 		console.log(seed);
 		hideSplashScreen();
-            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed);});
+            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size);});
             $.getScript("./js/game.js", function(){init(1);});
         });
          $("#Random").on('click',function()
         {
 			hideSplashScreen();
-            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(Math.round(Math.random() * 1000));});
+            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(Math.round(Math.random() * 1000), size);});
             $.getScript("./js/game.js", function(){init(1);});
         });
     </script>

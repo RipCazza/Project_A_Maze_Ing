@@ -95,7 +95,7 @@ function init(level) {
 function initMaze(){
 	$("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
 
-    geometry = new THREE.PlaneGeometry( 30*size+10, 30*size+10, 100, 100 );
+    geometry = new THREE.PlaneGeometry( 30*size, 30*size, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
 	var path = "./images/level" + lvl + "/";
@@ -235,7 +235,7 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-    // checkCollision(myCell);
+    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
