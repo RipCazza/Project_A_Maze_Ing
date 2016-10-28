@@ -102,7 +102,7 @@ function initMaze(){
     var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 16, 16 );
+    texture.repeat.set( size, size );
     material = new THREE.MeshBasicMaterial( { map: texture} );
 
     floor = new THREE.Mesh(geometry, material);
