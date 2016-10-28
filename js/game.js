@@ -6,7 +6,7 @@ var gui;
 var raycaster, rayLine;
 var walls = [];
 var myCell;
-var speedmodifier = 1;
+var speedmodifier = 0;
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 var moveForward = false;
@@ -102,7 +102,7 @@ function initMaze(){
     var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 16, 16 );
+    texture.repeat.set( size, size );
     material = new THREE.MeshBasicMaterial( { map: texture} );
 
     floor = new THREE.Mesh(geometry, material);
@@ -217,6 +217,7 @@ function initMaze(){
     glow.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add( glow );
 	scene.add(itemGroup);
+	speedmodifier = 1;
 }
 
 function onWindowResize() {
@@ -236,7 +237,7 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-    checkCollision(myCell);
+    // checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
