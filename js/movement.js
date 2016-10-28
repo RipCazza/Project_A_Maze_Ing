@@ -209,7 +209,7 @@ function Move(){
 				cells = [];
 				var newseed = Math.round(Math.random() * 1000);
 				console.log(newseed);
-				GenerateMaze(newseed);
+				GenerateMaze(newseed, 20);
 				lvl++;
 				initMaze();
 				controlsEnabled = true;
