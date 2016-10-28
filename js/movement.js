@@ -146,21 +146,6 @@ var onKeyUp = function ( event ) {
         case 68: // d
             moveRight = false;
             break;
-			
-		case 78: //n
-		if(lvl<3){
-			cancelAnimationFrame(animate);// Stop the animation
-			scene.remove(wallGroup);
-			scene.remove(floor);
-			scene.remove(itemGroup);
-			cells = [];
-		    var newseed = Math.round(Math.random() * 1000);
-			console.log(newseed);
-			GenerateMaze(newseed);
-			lvl++;
-			initMaze();
-			requestAnimationFrame(animate);
-		}
     }
 
 };
@@ -210,8 +195,30 @@ function Move(){
         prevTime = time;
         console.log("positionx: " + controls.getObject().position.x);
         console.log("positionz: " + controls.getObject().position.z);
+		
+		var teleX = teleZ = 15*(size-1);
+		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
+			if(lvl<3){
+				cancelAnimationFrame(animate);// Stop the animation
+				scene.remove(wallGroup);
+				scene.remove(floor);
+				scene.remove(itemGroup);
+				controlsEnabled = false;
+				controls.getObject().position.set(-15*(size-1), 10, -15*(size-1));
+				speedmodifier = 0;
+				cells = [];
+				var newseed = Math.round(Math.random() * 1000);
+				console.log(newseed);
+				GenerateMaze(newseed);
+				lvl++;
+				initMaze();
+				controlsEnabled = true;
+				requestAnimationFrame(animate);
+			}
+		}
     }
 }
+
 function setTime() {
     sec++;
     document.getElementById("seconds").innerHTML = pad(sec % 60);

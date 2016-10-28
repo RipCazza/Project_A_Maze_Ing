@@ -6,7 +6,7 @@ var gui;
 var raycaster, rayLine;
 var walls = [];
 var myCell;
-var speedmodifier = 1;
+var speedmodifier = 0;
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 var moveForward = false;
@@ -215,6 +215,7 @@ function initMaze(){
     glow.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add( glow );
 	scene.add(itemGroup);
+	speedmodifier = 1;
 }
 
 function onWindowResize() {
@@ -234,7 +235,7 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-    checkCollision(myCell);
+    // checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
