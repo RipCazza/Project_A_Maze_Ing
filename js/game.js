@@ -81,14 +81,14 @@ function init() {
                   // walls
                     if(cells[size*i+j].walls[k] == true)
                     {
-                        if(k==0 || k==2)
+                        if( k==0)
                         {
                             // longwall
                             var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),longwallmat);
                             wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                             wallGroup.add(wall);objects.push(wall)
                         }
-                        else
+                        else if (k == 1)
                         {
                             //longwall
                             var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20), longwallmat);
@@ -100,17 +100,30 @@ function init() {
                             var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,10), shortwallmat);
                             if (k == 0)
                             {
+                                //shortwall
                                 wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                                 wallGroup.add(wall);objects.push(wall);
                             }
                             if ((k == 2) && (i == (size -1)))
                                 {
+                                    //shortwall
                                     wall.position.set(15 + posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                                     wallGroup.add(wall);objects.push(wall);
+                                    
+                                    //longwall
+                                    var wall = new THREE.Mesh(new THREE.CubeGeometry(20,20,10),longwallmat);
+                                    wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
+                                    wallGroup.add(wall);objects.push(wall)
                                 }
                             if ((k == 3) && (j == 0))
                                 {
+                                    //shortwall
                                     wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
+                                    wallGroup.add(wall);objects.push(wall);
+                                    
+                                    //longwall
+                                    var wall = new THREE.Mesh(new THREE.CubeGeometry(10,20,20), longwallmat);
+                                    wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                                     wallGroup.add(wall);objects.push(wall);
                                 }
 //                            if ((k == 1) && (j == 0) && (i == 0))

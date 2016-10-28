@@ -148,7 +148,7 @@ function Move(){
         raycaster.ray.origin.y -= 10;
 
         var intersections = raycaster.intersectObjects( objects );
-
+        console.log(intersections);
         var isOnObject = intersections.length > 0;
 
         var time = performance.now();
