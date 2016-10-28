@@ -21,6 +21,15 @@ stats.showPanel( 0 );
 document.body.appendChild( stats.dom );
 ///
 
+function checkCollision() {
+    var xPos = controls.getObject().position.x;
+    var zPos = controls.getObject().position.z;
+    var xMod = Math.floor(xPos / 30 + size / 2);
+    var zMod = Math.floor(size - (zPos / 30 + size / 2));
+    var cell = zMod * size + xMod;
+    return cell;
+}
+
 function init() {
 
     scene = new THREE.Scene();
@@ -177,6 +186,7 @@ function animate() {
     requestAnimationFrame( animate );
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     Move();
+    checkCollision();
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
