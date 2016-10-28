@@ -238,15 +238,16 @@ function animate() {
 
 function checkCellFunction(cellnumber)
 {
-    if (cells[cellnumber].cellfunction == 1)
+    if (cellPos < (size * size))
     {
-        speedmodifier = 0.8;
-        return;
-    }
-    else if (cells[cellnumber].cellfunction == 2)
-    {
-        speedmodifier = 2;
-        return;
+        if (cells[cellnumber].cellfunction == 1)
+        {
+            speedmodifier = 0.8;
+        }
+        else if (cells[cellnumber].cellfunction == 2)
+        {
+            speedmodifier = 2;
+        }
     }
     return;
 }
