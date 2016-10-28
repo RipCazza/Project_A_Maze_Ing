@@ -24,19 +24,22 @@ document.body.appendChild( stats.dom );
 function init() {
 
     scene = new THREE.Scene();
+    
+    // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
     scene.add(sunLight);
+    
     var light = new THREE.PointLight(0xffffff, 1.5);
     light.position.set(-500, 1000, 500);
     scene.add(light);
-
     scene.add(new THREE.AmbientLight(0x404040));
 
     var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
     light.position.set( 0.5, 1, 0.75 );
     scene.add( light );
 
+    
     scene.add( controls.getObject() );
 	controls.getObject().position.set(-15*(size-1),0,-15*(size-1));
     raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );

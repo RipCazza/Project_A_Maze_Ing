@@ -181,6 +181,8 @@ function Move(){
             canJump = true;
         }
         prevTime = time;
+        console.log(controls.getObject().position.x);
+        console.log(controls.getObject().position.z);
     }
 }
 function setTime() {
