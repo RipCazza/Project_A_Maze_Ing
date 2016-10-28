@@ -238,7 +238,7 @@ function animate() {
 
 function checkCellFunction(cellnumber)
 {
-    if (cellPos < (size * size))
+    if (cellPos < (size * size) && cellPos < 0)
     {
         if (cells[cellnumber].cellfunction == 1)
         {
