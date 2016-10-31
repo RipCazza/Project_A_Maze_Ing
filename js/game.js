@@ -51,7 +51,7 @@ function checkCollision(myCell) {
         controls.getObject().position.z = zCell + 8;
     }
 
-    if (xPos < xCell -7 && zPos < zCell -7) {
+    if (xPos <= xCell -7 && zPos <= zCell -7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell - 7;
         }
@@ -59,7 +59,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell - 7;
         }
     }
-    if (xPos > xCell +7 && zPos > zCell +7) {
+    if (xPos >= xCell +7 && zPos >= zCell +7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell + 7;
         }
@@ -67,7 +67,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell + 7;
         }
     }
-    if (xPos < xCell -7 && zPos > zCell +7) {
+    if (xPos <= xCell -7 && zPos >= zCell +7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell - 7;
         }
@@ -75,7 +75,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell + 7;
         }
     }
-    if (xPos > xCell +7 && zPos < zCell -7) {
+    if (xPos >= xCell +7 && zPos <= zCell -7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell + 7;
         }
@@ -88,7 +88,7 @@ function checkCollision(myCell) {
 function init(level) {
 	lvl = level;
     scene = new THREE.Scene();
-    
+//    scene.fog =  new THREE.Fog(0x000000, 0,100);
     // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -121,7 +121,6 @@ function init(level) {
     document.body.appendChild( renderer.domElement );
 
     window.addEventListener( 'resize', onWindowResize, false );
-
     animate();
 }
 
@@ -135,7 +134,7 @@ function initMaze(){
     var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( size, size );
+    texture.repeat.set( 2*size, 2*size );
     material = new THREE.MeshBasicMaterial( { map: texture} );
 
     floor = new THREE.Mesh(geometry, material);
@@ -250,7 +249,9 @@ function initMaze(){
     glow.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add( glow );
 	scene.add(itemGroup);
-	speedmodifier = 1;
+	speedmodifier = 1;	
+	$("body").fadeToggle(3000);
+
 }
 
 function onWindowResize() {
@@ -270,8 +271,8 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-    checkCollision(myCell);
-    checkCellFunction(cellPos);
+//    checkCollision(myCell);
+//    checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
@@ -294,3 +295,21 @@ function checkCellFunction(cellnumber)
     }
     return;
 }
+
+function EndGame()
+{
+	        clearInterval(timer);
+            timer = null;
+	        blocker.style.display = '-webkit-box';
+            blocker.style.display = '-moz-box';
+            blocker.style.display = 'box';
+			var elem = document.getElementById('pause');
+			elem.parentNode.removeChild(elem);
+            document.getElementById("end").style.visibility = 'visible';			
+			document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
+			document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
+			document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+			// Attempt to unlock
+			document.exitPointerLock();
+			
+			}

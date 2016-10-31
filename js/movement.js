@@ -1,3 +1,4 @@
+//var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
 var controls = new THREE.PointerLockControls( camera );
 var timer = null;
@@ -9,7 +10,7 @@ var pauseScreen = document.getElementById( 'pause' );
 var pauseIcon = document.getElementById( 'pauseIcon' );
 var wallGroup, floor;
 var sec = 0;
-
+var seed;
 var prevTime = performance.now();
 var controlsEnabled = false;
 
@@ -149,9 +150,7 @@ var onKeyUp = function ( event ) {
     }
 
 };
-function empty(elem) {
-    while (elem.lastChild) elem.removeChild(elem.lastChild);
-}
+
 document.addEventListener( 'keydown', onKeyDown, false );
 document.addEventListener( 'keyup', onKeyUp, false );
 
@@ -193,21 +192,26 @@ function Move(){
             canJump = true;
         }
         prevTime = time;
-        console.log("positionx: " + controls.getObject().position.x);
-        console.log("positionz: " + controls.getObject().position.z);
+     //   console.log("positionx: " + controls.getObject().position.x);
+     //   console.log("positionz: " + controls.getObject().position.z);
 		
 		var teleX = teleZ = 15*(size-1);
 		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
 			if(lvl<3){
+                controlsEnabled = false;
+                velocity.x = 0;
+                velocity.z = 0;
 				cancelAnimationFrame(animate);// Stop the animation
+				$("body").fadeToggle(100);
 				scene.remove(wallGroup);
 				scene.remove(floor);
 				scene.remove(itemGroup);
-				controlsEnabled = false;
-				controls.getObject().position.set(-15*(size-1), 10, -15*(size-1));
+				controls.getObject().position.x = -15*(size-1);
+                controls.getObject().position.z = -15*(size-1);
+                
 				speedmodifier = 0;
 				cells = [];
-				var newseed = Math.round(Math.random() * 1000);
+				var newseed = (seed + (lvl * 500));
 				console.log(newseed);
 				GenerateMaze(newseed, 20);
 				lvl++;
@@ -215,6 +219,12 @@ function Move(){
 				controlsEnabled = true;
 				requestAnimationFrame(animate);
 			}
+			else if(lvl==3){
+				cancelAnimationFrame(animate);
+				controls.enabled = false;
+				controlsEnabled = false;
+				velocity.x = 0;velocity.y=0;velocity.z=0;
+			EndGame();}
 		}
     }
 }
