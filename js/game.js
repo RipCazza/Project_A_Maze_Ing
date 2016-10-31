@@ -284,13 +284,14 @@ function checkCellFunction(cellnumber)
 {
     if (cellPos < (size * size) && cellPos > 0)
     {
-        if (cells[cellnumber].cellfunction == 1)
+        switch (cells[cellnumber].cellfunction)
         {
-            speedmodifier = 2;
-        }
-        else if (cells[cellnumber].cellfunction == 2)
-        {
-            speedmodifier = 0.8;
+            case 1:
+                speedmodifier = 1.5;
+                break;
+            case 2:
+                speedmodifier = 0.75;
+                break
         }
     }
     return;
