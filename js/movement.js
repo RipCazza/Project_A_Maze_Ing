@@ -200,6 +200,7 @@ function Move(){
 		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
 			if(lvl<3){
 				cancelAnimationFrame(animate);// Stop the animation
+				$("body").fadeToggle(1000);
 				scene.remove(wallGroup);
 				scene.remove(floor);
 				scene.remove(itemGroup);

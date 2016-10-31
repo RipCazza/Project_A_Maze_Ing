@@ -121,7 +121,6 @@ function init(level) {
     document.body.appendChild( renderer.domElement );
 
     window.addEventListener( 'resize', onWindowResize, false );
-
     animate();
 }
 
@@ -250,7 +249,9 @@ function initMaze(){
     glow.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add( glow );
 	scene.add(itemGroup);
-	speedmodifier = 1;
+	speedmodifier = 1;	
+	$("body").fadeToggle(3000);
+
 }
 
 function onWindowResize() {
