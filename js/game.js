@@ -271,8 +271,8 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-//    checkCollision(myCell);
-//    checkCellFunction(cellPos);
+    checkCollision(myCell);
+    checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
         stats.end();

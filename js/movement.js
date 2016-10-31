@@ -10,7 +10,6 @@ var pauseScreen = document.getElementById( 'pause' );
 var pauseIcon = document.getElementById( 'pauseIcon' );
 var wallGroup, floor;
 var sec = 0;
-var seed;
 var prevTime = performance.now();
 var controlsEnabled = false;
 
