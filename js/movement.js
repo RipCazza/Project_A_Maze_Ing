@@ -200,15 +200,19 @@ function Move(){
 		var teleX = teleZ = 15*(size-1);
 		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
 			if(lvl<3){
+                controlsEnabled = false;
+                velocity.x = 0;
+                velocity.z = 0;
 				cancelAnimationFrame(animate);// Stop the animation
 				scene.remove(wallGroup);
 				scene.remove(floor);
 				scene.remove(itemGroup);
-				controlsEnabled = false;
-				controls.getObject().position.set(-15*(size-1), 10, -15*(size-1));
+				controls.getObject().position.x = -15*(size-1);
+                controls.getObject().position.z = -15*(size-1);
+                
 				speedmodifier = 0;
 				cells = [];
-				var newseed = Math.round(Math.random() * 1000);
+				var newseed = (seed + (lvl * 500));
 				console.log(newseed);
 				GenerateMaze(newseed, 20);
 				lvl++;
