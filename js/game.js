@@ -134,7 +134,7 @@ function initMaze(){
     var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( size, size );
+    texture.repeat.set( 2*size, 2*size );
     material = new THREE.MeshBasicMaterial( { map: texture} );
 
     floor = new THREE.Mesh(geometry, material);
@@ -295,3 +295,21 @@ function checkCellFunction(cellnumber)
     }
     return;
 }
+
+function EndGame()
+{
+	        clearInterval(timer);
+            timer = null;
+	        blocker.style.display = '-webkit-box';
+            blocker.style.display = '-moz-box';
+            blocker.style.display = 'box';
+			var elem = document.getElementById('pause');
+			elem.parentNode.removeChild(elem);
+            document.getElementById("end").style.visibility = 'visible';			
+			document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
+			document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
+			document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+			// Attempt to unlock
+			document.exitPointerLock();
+			
+			}

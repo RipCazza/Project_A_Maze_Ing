@@ -62,11 +62,15 @@
             <br>
             Click to continue
         </div>
-        
-        <script src="./js/stats.min.js"></script>
-       <script src="./js/movement.js"></script>
-
+        <div id="end">
+		<img src="./images/coollogo_com-195583829.png" width="402" height="250"/><br/>
+		<span style="font-size: 40px">Game Completed</span>
+		<div id="yourSeed"></div>
+		<div id="finalTime"></div>
+		<span>Give the seed to your friends to challenge them and see who can complete all 3 levels the fastest!</span>
     </div>
+	<script src="./js/stats.min.js"></script>
+    <script src="./js/movement.js"></script>
     <audio autoplay loop id="intromusic">
          <source src="press_start.mp3" type="audio/mpeg">
          Your browser does not support the audio element.
@@ -75,11 +79,10 @@
 		var size = 20;
         $("#Submit").on('click',function()
         {
-		var seed = 0;
 		var seednumber = document.getElementById("SeedNumber").value;
-		if(seednumber != "")
+		if(seednumber != "" && $.isNumeric(seednumber))
 		{
-			seed = seednumber;
+			seed = Math.round(seednumber);
 		}
 		else
 		{ 
@@ -93,6 +96,7 @@
         });
          $("#Random").on('click',function()
         {
+			$("body").fadeToggle(100, "linear");
 			hideSplashScreen();
             $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(Math.round(Math.random() * 1000), size);});
             $.getScript("./js/game.js", function(){init(1);});
