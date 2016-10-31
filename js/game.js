@@ -146,6 +146,8 @@ function initMaze(){
     var wallPos = [[0,15],[15,0],[0,-15],[-15,0]];
 	wallGroup = new THREE.Object3D();
 	itemGroup = new THREE.Object3D();
+    var powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
+    var powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
@@ -154,10 +156,14 @@ function initMaze(){
     var wallmat = new THREE.MeshBasicMaterial( { map: shortwallTexture});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
+    var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
+    var powerupundermat = new THREE.MeshBasicMaterial( { map: powerupunderTexture});
 	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
 	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
 	var shortwallmat = new THREE.MeshFaceMaterial(faces);
 	var longwallmat = new THREE.MeshFaceMaterial(faces2);
+    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
+    var powerupmat = new THREE.MeshFaceMaterial(faces);
 
 
     for(var i=0;i<size;i++)
@@ -222,7 +228,7 @@ function initMaze(){
                 // power-up / trap blocks
                 if(cells[size*i+j].cellfunction == 1)
                 {
-                    var powerup = new THREE.Mesh(new THREE.CubeGeometry(2,2,2), new THREE.MeshBasicMaterial({color: 0xffffff}));
+                    var powerup = new THREE.Mesh(new THREE.CubeGeometry(3,3,3),powerupmat);
                     powerup.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
                     itemGroup.add(powerup);
                 }
