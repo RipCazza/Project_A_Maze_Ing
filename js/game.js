@@ -306,6 +306,8 @@ function EndGame()
             blocker.style.display = 'box';
 			var elem = document.getElementById('pause');
 			elem.parentNode.removeChild(elem);
+			elem = document.getElementById('pauseIcon');
+			elem.parentNode.removeChild(elem);
             document.getElementById("end").style.visibility = 'visible';			
 			document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
 			document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
