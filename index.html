@@ -87,6 +87,7 @@
 			seed = Math.round(Math.random() * 1000);
 		}
 		console.log(seed);
+		$("body").fadeToggle(100, "linear");
 		hideSplashScreen();
             $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size);});
             $.getScript("./js/game.js", function(){init(1);});

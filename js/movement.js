@@ -204,6 +204,7 @@ function Move(){
                 velocity.x = 0;
                 velocity.z = 0;
 				cancelAnimationFrame(animate);// Stop the animation
+				$("body").fadeToggle(1000);
 				scene.remove(wallGroup);
 				scene.remove(floor);
 				scene.remove(itemGroup);
