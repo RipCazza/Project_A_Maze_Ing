@@ -50,6 +50,23 @@ function checkCollision(myCell) {
     if (zPos >= zCell + 8 && walls[0] == true) {
         controls.getObject().position.z = zCell + 8;
     }
+
+    if (xPos <= xCell -7 && zPos <= zCell -7) {
+        if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
+            controls.getObject().position.x = xCell - 7;
+        }
+        else {
+            controls.getObject().position.z = zCell - 7;
+        }
+    }
+    if (xPos >= xCell +7 && zPos >= zCell +7) {
+        if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
+            controls.getObject().position.x = xCell + 7;
+        }
+        else {
+            controls.getObject().position.z = zCell + 7;
+        }
+    }
 }
 
 function init(level) {
