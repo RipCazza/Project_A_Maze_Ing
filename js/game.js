@@ -251,6 +251,7 @@ function initMaze(){
 	scene.add(itemGroup);
 	speedmodifier = 1;	
 	$("body").fadeToggle(3000);
+	document.getElementById("audio" + lvl).play();
 
 }
 
@@ -299,6 +300,7 @@ function checkCellFunction(cellnumber)
 
 function EndGame()
 {
+			document.getElementById("audio3").pause();
 	        clearInterval(timer);
             timer = null;
 	        blocker.style.display = '-webkit-box';
