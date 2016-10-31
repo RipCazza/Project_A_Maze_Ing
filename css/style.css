@@ -54,6 +54,12 @@ body {
 	background-repeat: no-repeat;
 }
 
+#end {
+	background-image: url("../images/victory.jpg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
 #pause {
 	visibility: hidden;
 	display: -webkit-box;
@@ -90,4 +96,16 @@ textarea:focus, input:focus {
 
 #end {
 	visibility: hidden;
+}
+
+#yourSeed, #finalTime {
+	font-size: 20px;
+}
+
+#content {
+	background: rgba(0,0,0,0.5);
+	border-radius: 10px;
+	border: 2px dashed white;
+	width: 80%;
+	margin: auto;
 }
