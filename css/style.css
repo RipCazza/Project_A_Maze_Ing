@@ -54,7 +54,7 @@ body {
 	background-repeat: no-repeat;
 }
 
-#pause {
+#pause, #end {
 	visibility: hidden;
 	display: -webkit-box;
 	display: -moz-box;
