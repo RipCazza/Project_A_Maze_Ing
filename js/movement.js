@@ -206,6 +206,7 @@ function Move(){
 				scene.remove(wallGroup);
 				scene.remove(floor);
 				scene.remove(itemGroup);
+                size += 2;
 				controls.getObject().position.x = -15*(size-1);
                 controls.getObject().position.z = -15*(size-1);
                 
@@ -213,7 +214,7 @@ function Move(){
 				cells = [];
 				var newseed = (seed + (lvl * 500));
 				console.log(newseed);
-				GenerateMaze(newseed, 20);
+				GenerateMaze(newseed, size);
 				lvl++;
 				initMaze();
 				controlsEnabled = true;

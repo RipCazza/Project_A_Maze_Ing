@@ -58,6 +58,7 @@ body {
 	background-image: url("../images/victory.jpg");
 	background-repeat: no-repeat;
 	background-size: contain;
+	visibility: hidden;
 }
 
 #pause {
@@ -92,10 +93,6 @@ input, select, textarea, button{
 
 textarea:focus, input:focus {
     color: #000;
-}
-
-#end {
-	visibility: hidden;
 }
 
 #yourSeed, #finalTime {
