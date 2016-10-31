@@ -51,7 +51,7 @@ function checkCollision(myCell) {
         controls.getObject().position.z = zCell + 8;
     }
 
-    if (xPos < xCell -7 && zPos < zCell -7) {
+    if (xPos <= xCell -7 && zPos <= zCell -7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell - 7;
         }
@@ -59,7 +59,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell - 7;
         }
     }
-    if (xPos > xCell +7 && zPos > zCell +7) {
+    if (xPos >= xCell +7 && zPos >= zCell +7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell + 7;
         }
@@ -67,7 +67,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell + 7;
         }
     }
-    if (xPos < xCell -7 && zPos > zCell +7) {
+    if (xPos <= xCell -7 && zPos >= zCell +7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell - 7;
         }
@@ -75,7 +75,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell + 7;
         }
     }
-    if (xPos > xCell +7 && zPos < zCell -7) {
+    if (xPos >= xCell +7 && zPos <= zCell -7) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell + 7;
         }
@@ -88,7 +88,7 @@ function checkCollision(myCell) {
 function init(level) {
 	lvl = level;
     scene = new THREE.Scene();
-    
+//    scene.fog =  new THREE.Fog(0x000000, 0,100);
     // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -271,8 +271,8 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-    checkCollision(myCell);
-    checkCellFunction(cellPos);
+//    checkCollision(myCell);
+//    checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
         stats.end();

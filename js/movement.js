@@ -1,3 +1,4 @@
+//var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
 var controls = new THREE.PointerLockControls( camera );
 var timer = null;
