@@ -162,9 +162,11 @@ function initMaze(){
 	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
 	var shortwallmat = new THREE.MeshFaceMaterial(faces);
 	var longwallmat = new THREE.MeshFaceMaterial(faces2);
-    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
-    var powerupmat = new THREE.MeshFaceMaterial(faces);
-
+//    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
+    //var powerupmat = new THREE.MeshFaceMaterial(faces);
+        var faces = [plainmat,plainmat, plainmat, plainmat, plainmat, plainmat];
+//    var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.FaceColors });
+        var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff });
 
     for(var i=0;i<size;i++)
     {
@@ -257,7 +259,10 @@ function initMaze(){
 	scene.add(itemGroup);
 	speedmodifier = 1;	
 	$("body").fadeToggle(3000);
-	document.getElementById("audio" + lvl).play();
+//	document.getElementById("audio" + lvl).play();
+    
+    // AUDIO
+    audio.src = '/mp3/level' + lvl + '.mp3';
 
 }
 
@@ -283,8 +288,13 @@ function animate() {
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
+    // AUDIO
     requestAnimationFrame( animate );
-
+    
+    
+    
+    var testing = itemGroup.children;
+    testing[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
 }
 
 function checkCellFunction(cellnumber)
