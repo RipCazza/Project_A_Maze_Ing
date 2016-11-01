@@ -38,6 +38,7 @@ if ( havePointerLock ) {
             clearInterval(timer);
             timer = null;
             velocity.x = 0;velocity.y=0;velocity.z=0;
+			document.getElementById("audio" + lvl).pause();
         }
     };
 
@@ -67,7 +68,7 @@ if ( havePointerLock ) {
 	
 	function hideSplashScreen(){
 		        splashscreen.style.display = 'none';
-        document.getElementById("intromusic").pause(); document.getElementById("intromusic").currentTime = 0;
+        document.getElementById("audio0").pause(); document.getElementById("audio0").currentTime = 0;
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
         element.requestPointerLock();
@@ -81,6 +82,7 @@ if ( havePointerLock ) {
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
         controlsEnabled = true;
+		document.getElementById("audio" + lvl).play();
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}
         paused = false;
@@ -208,7 +210,7 @@ function Move(){
                 size += 2;
 				controls.getObject().position.x = -15*(size-1);
                 controls.getObject().position.z = -15*(size-1);
-                
+                document.getElementById("audio" + lvl).pause(); document.getElementById("audio" + lvl).currentTime = 0;
 				speedmodifier = 0;
 				cells = [];
 				var newseed = (seed + (lvl * 500));
