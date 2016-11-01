@@ -149,11 +149,13 @@ function initMaze(){
     var powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
     var powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+    var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
     var wallmat = new THREE.MeshBasicMaterial( { map: shortwallTexture});
+    var trapmat = new THREE.MeshBasicMaterial( { map: traptexture});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
@@ -234,7 +236,7 @@ function initMaze(){
                 }
                 else if(cells[size*i+j].cellfunction == 2)
                 {
-                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.2,15), wallmat);
+                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.2,15), trapmat);
                     trapcarpet.position.set( posx + wallPos[0][0], 0.1, posz + wallPos[0][0]);
                     itemGroup.add(trapcarpet);
                 }
