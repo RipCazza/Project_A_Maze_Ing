@@ -49,13 +49,13 @@ body {
 	text-align: center;
 }
 
-#splashscreen, #end {
+#splashscreen {
 	background-image: url("../images/StartScreen.jpg");
 	background-repeat: no-repeat;
 }
 
 #end {
-	background-image: url("../images/victory.jpg");
+	background-image: url("../giphy.gif");
 	background-repeat: no-repeat;
 	background-size: cover;
 	visibility: hidden;

@@ -67,7 +67,8 @@
 		<span style="font-size: 40px">Game Completed</span>
 		<div id="yourSeed"></div><br>
 		<div id="finalTime"></div><br><br>
-		<span>Give the seed to your friends and see who is faster!</span>
+		<span>Give the seed to your friends and see who is faster!</span><br><br>
+        <button type="button" id="refresh">Play Again</button><br><br>
     </div></div>
 	<script src="./js/stats.min.js"></script>
     <script src="./js/movement.js"></script>
@@ -116,6 +117,9 @@
 			hideSplashScreen();
             $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size);});
             $.getScript("./js/game.js", function(){init(1);});
+        });
+        $("#refresh").on('click', function(){
+            history.go(0);
         });
     </script>
 </body>

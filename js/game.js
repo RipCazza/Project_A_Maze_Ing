@@ -1,6 +1,6 @@
 var scene, renderer;
 var geometry, material;
-var cube, cubeGlow;
+var teleport, glow;
 var objects = [];
 var gui;
 var raycaster, rayLine;
@@ -149,11 +149,13 @@ function initMaze(){
     var powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
     var powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+    var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
     var wallmat = new THREE.MeshBasicMaterial( { map: shortwallTexture});
+    var trapmat = new THREE.MeshBasicMaterial( { map: traptexture});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
@@ -236,7 +238,7 @@ function initMaze(){
                 }
                 else if(cells[size*i+j].cellfunction == 2)
                 {
-                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.2,15), wallmat);
+                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.2,15), trapmat);
                     trapcarpet.position.set( posx + wallPos[0][0], 0.1, posz + wallPos[0][0]);
                     itemGroup.add(trapcarpet);
                 }
@@ -246,14 +248,14 @@ function initMaze(){
         posx=-15*(size-1);posz-=30;
     }
 	scene.add(wallGroup);
-
-
-    var telematerial = new THREE.MeshBasicMaterial({color: 0x000077, transparent: true, opacity: 0.7});
-    var teleportGeo = new THREE.SphereGeometry(3,32,16);
-    var teleport = new THREE.Mesh(teleportGeo, telematerial);
+    
+    var telematerial = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("./images/teleport.jpg")});
+    telematerial.side = THREE.DoubleSide;
+    var teleportGeo = new THREE.CircleGeometry( 6, 16 );//SphereGeometry(3,32,16);
+    teleport = new THREE.Mesh(teleportGeo, telematerial);
     teleport.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add(teleport);
-    var glow = new THREE.Mesh(  new THREE.SphereGeometry(6,32,16), new THREE.MeshBasicMaterial({color:0x7777ff, transparent: true, opacity: 0.35}));
+    glow = new THREE.Mesh(  new THREE.TorusGeometry(7,1.5, 16, 30), new THREE.MeshBasicMaterial({color:0x333333}));
     glow.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add( glow );
 	scene.add(itemGroup);
@@ -283,7 +285,8 @@ function animate() {
         myCell = cells[cellPos];
     }
     Move();
-    checkCollision(myCell);
+    teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
+    //checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
