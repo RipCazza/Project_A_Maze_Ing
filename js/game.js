@@ -38,20 +38,20 @@ function checkCollision(myCell) {
     var xPos = controls.getObject().position.x;
     var zPos = controls.getObject().position.z;
 
-    if (xPos <= xCell - 8 && walls[3] == true) {
-        controls.getObject().position.x = xCell - 8;
+    if (xPos <= xCell - 7 && walls[3] == true) {
+        controls.getObject().position.x = xCell - 7;
     }
-    if (xPos >= xCell + 8 && walls[1] == true) {
-        controls.getObject().position.x = xCell + 8;
+    if (xPos >= xCell + 7 && walls[1] == true) {
+        controls.getObject().position.x = xCell + 7;
     }
-    if (zPos <= zCell - 8 && walls[2] == true) {
-        controls.getObject().position.z = zCell - 8;
+    if (zPos <= zCell - 7 && walls[2] == true) {
+        controls.getObject().position.z = zCell - 7;
     }
-    if (zPos >= zCell + 8 && walls[0] == true) {
-        controls.getObject().position.z = zCell + 8;
+    if (zPos >= zCell + 7 && walls[0] == true) {
+        controls.getObject().position.z = zCell + 7;
     }
 
-    if (xPos <= xCell -7 && zPos <= zCell -7) {
+    if (xPos <= xCell -7 && zPos <= zCell -7 && !(walls[2] || walls[3])) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell - 7;
         }
@@ -59,7 +59,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell - 7;
         }
     }
-    if (xPos >= xCell +7 && zPos >= zCell +7) {
+    if (xPos >= xCell +7 && zPos >= zCell +7 && !(walls[0] || walls[1])) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell + 7;
         }
@@ -67,7 +67,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell + 7;
         }
     }
-    if (xPos <= xCell -7 && zPos >= zCell +7) {
+    if (xPos <= xCell -7 && zPos >= zCell +7 && !(walls[0] || walls[3])) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell - 7;
         }
@@ -75,7 +75,7 @@ function checkCollision(myCell) {
             controls.getObject().position.z = zCell + 7;
         }
     }
-    if (xPos >= xCell +7 && zPos <= zCell -7) {
+    if (xPos >= xCell +7 && zPos <= zCell -7 && !(walls[2] || walls[1])) {
         if (Math.abs(Math.abs(xPos) - Math.abs(xCell)) < Math.abs(Math.abs(zPos) - Math.abs(zCell))) {
             controls.getObject().position.x = xCell + 7;
         }
