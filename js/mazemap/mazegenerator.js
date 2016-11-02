@@ -60,7 +60,7 @@ function movedirection(currentcellnr)
     }
     // trap/power-up randomizer
     var traprandomizer = random();
-    if (traprandomizer < 0.10)
+    if (traprandomizer < 0.15)
     {
        if (traprandomizer < 0.05)
        {
@@ -68,10 +68,14 @@ function movedirection(currentcellnr)
            cells[currentcellnr].cellfunction = 1;
        }
 
-        else if (traprandomizer > 0.05)
+        else if (traprandomizer > 0.05 && traprandomizer < 0.10)
         {
             tempcounter++;
            cells[currentcellnr].cellfunction = 2;
+        }
+        else if ( traprandomizer >0.10){
+            temcounter++;
+            cells[currentcellnr].cellfunction = 3; 
         }
     }
     return;

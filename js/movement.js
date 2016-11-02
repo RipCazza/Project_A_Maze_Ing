@@ -118,7 +118,7 @@ var onKeyDown = function ( event ) {
             break;
 
         case 32: // space
-            if ( canJump === true ) velocity.y = 350;
+            if ( canJump === true ) velocity.y = 100;
             canJump = false;
             break;
     }
@@ -157,30 +157,19 @@ document.addEventListener( 'keyup', onKeyUp, false );
 
 function Move(){
     if ( controlsEnabled && !paused ) {
-        raycaster.ray.origin.copy( controls.getObject().position );
-        raycaster.ray.origin.y -= 10;
-
-        var intersections = raycaster.intersectObjects( objects );
-        var isOnObject = intersections.length > 0;
-
         var time = performance.now();
         var delta = ( time - prevTime ) / 1000;
 
         velocity.x -= velocity.x * 10.0 * delta;
         velocity.z -= velocity.z * 10.0 * delta;
 
-        velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+        velocity.y -= (10/3) * 100.0 * delta; // 100.0 = mass
 
         if ( moveForward ) velocity.z -= 400.0 * speedmodifier * delta;
         if ( moveBackward ) velocity.z += 400.0 * speedmodifier * delta;
 
         if ( moveLeft ) velocity.x -= 400.0 * speedmodifier * delta;
         if ( moveRight ) velocity.x += 400.0 * speedmodifier * delta;
-
-        if ( isOnObject === true ) {
-            velocity.y = Math.max( 0, velocity.y );
-            canJump = true;
-        }
 
         controls.getObject().translateX( velocity.x * delta );
         controls.getObject().translateY( velocity.y * delta );
