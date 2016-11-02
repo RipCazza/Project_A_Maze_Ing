@@ -160,7 +160,7 @@ function initMaze(){
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
     var wallmat = new THREE.MeshBasicMaterial( { map: shortwallTexture});
-    var trapmat = new THREE.MeshBasicMaterial( { map: traptexture});
+    var trapmat = new THREE.MeshBasicMaterial( { map: traptexture, transparent: true});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
@@ -248,7 +248,7 @@ function initMaze(){
             }
             else if(cells[size*i+j].cellfunction == 2)
             {
-                var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.01,15), trapmat);
+                var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.001,15), trapmat);
                 trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet);
             }
@@ -317,8 +317,9 @@ function animate() {
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
+        console.log(time);
     
-    // chaneg color
+    // change color
     if (gamemode == 0)
     {
         var wallarray = wallGroup.children;
@@ -370,8 +371,8 @@ function checkCellFunction(cellnumber)
                     speedmodifier = 0.75;
                 }
                 break;
-            case 3: 
-                timer =- 1000;
+            case 3:
+                sec -=10;
                 break;
         }
     }
