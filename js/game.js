@@ -151,6 +151,7 @@ function initMaze(){
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
     var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+    var testwalltexture = new THREE.TextureLoader().load('./images/Test border Funky cube.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
@@ -164,11 +165,13 @@ function initMaze(){
 	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
 	var shortwallmat = new THREE.MeshFaceMaterial(faces);
 	var longwallmat = new THREE.MeshFaceMaterial(faces2);
-//    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
-    //var powerupmat = new THREE.MeshFaceMaterial(faces);
-        var faces = [plainmat,plainmat, plainmat, plainmat, plainmat, plainmat];
-//    var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.FaceColors });
-        var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff });
+    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
+    var powerupmat = new THREE.MeshFaceMaterial(faces);
+    if (gamemode == 0)
+    {
+        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+        shortwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+    }
 
     for(var i=0;i<size;i++)
     {
@@ -286,18 +289,32 @@ function animate() {
     }
     Move();
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    //checkCollision(myCell);
+    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
-    
-    
-    
-    var testing = itemGroup.children;
-    testing[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+    if (gamemode == 0)
+    {
+        var testing = wallGroup.children;
+        switch (lvl)
+        {
+            case (1):
+                testing[0].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                testing[1].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                break;
+            case (2):
+                testing[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                testing[1].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                break;
+            case (3):
+                testing[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                testing[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                break
+        }
+    }
 }
 
 function checkCellFunction(cellnumber)
