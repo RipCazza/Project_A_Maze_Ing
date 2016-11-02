@@ -264,7 +264,7 @@ function initMaze(){
 //	document.getElementById("audio" + lvl).play();
     
     // AUDIO
-    audio.src = '/mp3/level' + lvl + '.mp3';
+    audio.src = './mp3/level' + lvl + '.mp3';
 
 }
 
