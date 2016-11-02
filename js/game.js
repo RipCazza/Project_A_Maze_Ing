@@ -167,6 +167,7 @@ function initMaze(){
 	var longwallmat = new THREE.MeshFaceMaterial(faces2);
     var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
     var powerupmat = new THREE.MeshFaceMaterial(faces);
+    
     if (gamemode == 0)
     {
         longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
@@ -267,7 +268,7 @@ function initMaze(){
 //	document.getElementById("audio" + lvl).play();
     
     // AUDIO
-    audio.src = '/mp3/level' + lvl + '.mp3';
+    audio.src = './mp3/level' + lvl + '.mp3';
 
 }
 
@@ -328,7 +329,10 @@ function checkCellFunction(cellnumber)
                 break;
             case 2:
                 speedmodifier = 0.75;
-                break
+                break;
+            case 3: 
+                speedmodifier = 20;
+                break;
         }
     }
     return;
