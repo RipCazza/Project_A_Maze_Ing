@@ -153,6 +153,8 @@ function initMaze(){
     powerGroup = new THREE.Object3D();
     var powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
     var powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
+    var timeupTexture = new THREE.TextureLoader().load('images/Time_up.jpg');
+    var timeupunderTexture = new THREE.TextureLoader().load('images/Time_up_under.jpg');
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
     var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
@@ -161,23 +163,27 @@ function initMaze(){
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
     var wallmat = new THREE.MeshBasicMaterial( { map: shortwallTexture});
-    var trapmat = new THREE.MeshBasicMaterial( { map: traptexture});
+    var trapmat = new THREE.MeshBasicMaterial( { map: traptexture, transparent: true});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
     var powerupundermat = new THREE.MeshBasicMaterial( { map: powerupunderTexture});
+    var timerupsidemat = new THREE.MeshBasicMaterial( { map: timeupTexture});
+    var timeupundermat = new THREE.MeshBasicMaterial( { map: timeupunderTexture});
 	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
 	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
 	var shortwallmat = new THREE.MeshFaceMaterial(faces);
 	var longwallmat = new THREE.MeshFaceMaterial(faces2);
     var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
     var powerupmat = new THREE.MeshFaceMaterial(faces);
-    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43})
+    var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
+    var timerupmat = new THREE.MeshFaceMaterial(faces);
+//    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43})
     
     if (gamemode == 0)
     {
         longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
-        shortwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
     }
 
     for(var i=0;i<size;i++)
@@ -250,14 +256,14 @@ function initMaze(){
             }
             else if(cells[size*i+j].cellfunction == 2)
             {
-                var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.01,15), trapmat);
+                var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.001,15), trapmat);
                 trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet);
                 powerUpCellArray.push([size*i+j]);
             }
             else if(cells[size*i+j].cellfunction == 3)
             {
-                var powerup2 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), powerupmat2 );
+                var powerup2 =new THREE.Mesh(new THREE.CubeGeometry(3,3,3), timerupmat );
                 powerup2.position.set (posx + wallPos[0][0], 4, posz + wallPos[0][0]);
                 powerGroup.add(powerup2);
                 powerUpCellArray.push([size*i+j]);
@@ -321,6 +327,7 @@ function animate() {
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
+    // change color
     if (gamemode == 0)
     {
         var wallarray = wallGroup.children;
@@ -329,36 +336,32 @@ function animate() {
         switch (lvl)
         {
             case (1):
-                wallarray[0].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
-                wallarray[1].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
+                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 break;
             case (2):
-                wallarray[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
-                wallarray[1].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015));
                 break;
             case (3):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.007), 0, 0);
+                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0065), 0, 0);
                 floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
         }
     }
-                if (powerGroup.children[0].position.y > 8 || powerGroup.children[0].position.y < 5)
-                {
-                    powerupy *= -1;
-                }
+    // power-up rotation
+    if (powerGroup.children[0].position.y > 8 || powerGroup.children[0].position.y < 5)
+    {
+        powerupy *= -1;
+    }
     for (x = 0; x < powerGroup.children.length; x++)
-        {
-            powerGroup.children[x].rotation.y += Math.PI/180;
-            powerGroup.children[x].position.y += powerupy;
-        }
-//            console.log(powerGroup.children[0]);
-//            powerGroup.children[0].rotation.y += Math.PI/180;
-//    powerGroup.children[1].rotation.y += Math.PI/180;
-//    powerGroup.children[2].rotation.y += Math.PI/180;
-//    powerGroup.children[3].rotation.y += Math.PI/180;
-//    powerGroup.children[4].rotation.y += Math.PI/180;
+    {
+        powerGroup.children[x].rotation.y += Math.PI/180;
+        powerGroup.children[x].position.y += powerupy;
+    }
 }
 
 function checkCellFunction(cellnumber)
