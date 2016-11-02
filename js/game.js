@@ -7,6 +7,13 @@ var raycaster, rayLine;
 var walls = [];
 var myCell;
 var speedmodifier = 0;
+
+var xPos;
+var zPos;
+var yPos;
+var xCell;
+var zCell;
+
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 var moveForward = false;
@@ -23,8 +30,6 @@ document.body.appendChild( stats.dom );
 ///
 
 function checkCell() {
-    var xPos = controls.getObject().position.x;
-    var zPos = controls.getObject().position.z;
     var xMod = Math.floor(xPos / 30 + size / 2);
     var zMod = Math.floor(size - (zPos / 30 + size / 2));
     var cell = zMod * size + xMod;
@@ -32,11 +37,7 @@ function checkCell() {
 }
 
 function checkCollision(myCell) {
-    var xCell = (myCell.positionx - size / 2) * 30 + 15;
-    var zCell = -((myCell.positiony - size / 2) * 30 + 15);
     var walls = myCell.walls;
-    var xPos = controls.getObject().position.x;
-    var zPos = controls.getObject().position.z;
 
     if (xPos <= xCell - 7 && walls[3] == true) {
         controls.getObject().position.x = xCell - 7;
@@ -280,10 +281,17 @@ function animate() {
     var time = performance.now() / 1000;
     stats.begin();
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
+    xPos = controls.getObject().position.x;
+    zPos = controls.getObject().position.z;
+    yPos = controls.getObject().position.y;
+
     cellPos = checkCell();
     if(cellPos >= 0 && cellPos < size * size) {
         myCell = cells[cellPos];
     }
+    xCell = (myCell.positionx - size / 2) * 30 + 15;
+    zCell = -((myCell.positiony - size / 2) * 30 + 15);
+
     Move();
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
     //checkCollision(myCell);
@@ -307,10 +315,14 @@ function checkCellFunction(cellnumber)
         switch (cells[cellnumber].cellfunction)
         {
             case 1:
-                speedmodifier = 1.5;
+                if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
+                    speedmodifier = 1.5;
+                }
                 break;
             case 2:
-                speedmodifier = 0.75;
+                if (xPos >= xCell - 7.5 && xPos <= xCell +7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
+                    speedmodifier = 0.75;
+                }
                 break;
             case 3: 
                 speedmodifier = 20;
