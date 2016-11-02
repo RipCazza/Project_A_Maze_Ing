@@ -290,7 +290,8 @@ function animate() {
     }
     Move();
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+    itemGroup.children[0].rotation.y += Math.PI/180;
+//    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -299,20 +300,23 @@ function animate() {
     requestAnimationFrame( animate );
     if (gamemode == 0)
     {
-        var testing = wallGroup.children;
+        var wallarray = wallGroup.children;
+        var itemarray = itemGroup.children;
         switch (lvl)
         {
             case (1):
-                testing[0].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
-                testing[1].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                wallarray[0].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                wallarray[1].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
                 break;
             case (2):
-                testing[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
-                testing[1].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                wallarray[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                wallarray[1].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
                 break;
             case (3):
-                testing[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                testing[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                itemarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
         }
     }
