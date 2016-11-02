@@ -242,8 +242,8 @@ function initMaze(){
                 }
                 else if(cells[size*i+j].cellfunction == 2)
                 {
-                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.2,15), trapmat);
-                    trapcarpet.position.set( posx + wallPos[0][0], 0.1, posz + wallPos[0][0]);
+                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.01,15), trapmat);
+                    trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
                     itemGroup.add(trapcarpet);
                 }
             }
@@ -315,7 +315,7 @@ function animate() {
             case (3):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                itemarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                itemarray[1].material.color.setRGB( Math.abs(bar_height * 0.007), 0, 0);
                 floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
         }
