@@ -312,6 +312,7 @@ function animate() {
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
+    console.log(time);
     if (gamemode == 0)
     {
         var wallarray = wallGroup.children;
@@ -352,8 +353,8 @@ function checkCellFunction(cellnumber)
                     speedmodifier = 0.75;
                 }
                 break;
-            case 3: 
-                timer =- 1000;
+            case 3:
+                sec -=10;
                 break;
         }
     }
