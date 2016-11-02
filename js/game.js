@@ -7,6 +7,13 @@ var raycaster, rayLine;
 var walls = [];
 var myCell;
 var speedmodifier = 0;
+
+var xPos;
+var zPos;
+var yPos;
+var xCell;
+var zCell;
+
 // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 var moveForward = false;
@@ -23,8 +30,6 @@ document.body.appendChild( stats.dom );
 ///
 
 function checkCell() {
-    var xPos = controls.getObject().position.x;
-    var zPos = controls.getObject().position.z;
     var xMod = Math.floor(xPos / 30 + size / 2);
     var zMod = Math.floor(size - (zPos / 30 + size / 2));
     var cell = zMod * size + xMod;
@@ -32,11 +37,7 @@ function checkCell() {
 }
 
 function checkCollision(myCell) {
-    var xCell = (myCell.positionx - size / 2) * 30 + 15;
-    var zCell = -((myCell.positiony - size / 2) * 30 + 15);
     var walls = myCell.walls;
-    var xPos = controls.getObject().position.x;
-    var zPos = controls.getObject().position.z;
 
     if (xPos <= xCell - 7 && walls[3] == true) {
         controls.getObject().position.x = xCell - 7;
@@ -243,8 +244,8 @@ function initMaze(){
                 }
                 else if(cells[size*i+j].cellfunction == 2)
                 {
-                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.2,15), trapmat);
-                    trapcarpet.position.set( posx + wallPos[0][0], 0.1, posz + wallPos[0][0]);
+                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.01,15), trapmat);
+                    trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
                     itemGroup.add(trapcarpet);
                 }
                 else if(cells[size*i+j].cellfunction == 3){
@@ -290,13 +291,21 @@ function animate() {
     var time = performance.now() / 1000;
     stats.begin();
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
+    xPos = controls.getObject().position.x;
+    zPos = controls.getObject().position.z;
+    yPos = controls.getObject().position.y;
+
     cellPos = checkCell();
     if(cellPos >= 0 && cellPos < size * size) {
         myCell = cells[cellPos];
     }
+    xCell = (myCell.positionx - size / 2) * 30 + 15;
+    zCell = -((myCell.positiony - size / 2) * 30 + 15);
+
     Move();
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+    itemGroup.children[0].rotation.y += Math.PI/180;
+//    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -305,20 +314,23 @@ function animate() {
     requestAnimationFrame( animate );
     if (gamemode == 0)
     {
-        var testing = wallGroup.children;
+        var wallarray = wallGroup.children;
+        var itemarray = itemGroup.children;
         switch (lvl)
         {
             case (1):
-                testing[0].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
-                testing[1].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                wallarray[0].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
+                wallarray[1].material.color.setRGB( 0, Math.abs(bar_height * 0.005), 0);
                 break;
             case (2):
-                testing[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
-                testing[1].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                wallarray[0].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
+                wallarray[1].material.color.setRGB( 0, 0, Math.abs(bar_height * 0.005));
                 break;
             case (3):
-                testing[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                testing[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                itemarray[1].material.color.setRGB( Math.abs(bar_height * 0.007), 0, 0);
+                floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
         }
     }
@@ -331,10 +343,14 @@ function checkCellFunction(cellnumber)
         switch (cells[cellnumber].cellfunction)
         {
             case 1:
-                speedmodifier = 1.5;
+                if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
+                    speedmodifier = 1.5;
+                }
                 break;
             case 2:
-                speedmodifier = 0.75;
+                if (xPos >= xCell - 7.5 && xPos <= xCell +7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
+                    speedmodifier = 0.75;
+                }
                 break;
             case 3: 
                 timer =- 1000;
