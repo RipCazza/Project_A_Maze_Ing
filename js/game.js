@@ -164,11 +164,11 @@ function initMaze(){
 	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
 	var shortwallmat = new THREE.MeshFaceMaterial(faces);
 	var longwallmat = new THREE.MeshFaceMaterial(faces2);
-//    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
-    //var powerupmat = new THREE.MeshFaceMaterial(faces);
-        var faces = [plainmat,plainmat, plainmat, plainmat, plainmat, plainmat];
-//    var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.FaceColors });
-        var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff });
+    var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
+    var powerupmat = new THREE.MeshFaceMaterial(faces);
+    //var faces = [plainmat,plainmat, plainmat, plainmat, plainmat, plainmat];
+    //var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.FaceColors });
+    //var powerupmat = new THREE.MeshBasicMaterial( {color: 0xffffff });
 
     for(var i=0;i<size;i++)
     {
@@ -311,7 +311,10 @@ function checkCellFunction(cellnumber)
                 break;
             case 2:
                 speedmodifier = 0.75;
-                break
+                break;
+            case 3: 
+                speedmodifier = 20;
+                break;
         }
     }
     return;
