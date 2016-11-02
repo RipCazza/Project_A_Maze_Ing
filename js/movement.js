@@ -196,6 +196,8 @@ function Move(){
 				scene.remove(wallGroup);
 				scene.remove(floor);
 				scene.remove(itemGroup);
+                scene.remove(trapGroup);
+                scene.remove(powerGroup);
                 size += 2;
 				controls.getObject().position.x = -15*(size-1);
                 controls.getObject().position.z = -15*(size-1);

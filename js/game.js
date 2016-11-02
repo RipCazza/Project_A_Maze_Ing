@@ -22,6 +22,7 @@ var moveLeft = false;
 var moveRight = false;
 var canJump = false;
 var lvl = 1;
+var powerupy = 0.02;
 
 /// Framerate checker
 var stats = new Stats();
@@ -146,7 +147,9 @@ function initMaze(){
     var posx = -15*(size-1), posz = 15*(size-1);
     var wallPos = [[0,15],[15,0],[0,-15],[-15,0]];
 	wallGroup = new THREE.Object3D();
-	itemGroup = new THREE.Object3D();
+    itemGroup = new THREE.Object3D();
+	trapGroup = new THREE.Object3D();
+    powerGroup = new THREE.Object3D();
     var powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
     var powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
@@ -235,24 +238,25 @@ function initMaze(){
 //                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
 //                                    wallGroup.add(wall);objects.push(wall);
 //                                }
-                // power-up / trap blocks
-                if(cells[size*i+j].cellfunction == 1)
-                {
-                    var powerup = new THREE.Mesh(new THREE.CubeGeometry(3,3,3),powerupmat);
-                    powerup.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
-                    itemGroup.add(powerup);
-                }
-                else if(cells[size*i+j].cellfunction == 2)
-                {
-                    var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.01,15), trapmat);
-                    trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
-                    itemGroup.add(trapcarpet);
-                }
-                else if(cells[size*i+j].cellfunction == 3){
-                    var powerup2 =new THREE.Mesh(new THREE.CubeGeometry(3,3,3), powerupmat2 );
-                    powerup2.position.set (posx + wallPos[0][0], 4, posz + wallPos[0][0]);
-                    itemGroup.add(powerup2);
-                }
+            }
+            // power-up / trap blocks
+            if(cells[size*i+j].cellfunction == 1)
+            {
+                var powerup = new THREE.Mesh(new THREE.CubeGeometry(3,3,3),powerupmat);
+                powerup.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
+                powerGroup.add(powerup);
+            }
+            else if(cells[size*i+j].cellfunction == 2)
+            {
+                var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.01,15), trapmat);
+                trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
+                trapGroup.add(trapcarpet);
+            }
+            else if(cells[size*i+j].cellfunction == 3)
+            {
+                var powerup2 =new THREE.Mesh(new THREE.CubeGeometry(3,3,3), powerupmat2 );
+                powerup2.position.set (posx + wallPos[0][0], 4, posz + wallPos[0][0]);
+                itemGroup.add(powerup2);
             }
             posx+=30;
         }
@@ -270,6 +274,8 @@ function initMaze(){
     glow.position.set(15*(size-1),10,15*(size-1));
     itemGroup.add( glow );
 	scene.add(itemGroup);
+    scene.add(trapGroup);
+    scene.add(powerGroup);
 	speedmodifier = 1;	
 	$("body").fadeToggle(3000);
 //	document.getElementById("audio" + lvl).play();
@@ -304,7 +310,6 @@ function animate() {
 
     Move();
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    itemGroup.children[0].rotation.y += Math.PI/180;
 //    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
@@ -316,7 +321,8 @@ function animate() {
     if (gamemode == 0)
     {
         var wallarray = wallGroup.children;
-        var itemarray = itemGroup.children;
+        var traparray = trapGroup.children;
+        var powerarray = powerGroup.children;
         switch (lvl)
         {
             case (1):
@@ -330,11 +336,26 @@ function animate() {
             case (3):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                itemarray[1].material.color.setRGB( Math.abs(bar_height * 0.007), 0, 0);
+                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.007), 0, 0);
                 floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
         }
     }
+                if (powerGroup.children[0].position.y > 8 || powerGroup.children[0].position.y < 5)
+                {
+                    powerupy *= -1;
+                }
+    for (x = 0; x < powerGroup.children.length; x++)
+        {
+            powerGroup.children[x].rotation.y += Math.PI/180;
+            powerGroup.children[x].position.y += powerupy;
+        }
+//            console.log(powerGroup.children[0]);
+//            powerGroup.children[0].rotation.y += Math.PI/180;
+//    powerGroup.children[1].rotation.y += Math.PI/180;
+//    powerGroup.children[2].rotation.y += Math.PI/180;
+//    powerGroup.children[3].rotation.y += Math.PI/180;
+//    powerGroup.children[4].rotation.y += Math.PI/180;
 }
 
 function checkCellFunction(cellnumber)
