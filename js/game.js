@@ -176,7 +176,7 @@ function initMaze(){
     if (gamemode == 0)
     {
         longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
-        shortwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
     }
 
     for(var i=0;i<size;i++)
@@ -317,6 +317,8 @@ function animate() {
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
+    
+    // chaneg color
     if (gamemode == 0)
     {
         var wallarray = wallGroup.children;
@@ -340,21 +342,16 @@ function animate() {
                 break
         }
     }
-                if (powerGroup.children[0].position.y > 8 || powerGroup.children[0].position.y < 5)
-                {
-                    powerupy *= -1;
-                }
+    // power-up rotation
+    if (powerGroup.children[0].position.y > 8 || powerGroup.children[0].position.y < 5)
+    {
+        powerupy *= -1;
+    }
     for (x = 0; x < powerGroup.children.length; x++)
-        {
-            powerGroup.children[x].rotation.y += Math.PI/180;
-            powerGroup.children[x].position.y += powerupy;
-        }
-//            console.log(powerGroup.children[0]);
-//            powerGroup.children[0].rotation.y += Math.PI/180;
-//    powerGroup.children[1].rotation.y += Math.PI/180;
-//    powerGroup.children[2].rotation.y += Math.PI/180;
-//    powerGroup.children[3].rotation.y += Math.PI/180;
-//    powerGroup.children[4].rotation.y += Math.PI/180;
+    {
+        powerGroup.children[x].rotation.y += Math.PI/180;
+        powerGroup.children[x].position.y += powerupy;
+    }
 }
 
 function checkCellFunction(cellnumber)
