@@ -158,6 +158,18 @@ function initMaze(){
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
     var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+    
+    var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
+    var lvl2uppermat = new THREE.MeshBasicMaterial( { map: lvl2upperTexture});
+
+    var teleTexture = new THREE.TextureLoader().load('images/tele.jpg');
+    var teleunderTexture = new THREE.TextureLoader().load('images/tele_upper.jpg');
+    var telesidemat = new THREE.MeshBasicMaterial( { map: teleTexture});
+    var teleundermat = new THREE.MeshBasicMaterial( { map: teleunderTexture});
+    var faces = [telesidemat,telesidemat, teleundermat, teleundermat, telesidemat, telesidemat];
+    var telemat = new THREE.MeshFaceMaterial(faces);
+    
+    
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
@@ -165,14 +177,17 @@ function initMaze(){
     var trapmat = new THREE.MeshBasicMaterial( { map: traptexture, transparent: true});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
+    
     var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
     var powerupundermat = new THREE.MeshBasicMaterial( { map: powerupunderTexture});
     var timerupsidemat = new THREE.MeshBasicMaterial( { map: timeupTexture});
     var timeupundermat = new THREE.MeshBasicMaterial( { map: timeupunderTexture});
-	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
-	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
-	var shortwallmat = new THREE.MeshFaceMaterial(faces);
-	var longwallmat = new THREE.MeshFaceMaterial(faces2);
+    
+//	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
+//	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
+//	var shortwallmat = new THREE.MeshFaceMaterial(faces);
+//	var longwallmat = new THREE.MeshFaceMaterial(faces2);
+    
     var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
     var powerupmat = new THREE.MeshFaceMaterial(faces);
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
@@ -180,10 +195,20 @@ function initMaze(){
     var deathmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var teleportermat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     
-    if (gamemode == 0)
+    var longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+    var shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
+    
+//    if (gamemode == 0)
+//    {
+//        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+//        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
+//    }
+    if (lvl == 2)
     {
-        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
-        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
+        var faces = [wallmat,wallmat, lvl2uppermat, lvl2uppermat, wallmat, wallmat];
+	   var faces2 = [wallmat2,wallmat2, lvl2uppermat, lvl2uppermat, wallmat2, wallmat2];
+	   shortwallmat = new THREE.MeshFaceMaterial(faces);
+	   longwallmat = new THREE.MeshFaceMaterial(faces2);  
     }
 
     for(var i=0;i<size;i++)
@@ -275,7 +300,7 @@ function initMaze(){
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
             }
             else if(cells[size*i+j].cellfunction == 5){
-                var powerup3 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), teleportermat);
+                var powerup3 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), telemat);
                 powerup3.position.set (posx +wallPos[0][0], 5, posz + wallPos[0][0]);
                 powerGroup.add(powerup3);
                 powerUpCellArray.push([size*i+j, powerup3]);
@@ -351,6 +376,8 @@ function animate() {
         var wallarray = wallGroup.children;
         var traparray = trapGroup.children;
         var powerarray = powerGroup.children;
+        
+        //change colors per level
         switch (lvl)
         {
             case (1):
@@ -360,8 +387,15 @@ function animate() {
                 floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025));
                 break;
             case (2):
-                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
-                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+//                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+//                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                for (var x = 0; x <wallarray.length; x++ )
+                {
+                    for(test of wallarray[x].material.materials)
+                    {
+                        test.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                    }
+                }
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
                 floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.005));
                 break;
@@ -371,6 +405,14 @@ function animate() {
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0065), 0, 0);
                 floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
+        }
+        // change colors of cubes
+        for (var x = 0; x <powerGroup.children.length; x++ )
+        {
+            for(test of powerGroup.children[x].material.materials)
+            {
+                test.color.setRGB( Math.abs(bar_height * 0.005),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.005));
+            }
         }
     }
     // power-up rotation
