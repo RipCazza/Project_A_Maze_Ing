@@ -57,11 +57,18 @@
                     MOUSE = Look around<br>
             F = Enter Fullscreen Mode<br>
         </div>
+        <div id="death">
+            <span style="font-size: 40px">You Died!!</span><br><br>
+            <span>Try again!!</span><br><br>
+            <br>
+            <button type="button" id="respawn">Return to TitleScreen</button>
+        </div>
         <div id ="pause">
             <span style="font-size: 40px">Game Paused</span>
             <br>
             Click to continue
         </div>
+
         <div id="end">
 		<img src="./images/logo.png" width="402" height="250"/><br/>
 		<div id="content">
@@ -128,6 +135,9 @@
 			hideSplashScreen();
             $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size);});
             $.getScript("./js/game.js", function(){init(1);});
+        });
+        $("#respawn").on('click',function(){
+            history.go(0);
         });
         $("#refresh").on('click', function(){
             history.go(0);

@@ -338,7 +338,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+   // checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -416,6 +416,9 @@ function checkCellFunction(cellnumber)
                     myCell.cellfunction = 0;
                 }
                 break;
+            case 4:
+                if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
+                    GameOver();
             case 5:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     speedmodifier = -1;
@@ -457,3 +460,17 @@ function EndGame()
 			document.exitPointerLock();
 			
 			}
+function GameOver(){
+    blocker.style.display = '-webkit-box';
+    blocker.style.display = '-moz-box';
+    blocker.style.display = 'box';
+    var elem = document.getElementById('pause');
+    elem.parentNode.removeChild(elem);
+	elem = document.getElementById('pauseIcon');
+	elem.parentNode.removeChild(elem);
+    document.getElementById("death").style.visibility ='visible';
+    document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+    // Attempt to unlock
+    document.exitPointerLock();
+			
+}
