@@ -268,12 +268,12 @@ function initMaze(){
                 powerGroup.add(powerup2);
                 powerUpCellArray.push([size*i+j, powerup2]);
             }
-            /*else if(cells[size*i+j].cellfunction == 4){
+            else if(cells[size*i+j].cellfunction == 4){
                 var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), deathmat);
                 trapcarpet2.position.set (posx +wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet2);
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
-            }*/
+            }
             posx+=30;
         }
         posx=-15*(size-1);posz-=30;
@@ -332,7 +332,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+   // checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -403,11 +403,12 @@ function checkCellFunction(cellnumber)
                     RemovePowerUp()
                     myCell.cellfunction = 0;
                 }
-            /*case 4:
+                break;
+            case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
-                    speedmodifier =1;
+                    GameOver();
                     myCell.cellfunction = 0;
-                }*/
+                }
                 break;
         }
     }
@@ -443,3 +444,17 @@ function EndGame()
 			document.exitPointerLock();
 			
 			}
+function GameOver(){
+    blocker.style.display = '-webkit-box';
+    blocker.style.display = '-moz-box';
+    blocker.style.display = 'box';
+    var elem = document.getElementById('pause');
+    elem.parentNode.removeChild(elem);
+	elem = document.getElementById('pauseIcon');
+	elem.parentNode.removeChild(elem);
+    document.getElementById("death").style.visibility ='visible';
+    document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+    // Attempt to unlock
+    document.exitPointerLock();
+			
+}
