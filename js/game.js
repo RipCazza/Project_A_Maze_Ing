@@ -268,7 +268,7 @@ function initMaze(){
                 powerUpCellArray.push([size*i+j, powerup2]);
             }
             else if(cells[size*i+j].cellfunction == 4){
-                var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), deathmat);
+                var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), trapmat);
                 trapcarpet2.position.set (posx +wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet2);
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
