@@ -303,6 +303,7 @@ function animate() {
     var time = performance.now() / 1000;
     stats.begin();
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
+    
     xPos = controls.getObject().position.x;
     zPos = controls.getObject().position.z;
     yPos = controls.getObject().position.y;
@@ -311,12 +312,17 @@ function animate() {
     if(cellPos >= 0 && cellPos < size * size) {
         myCell = cells[cellPos];
     }
+    
     xCell = (myCell.positionx - size / 2) * 30 + 15;
     zCell = -((myCell.positiony - size / 2) * 30 + 15);
 
     Move();
+    
+    xPos = controls.getObject().position.x;
+    zPos = controls.getObject().position.z;
+    
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-//    checkCollision(myCell);
+    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
