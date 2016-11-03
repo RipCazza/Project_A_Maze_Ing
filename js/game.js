@@ -268,6 +268,12 @@ function initMaze(){
                 powerGroup.add(powerup2);
                 powerUpCellArray.push([size*i+j, powerup2]);
             }
+            else if(cells[size*i+j].cellfunction == 4){
+                var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), deathmat);
+                trapcarpet2.position.set (posx +wallPos[0][0], 0, posz + wallPos[0][0]);
+                trapGroup.add(trapcarpet2);
+                powerUpCellArray.push([size*i+j, trapcarpet2]);
+            }
             posx+=30;
         }
         posx=-15*(size-1);posz-=30;
@@ -392,6 +398,11 @@ function checkCellFunction(cellnumber)
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     sec -=10;
                     RemovePowerUp()
+                    myCell.cellfunction = 0;
+                }
+            case 4:
+                if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
+                    speedmodifier =-20;
                     myCell.cellfunction = 0;
                 }
                 break;
