@@ -452,7 +452,7 @@ function RemovePowerUp() {
 
 function EndGame()
 {
-			document.getElementById("audio3").pause();
+			audio.pause();
 	        clearInterval(timer);
             timer = null;
 	        blocker.style.display = '-webkit-box';
