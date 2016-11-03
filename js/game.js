@@ -177,8 +177,8 @@ function initMaze(){
     var powerupmat = new THREE.MeshFaceMaterial(faces);
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
     var timerupmat = new THREE.MeshFaceMaterial(faces);
-    var deathmat = new THREE.MeshFaceMaterial(faces2);
-    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43});
+    var deathmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
+    var teleportermat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     
     if (gamemode == 0)
     {
@@ -274,12 +274,18 @@ function initMaze(){
                 trapGroup.add(trapcarpet2);
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
             }
+            else if(cells[size*i+j].cellfunction == 5){
+                var powerup3 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), teleportermat);
+                powerup3.position.set (posx +wallPos[0][0], 5, posz + wallPos[0][0]);
+                powerGroup.add(powerup3);
+                powerUpCellArray.push([size*i+j, powerup3]);
+            }
             posx+=30;
         }
         posx=-15*(size-1);posz-=30;
     }
-	scene.add(wallGroup);
-    
+    scene.add(wallGroup);
+
     var telematerial = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("./images/teleport.jpg")});
     telematerial.side = THREE.DoubleSide;
     var teleportGeo = new THREE.CircleGeometry( 6, 16 );//SphereGeometry(3,32,16);
@@ -388,7 +394,7 @@ function checkCellFunction(cellnumber)
             case 1:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     speedmodifier = 1.5;
-                    RemovePowerUp()
+                    RemovePowerUp();
                     myCell.cellfunction = 0;
                 }
                 break;
@@ -400,13 +406,20 @@ function checkCellFunction(cellnumber)
             case 3:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     sec -=10;
-                    RemovePowerUp()
+                    RemovePowerUp();
                     myCell.cellfunction = 0;
                 }
                 break;
             case 4:
-                if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
+                if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
                     speedmodifier = -1;
+                    myCell.cellfunction = 0;
+                }
+                break;
+            case 5:
+                if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
+                    speedmodifier = -1;
+                    RemovePowerUp();
                     myCell.cellfunction = 0;
                 }
                 break;
