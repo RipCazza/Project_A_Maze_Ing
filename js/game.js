@@ -453,12 +453,6 @@ function checkCellFunction(cellnumber)
                 }
                 break;
             case 4:
-                if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
-                    speedmodifier = -1;
-                    myCell.cellfunction = 0;
-                }
-                break;
-            case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
                     GameOver();
                 }
@@ -519,6 +513,8 @@ function GameOver(){
     var elem = document.getElementById('pause');
     elem.parentNode.removeChild(elem);
 	elem = document.getElementById('pauseIcon');
+	elem.parentNode.removeChild(elem);
+    elem = document.getElementById('end');
 	elem.parentNode.removeChild(elem);
     document.getElementById("death").style.visibility ='visible';
     document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
