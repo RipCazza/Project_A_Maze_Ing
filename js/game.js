@@ -178,7 +178,7 @@ function initMaze(){
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
     var timerupmat = new THREE.MeshFaceMaterial(faces);
     var deathmat = new THREE.MeshFaceMaterial(faces2);
-//    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43})
+    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     
     if (gamemode == 0)
     {
@@ -268,12 +268,12 @@ function initMaze(){
                 powerGroup.add(powerup2);
                 powerUpCellArray.push([size*i+j, powerup2]);
             }
-            /*else if(cells[size*i+j].cellfunction == 4){
+            else if(cells[size*i+j].cellfunction == 4){
                 var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), deathmat);
                 trapcarpet2.position.set (posx +wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet2);
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
-            }*/
+            }
             posx+=30;
         }
         posx=-15*(size-1);posz-=30;
@@ -403,11 +403,12 @@ function checkCellFunction(cellnumber)
                     RemovePowerUp()
                     myCell.cellfunction = 0;
                 }
-            /*case 4:
+                break;
+            case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
-                    speedmodifier =1;
+                    speedmodifier = -1;
                     myCell.cellfunction = 0;
-                }*/
+                }
                 break;
         }
     }

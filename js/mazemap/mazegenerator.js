@@ -77,7 +77,7 @@ function movedirection(currentcellnr)
             temcounter++;
             cells[currentcellnr].cellfunction = 3; 
         }
-        else if (traprandomizer >0.15){
+        else if (traprandomizer >0.15  && traprandomizer <0.20){
             temcounter++;
             cells[currentcellnr].cellfunction = 4;
         }
