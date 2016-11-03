@@ -178,7 +178,7 @@ function initMaze(){
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
     var timerupmat = new THREE.MeshFaceMaterial(faces);
     var deathmat = new THREE.MeshFaceMaterial(faces2);
-//    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43})
+//    var powerupmat2 = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     
     if (gamemode == 0)
     {
@@ -403,6 +403,7 @@ function checkCellFunction(cellnumber)
                     RemovePowerUp()
                     myCell.cellfunction = 0;
                 }
+                break;
             /*case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
                     speedmodifier =1;
