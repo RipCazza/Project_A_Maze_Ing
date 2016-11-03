@@ -28,7 +28,7 @@ body {
 
 }
 
-#splashscreen, #pause, #end {
+#splashscreen, #pause, #end, #death {
 	width: 100%;
 	height: 100%;
 
@@ -66,6 +66,12 @@ body {
 	display: -webkit-box;
 	display: -moz-box;
 	cursor: pointer;
+}
+#death{
+    visibility: hidden;
+    display: -webkit-box;
+    display: -moz-box;
+    
 }
 
 #pauseIcon {
