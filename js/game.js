@@ -423,7 +423,8 @@ function checkCellFunction(cellnumber)
                 break;
             case 5:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
-                    speedmodifier = -1;
+                    controls.getObject().position.x = Math.floor(random() * (size - 1)) * 30 - size * 30 / 2 + 15;
+                    controls.getObject().position.z = Math.floor(random() * (size - 1)) * 30 - size * 30 / 2 + 15;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
                 }
@@ -431,6 +432,13 @@ function checkCellFunction(cellnumber)
         }
     }
     return;
+}
+
+// Uses seed for predictable outcome
+function random()
+{
+    var x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
 }
 
 function RemovePowerUp() {
