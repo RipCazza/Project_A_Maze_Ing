@@ -8,6 +8,7 @@ var walls = [];
 var myCell;
 var speedmodifier = 0;
 var powerUpCellArray = [];
+var teleRandomArray = [];
 
 var xPos;
 var zPos;
@@ -303,6 +304,8 @@ function initMaze(){
                 var powerup3 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), telemat);
                 powerup3.position.set (posx +wallPos[0][0], 5, posz + wallPos[0][0]);
                 powerGroup.add(powerup3);
+                var teleRandom = random();
+                teleRandomArray.push([size*i+j, teleRandom]);
                 powerUpCellArray.push([size*i+j, powerup3]);
             }
             posx+=30;
@@ -459,8 +462,8 @@ function checkCellFunction(cellnumber)
                 break;
             case 5:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
-                    controls.getObject().position.x = Math.floor(random() * (size - 1)) * 30 - size * 30 / 2 + 15;
-                    controls.getObject().position.z = Math.floor(random() * (size - 1)) * 30 - size * 30 / 2 + 15;
+                    controls.getObject().position.x = Math.floor(Teleport() * (size - 1)) * 30 - size * 30 / 2 + 15;
+                    controls.getObject().position.z = Math.floor(Teleport() * (size - 1)) * 30 - size * 30 / 2 + 15;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
                 }
@@ -482,6 +485,14 @@ function RemovePowerUp() {
         if(powerUpCell[0] == cellPos){
             powerGroup.remove(powerUpCell[1])
             scene.remove(powerUpCell[1]);
+        }
+    }
+}
+
+function Teleport() {
+    for (teleRandom of teleRandomArray) {
+        if(teleRandom[0] == cellPos){
+            return teleRandom[1];
         }
     }
 }
