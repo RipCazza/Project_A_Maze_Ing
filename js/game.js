@@ -158,7 +158,6 @@ function initMaze(){
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
     var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
-    var testwalltexture = new THREE.TextureLoader().load('./images/Test border Funky cube.png');
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
@@ -351,11 +350,14 @@ function animate() {
             case (1):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
+                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.001),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
+                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025));
                 break;
             case (2):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
-                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015));
+                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.005));
                 break;
             case (3):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
