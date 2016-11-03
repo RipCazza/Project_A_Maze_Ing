@@ -8,6 +8,7 @@ var walls = [];
 var myCell;
 var speedmodifier = 0;
 var powerUpCellArray = [];
+var teleRandomArray = [];
 
 var xPos;
 var zPos;
@@ -91,7 +92,7 @@ function checkCollision(myCell) {
 function init(level) {
 	lvl = level;
     scene = new THREE.Scene();
-//    scene.fog =  new THREE.Fog(0x000000, 0,100);
+    scene.fog =  new THREE.Fog(0x000000, 0,100);
     // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -158,6 +159,16 @@ function initMaze(){
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
     var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+
+
+    var teleTexture = new THREE.TextureLoader().load('images/tele.jpg');
+    var teleunderTexture = new THREE.TextureLoader().load('images/tele_upper.jpg');
+    var telesidemat = new THREE.MeshBasicMaterial( { map: teleTexture});
+    var teleundermat = new THREE.MeshBasicMaterial( { map: teleunderTexture});
+    var faces = [telesidemat,telesidemat, teleundermat, teleundermat, telesidemat, telesidemat];
+    var telemat = new THREE.MeshFaceMaterial(faces);
+    
+    
 	longwallTexture.wrapS = THREE.RepeatWrapping;
 	longwallTexture.wrapT = THREE.RepeatWrapping;
 	longwallTexture.repeat.set(2,1);
@@ -165,14 +176,17 @@ function initMaze(){
     var trapmat = new THREE.MeshBasicMaterial( { map: traptexture, transparent: true});
     var wallmat2 = new THREE.MeshBasicMaterial( { map: longwallTexture});
 	var plainmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
+    
     var powerupsidemat = new THREE.MeshBasicMaterial( { map: powerupTexture});
     var powerupundermat = new THREE.MeshBasicMaterial( { map: powerupunderTexture});
     var timerupsidemat = new THREE.MeshBasicMaterial( { map: timeupTexture});
     var timeupundermat = new THREE.MeshBasicMaterial( { map: timeupunderTexture});
-	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
-	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
-	var shortwallmat = new THREE.MeshFaceMaterial(faces);
-	var longwallmat = new THREE.MeshFaceMaterial(faces2);
+    
+//	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
+//	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
+//	var shortwallmat = new THREE.MeshFaceMaterial(faces);
+//	var longwallmat = new THREE.MeshFaceMaterial(faces2);
+    
     var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
     var powerupmat = new THREE.MeshFaceMaterial(faces);
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
@@ -180,10 +194,22 @@ function initMaze(){
     var deathmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var teleportermat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     
-    if (gamemode == 0)
+    var longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+    var shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
+    
+//    if (gamemode == 0)
+//    {
+//        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
+//        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
+//    }
+    if (lvl == 2)
     {
-        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
-        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
+            var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
+    var lvl2uppermat = new THREE.MeshBasicMaterial( { map: lvl2upperTexture});
+        var faces = [wallmat,wallmat, lvl2uppermat, lvl2uppermat, wallmat, wallmat];
+	   var faces2 = [wallmat2,wallmat2, lvl2uppermat, lvl2uppermat, wallmat2, wallmat2];
+	   shortwallmat = new THREE.MeshFaceMaterial(faces);
+	   longwallmat = new THREE.MeshFaceMaterial(faces2);  
     }
 
     for(var i=0;i<size;i++)
@@ -275,9 +301,11 @@ function initMaze(){
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
             }
             else if(cells[size*i+j].cellfunction == 5){
-                var powerup3 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), teleportermat);
+                var powerup3 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), telemat);
                 powerup3.position.set (posx +wallPos[0][0], 5, posz + wallPos[0][0]);
                 powerGroup.add(powerup3);
+                var teleRandom = random();
+                teleRandomArray.push([size*i+j, teleRandom]);
                 powerUpCellArray.push([size*i+j, powerup3]);
             }
             posx+=30;
@@ -338,7 +366,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-   // checkCollision(myCell);
+    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -351,17 +379,26 @@ function animate() {
         var wallarray = wallGroup.children;
         var traparray = trapGroup.children;
         var powerarray = powerGroup.children;
+        
+        //change colors per level
         switch (lvl)
         {
             case (1):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.001),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
-                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025));
+                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.001), 0.1 + Math.abs(bar_height * 0.005), 0.1 + Math.abs(bar_height * 0.001));
                 break;
             case (2):
-                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
-                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+//                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+//                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                for (var x = 0; x <wallarray.length; x++ )
+                {
+                    for(test of wallarray[x].material.materials)
+                    {
+                        test.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                    }
+                }
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
                 floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.005));
                 break;
@@ -371,6 +408,14 @@ function animate() {
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0065), 0, 0);
                 floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
                 break
+        }
+        // change colors of cubes
+        for (var x = 0; x <powerGroup.children.length; x++ )
+        {
+            for(test of powerGroup.children[x].material.materials)
+            {
+                test.color.setRGB( Math.abs(bar_height * 0.005),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.005));
+            }
         }
     }
     // power-up rotation
@@ -411,20 +456,14 @@ function checkCellFunction(cellnumber)
                 }
                 break;
             case 4:
-                if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
-                    speedmodifier = -1;
-                    myCell.cellfunction = 0;
-                }
-                break;
-            case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
                     GameOver();
                 }
                 break;
             case 5:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
-                    controls.getObject().position.x = Math.floor(random() * (size - 1)) * 30 - size * 30 / 2 + 15;
-                    controls.getObject().position.z = Math.floor(random() * (size - 1)) * 30 - size * 30 / 2 + 15;
+                    controls.getObject().position.x = Math.floor(Teleport() * (size - 1)) * 30 - size * 30 / 2 + 15;
+                    controls.getObject().position.z = Math.floor(Teleport() * (size - 1)) * 30 - size * 30 / 2 + 15;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
                 }
@@ -446,6 +485,14 @@ function RemovePowerUp() {
         if(powerUpCell[0] == cellPos){
             powerGroup.remove(powerUpCell[1])
             scene.remove(powerUpCell[1]);
+        }
+    }
+}
+
+function Teleport() {
+    for (teleRandom of teleRandomArray) {
+        if(teleRandom[0] == cellPos){
+            return teleRandom[1];
         }
     }
 }
