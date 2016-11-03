@@ -91,7 +91,7 @@ function checkCollision(myCell) {
 function init(level) {
 	lvl = level;
     scene = new THREE.Scene();
-//    scene.fog =  new THREE.Fog(0x000000, 0,100);
+    scene.fog =  new THREE.Fog(0x000000, 0,100);
     // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -158,9 +158,7 @@ function initMaze(){
 	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
     var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
 	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
-    
-    var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
-    var lvl2uppermat = new THREE.MeshBasicMaterial( { map: lvl2upperTexture});
+
 
     var teleTexture = new THREE.TextureLoader().load('images/tele.jpg');
     var teleunderTexture = new THREE.TextureLoader().load('images/tele_upper.jpg');
@@ -205,6 +203,8 @@ function initMaze(){
 //    }
     if (lvl == 2)
     {
+            var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
+    var lvl2uppermat = new THREE.MeshBasicMaterial( { map: lvl2upperTexture});
         var faces = [wallmat,wallmat, lvl2uppermat, lvl2uppermat, wallmat, wallmat];
 	   var faces2 = [wallmat2,wallmat2, lvl2uppermat, lvl2uppermat, wallmat2, wallmat2];
 	   shortwallmat = new THREE.MeshFaceMaterial(faces);
@@ -363,7 +363,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-   // checkCollision(myCell);
+    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -384,7 +384,7 @@ function animate() {
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.001),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
-                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025), 0.1 + Math.abs(bar_height * 0.0025));
+                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.001), 0.1 + Math.abs(bar_height * 0.005), 0.1 + Math.abs(bar_height * 0.001));
                 break;
             case (2):
 //                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
