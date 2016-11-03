@@ -60,7 +60,8 @@ function movedirection(currentcellnr)
     }
     // trap/power-up randomizer
     var traprandomizer = random();
-    if (traprandomizer < 0.20 && !(currentcellnr == 0 || currentcellnr == (size - 1) || currentcellnr == (size * (size -1)) || currentcellnr == (size * size) -1))
+
+    if (traprandomizer < 0.25 && !(currentcellnr == 0 || currentcellnr == (size - 1) || currentcellnr == (size * (size -1)) || currentcellnr == (size * size) -1))
     {
        if (traprandomizer < 0.05)
        {
@@ -77,10 +78,14 @@ function movedirection(currentcellnr)
             temcounter++;
             cells[currentcellnr].cellfunction = 3; 
         }
-//        else if (traprandomizer >0.15){
-//            temcounter++;
-//            cells[currentcellnr].cellfunction = 4;
-//        }
+        else if (traprandomizer >0.15  && traprandomizer <0.20){
+            temcounter++;
+            cells[currentcellnr].cellfunction = 4;
+        }
+        else if (traprandomizer >0.20){
+            temcounter++;
+            cells[currentcellnr].cellfunction = 5;
+        }
     }
     return;
 }
