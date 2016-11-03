@@ -7,6 +7,7 @@ var raycaster, rayLine;
 var walls = [];
 var myCell;
 var speedmodifier = 0;
+var powerUpCellArray = [];
 
 var xPos;
 var zPos;
@@ -251,18 +252,21 @@ function initMaze(){
                 var powerup = new THREE.Mesh(new THREE.CubeGeometry(3,3,3),powerupmat);
                 powerup.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
                 powerGroup.add(powerup);
+                powerUpCellArray.push([size*i+j]);
             }
             else if(cells[size*i+j].cellfunction == 2)
             {
                 var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.001,15), trapmat);
                 trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet);
+                powerUpCellArray.push([size*i+j]);
             }
             else if(cells[size*i+j].cellfunction == 3)
             {
                 var powerup2 =new THREE.Mesh(new THREE.CubeGeometry(3,3,3), timerupmat );
                 powerup2.position.set (posx + wallPos[0][0], 4, posz + wallPos[0][0]);
-                itemGroup.add(powerup2);
+                powerGroup.add(powerup2);
+                powerUpCellArray.push([size*i+j]);
             }
             posx+=30;
         }
@@ -329,8 +333,6 @@ function animate() {
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
-        console.log(time);
-    
     // change color
     if (gamemode == 0)
     {
@@ -377,6 +379,7 @@ function checkCellFunction(cellnumber)
             case 1:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     speedmodifier = 1.5;
+                    myCell.cellfunction = 0;
                 }
                 break;
             case 2:
@@ -385,7 +388,18 @@ function checkCellFunction(cellnumber)
                 }
                 break;
             case 3:
-                sec -=10;
+                if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
+                    sec -=10;
+                    for (powerUpCell in powerUpCellArray) {
+                        console.log(powerUpCellArray[0]);
+                        if( powerUpCell[0] == cellPos){
+                            scene.remove(powerupCell[1]);
+                            console.log("HI");
+                        }
+                    }
+                    console.log(cellPos);
+                    myCell.cellfunction = 0;
+                }
                 break;
         }
     }
