@@ -419,6 +419,8 @@ function checkCellFunction(cellnumber)
             case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
                     GameOver();
+                }
+                break;
             case 5:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     speedmodifier = -1;
