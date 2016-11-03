@@ -252,21 +252,21 @@ function initMaze(){
                 var powerup = new THREE.Mesh(new THREE.CubeGeometry(3,3,3),powerupmat);
                 powerup.position.set( posx + wallPos[0][0], 5, posz + wallPos[0][0]);
                 powerGroup.add(powerup);
-                powerUpCellArray.push([size*i+j]);
+                powerUpCellArray.push([size*i+j, powerup]);
             }
             else if(cells[size*i+j].cellfunction == 2)
             {
                 var trapcarpet = new THREE.Mesh(new THREE.CubeGeometry(15,0.001,15), trapmat);
                 trapcarpet.position.set( posx + wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet);
-                powerUpCellArray.push([size*i+j]);
+                powerUpCellArray.push([size*i+j, trapcarpet]);
             }
             else if(cells[size*i+j].cellfunction == 3)
             {
-                var powerup2 =new THREE.Mesh(new THREE.CubeGeometry(3,3,3), timerupmat );
-                powerup2.position.set (posx + wallPos[0][0], 4, posz + wallPos[0][0]);
+                var powerup2 = new THREE.Mesh(new THREE.CubeGeometry(3,3,3), timerupmat );
+                powerup2.position.set (posx + wallPos[0][0], 5, posz + wallPos[0][0]);
                 powerGroup.add(powerup2);
-                powerUpCellArray.push([size*i+j]);
+                powerUpCellArray.push([size*i+j, powerup2]);
             }
             posx+=30;
         }
@@ -359,7 +359,7 @@ function animate() {
         }
     }
     // power-up rotation
-    if (powerGroup.children[0].position.y > 8 || powerGroup.children[0].position.y < 5)
+    if (powerGroup.children[0].position.y > 6 || powerGroup.children[0].position.y < 4)
     {
         powerupy *= -1;
     }
@@ -379,6 +379,7 @@ function checkCellFunction(cellnumber)
             case 1:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     speedmodifier = 1.5;
+                    RemovePowerUp()
                     myCell.cellfunction = 0;
                 }
                 break;
@@ -390,20 +391,22 @@ function checkCellFunction(cellnumber)
             case 3:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
                     sec -=10;
-                    for (powerUpCell in powerUpCellArray) {
-                        console.log(powerUpCellArray[0]);
-                        if( powerUpCell[0] == cellPos){
-                            scene.remove(powerupCell[1]);
-                            console.log("HI");
-                        }
-                    }
-                    console.log(cellPos);
+                    RemovePowerUp()
                     myCell.cellfunction = 0;
                 }
                 break;
         }
     }
     return;
+}
+
+function RemovePowerUp() {
+    for (powerUpCell of powerUpCellArray) {
+        if(powerUpCell[0] == cellPos){
+            powerGroup.remove(powerUpCell[1])
+            scene.remove(powerUpCell[1]);
+        }
+    }
 }
 
 function EndGame()

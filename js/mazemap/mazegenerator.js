@@ -87,8 +87,8 @@ function random()
     var x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
 }
-
-//Removes element from array
+    
+    //Removes element from array
 function RemoveElement(oldarray, nr)
 {
     var k = [];

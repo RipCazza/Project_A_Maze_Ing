@@ -198,6 +198,7 @@ function Move(){
 				scene.remove(itemGroup);
                 scene.remove(trapGroup);
                 scene.remove(powerGroup);
+                powerUpCellArray = [];
                 size += 2;
 				controls.getObject().position.x = -15*(size-1);
                 controls.getObject().position.z = -15*(size-1);
