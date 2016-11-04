@@ -124,7 +124,7 @@
             console.log(seed);
             $("body").fadeToggle(100, "linear");
             hideSplashScreen();
-            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size);});
+            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size, 1);});
             $.getScript("./js/game.js", function(){init(1);});
         });
         $("#Random").on('click',function()
@@ -137,7 +137,7 @@
 			console.log(seed);
 			$("body").fadeToggle(100, "linear");
 			hideSplashScreen();
-            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size);});
+            $.getScript("./js/mazemap/mazegenerator.js", function(){GenerateMaze(seed, size, 1);});
             $.getScript("./js/game.js", function(){init(1);});
         });
         $("#respawn").on('click',function(){

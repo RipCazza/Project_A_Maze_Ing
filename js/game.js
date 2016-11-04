@@ -193,7 +193,6 @@ function initMaze(){
     var powerupmat = new THREE.MeshFaceMaterial(faces);
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
     var timerupmat = new THREE.MeshFaceMaterial(faces);
-    var deathmat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     var teleportermat = new THREE.MeshBasicMaterial({color: 0xa0ff43});
     
     var longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
@@ -206,8 +205,8 @@ function initMaze(){
 //    }
     if (lvl == 2)
     {
-            var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
-    var lvl2uppermat = new THREE.MeshBasicMaterial( { map: lvl2upperTexture});
+        var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
+        var lvl2uppermat = new THREE.MeshBasicMaterial( { map: lvl2upperTexture});
         var faces = [wallmat,wallmat, lvl2uppermat, lvl2uppermat, wallmat, wallmat];
 	   var faces2 = [wallmat2,wallmat2, lvl2uppermat, lvl2uppermat, wallmat2, wallmat2];
 	   shortwallmat = new THREE.MeshFaceMaterial(faces);
@@ -297,7 +296,7 @@ function initMaze(){
                 powerUpCellArray.push([size*i+j, powerup2]);
             }
             else if(cells[size*i+j].cellfunction == 4){
-                var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), deathmat);
+                var trapcarpet2 = new THREE.Mesh(new THREE.CubeGeometry(15, 0.001, 15), trapmat);
                 trapcarpet2.position.set (posx +wallPos[0][0], 0, posz + wallPos[0][0]);
                 trapGroup.add(trapcarpet2);
                 powerUpCellArray.push([size*i+j, trapcarpet2]);
@@ -388,6 +387,7 @@ function animate() {
             case (1):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
+                console.log(traparray[0]);
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.001),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.001), 0.1 + Math.abs(bar_height * 0.005), 0.1 + Math.abs(bar_height * 0.001));
                 break;
