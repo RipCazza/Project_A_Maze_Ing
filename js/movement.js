@@ -40,7 +40,7 @@ if ( havePointerLock ) {
             clearInterval(timer);
             timer = null;
             velocity.x = 0;velocity.y=0;velocity.z=0;
-			document.getElementById("audio" + lvl).pause();
+//			document.getElementById("audio" + lvl).pause();
         }
     };
 
@@ -84,7 +84,7 @@ if ( havePointerLock ) {
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
         controlsEnabled = true;
-		document.getElementById("audio" + lvl).play();
+//		document.getElementById("audio" + lvl).play();
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}
         paused = false;
