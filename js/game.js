@@ -205,11 +205,6 @@ function initMaze(){
     var timerupsidemat = new THREE.MeshBasicMaterial( { map: timeupTexture});
     var timeupundermat = new THREE.MeshBasicMaterial( { map: timeupunderTexture});
     
-//	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
-//	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
-//	var shortwallmat = new THREE.MeshFaceMaterial(faces);
-//	var longwallmat = new THREE.MeshFaceMaterial(faces2);
-    
     var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
     var powerupmat = new THREE.MeshFaceMaterial(faces);
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
@@ -218,12 +213,7 @@ function initMaze(){
     
     var longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
     var shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
-    
-//    if (gamemode == 0)
-//    {
-//        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
-//        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
-//    }
+
     if (lvl == 2)
     {
         var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
@@ -288,11 +278,6 @@ function initMaze(){
                     wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                     wallGroup.add(wall);objects.push(wall);
                 }
-//                            if ((k == 1) && (j == 0) && (i == 0))
-//                                {
-//                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
-//                                    wallGroup.add(wall);objects.push(wall);
-//                                }
             }
             // power-up / trap blocks
             if(cells[size*i+j].cellfunction == 1)
@@ -388,7 +373,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+//    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -412,8 +397,6 @@ function animate() {
                 floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.001), 0.1 + Math.abs(intensity * 0.005), 0.1 + Math.abs(intensity * 0.001));
                 break;
             case (2):
-//                wallarray[0].material.color.setRGB( Math.abs(intensity * 0.0015), Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
-//                wallarray[1].material.color.setRGB( Math.abs(intensity * 0.0015), Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
                 for (var x = 0; x <wallarray.length; x++ )
                 {
                     for(test of wallarray[x].material.materials)
@@ -485,6 +468,7 @@ function checkCellFunction(cellnumber)
                 break;
             case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
+                    controlpause = false;
                     GameOver();
                     audio.pause();
                     gameoversound.loop = false;
@@ -532,6 +516,7 @@ function Teleport() {
 
 function EndGame()
 {
+    controlpause = false;
     audio.pause();
     finishedsound.loop = false;
     finishedsound.play();
@@ -545,7 +530,7 @@ function EndGame()
     elem = document.getElementById('pauseIcon');
     elem.parentNode.removeChild(elem);
     document.getElementById("end").style.visibility = 'visible';			
-    document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
+    document.getElementById("yourSeed").innerHTML = "Your seed: " + seednumber;
     document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
     document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
     // Attempt to unlock
