@@ -354,7 +354,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+//    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -449,6 +449,7 @@ function checkCellFunction(cellnumber)
                 break;
             case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
+                    controlpause = false;
                     GameOver();
                     audio.pause();
                     gameoversound.loop = false;
@@ -496,6 +497,7 @@ function Teleport() {
 
 function EndGame()
 {
+    controlpause = false;
     audio.pause();
     finishedsound.loop = false;
     finishedsound.play();

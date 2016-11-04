@@ -12,6 +12,7 @@ var wallGroup, floor;
 var sec = 0;
 var prevTime = performance.now();
 var controlsEnabled = false;
+var controlpause = true;
 
 THREEx.FullScreen.bindKey({ charCode : 'f'.charCodeAt(0) });
 
@@ -30,8 +31,11 @@ if ( havePointerLock ) {
         else {
             controls.enabled = false;
             paused = true;
+            if (controlpause)
+                {
             pausesound.loop = false;
             pausesound.play();
+                }
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
