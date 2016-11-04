@@ -131,7 +131,9 @@ function init(level) {
 }
 
 function initMaze(){
-	$("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
+    if (gamemode == 1) {
+        $("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
+    }
 
     geometry = new THREE.PlaneGeometry( 30*size, 30*size, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
