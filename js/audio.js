@@ -37,7 +37,7 @@
                 bar_height = -(fbc_array[i]);
                 //console.log(bar_height);
                 //  fillRect( x, y, width, height ) // Explanation of the parameters below
-                if (i = 0) {
+                if (i == 0) {
                     intensity = bar_height;
                 }
                 ctx.fillRect(bar_x, 0, bar_width, -bar_height/2);
