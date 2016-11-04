@@ -60,7 +60,7 @@
                     bar_height = -(fbc_array[i]);
                     //console.log(bar_height);
                     //  fillRect( x, y, width, height ) // Explanation of the parameters below
-                    if (i == 150 && lvl == 1) {
+                    if (i == 149 && lvl == 1) {
                         intensity = bar_height;
                     }
                     else if (i == 0 && (lvl == 2 || lvl == 3)) {
