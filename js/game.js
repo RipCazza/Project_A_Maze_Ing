@@ -92,15 +92,6 @@ function checkCollision(myCell) {
 function init(level) {
 	lvl = level;
     scene = new THREE.Scene();
-    if (lvl == 1) {
-        scene.fog =  new THREE.Fog(0x002100, 0,100);
-    }
-    if (lvl == 2) {
-        scene.fog =  new THREE.Fog(0x000021, 0,100);
-    }
-    if (lvl == 2) {
-        scene.fog =  new THREE.Fog(0x210000, 0,100);
-    }
     // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -139,6 +130,15 @@ function init(level) {
 }
 
 function initMaze(){
+    if (lvl == 1) {
+        scene.fog =  new THREE.Fog(0x001E00, 0,100);
+    }
+    else if (lvl == 2) {
+        scene.fog =  new THREE.Fog(0x00001E, 0,100);
+    }
+    else if (lvl == 3) {
+        scene.fog =  new THREE.Fog(0x1E0000, 0,100);
+    }
     if (gamemode == 1) {
         $("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
     }
