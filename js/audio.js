@@ -28,9 +28,18 @@
             fbc_array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(fbc_array);
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-            ctx.fillStyle = '#B0FF44'; // Color of the bars
-            bars = 600;
+
+            bars = 150;
             for (var i = 0; i < bars; i++) {
+                if (lvl == 1) {
+                    ctx.fillStyle = "rgb(0 , " + -bar_height + ", 0)"; // Color of the bars
+                }
+                else if (lvl == 2) {
+                    ctx.fillStyle = "rgb(0 , 0, " + -bar_height + ")"; // Color of the bars
+                }
+                else if (lvl == 3) {
+                    ctx.fillStyle = "rgb(" + -bar_height + " , 0, 0)"; // Color of the bars
+                }
                 //var analyser_width = document.getElementById('analyser_render').offsetWidth;
                 bar_x = i * 300/bars;
                 bar_width = 300/bars;
