@@ -1,7 +1,7 @@
 //--- AUDIO ---        
 // Create a new instance of an audio object and adjust some of its properties
 var audio = new Audio();
-audio.src = '/mp3/press_start.mp3';
+audio.src = './mp3/press_start.mp3';
 audio.controls = false;
 audio.loop = true;
 audio.autoplay = true;
