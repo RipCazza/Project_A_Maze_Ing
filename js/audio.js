@@ -40,7 +40,6 @@
             analyser.getByteFrequencyData(fbc_array);
 
             if (lvl != undefined && gamemode == 0) {
-                console.log("HELLOW");
                 ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
                 bars = 150;
