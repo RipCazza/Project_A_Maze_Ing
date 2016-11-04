@@ -186,11 +186,6 @@ function initMaze(){
     var timerupsidemat = new THREE.MeshBasicMaterial( { map: timeupTexture});
     var timeupundermat = new THREE.MeshBasicMaterial( { map: timeupunderTexture});
     
-//	var faces = [wallmat,wallmat, plainmat, plainmat, wallmat, wallmat];
-//	var faces2 = [wallmat2,wallmat2, plainmat, plainmat, wallmat2, wallmat2];
-//	var shortwallmat = new THREE.MeshFaceMaterial(faces);
-//	var longwallmat = new THREE.MeshFaceMaterial(faces2);
-    
     var faces = [powerupsidemat,powerupsidemat, powerupundermat, powerupundermat, powerupsidemat, powerupsidemat];
     var powerupmat = new THREE.MeshFaceMaterial(faces);
     var faces = [timerupsidemat,timerupsidemat, timeupundermat, timeupundermat, timerupsidemat, timerupsidemat];
@@ -199,12 +194,7 @@ function initMaze(){
     
     var longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
     var shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
-    
-//    if (gamemode == 0)
-//    {
-//        longwallmat = new THREE.MeshBasicMaterial( { map: longwallTexture});
-//        shortwallmat = new THREE.MeshBasicMaterial(  wallmat);
-//    }
+
     if (lvl == 2)
     {
         var lvl2upperTexture = new THREE.TextureLoader().load(path + 'upper_2.png');
@@ -269,11 +259,6 @@ function initMaze(){
                     wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                     wallGroup.add(wall);objects.push(wall);
                 }
-//                            if ((k == 1) && (j == 0) && (i == 0))
-//                                {
-//                                    wall.position.set(posx + wallPos[k][0], 10, 15 + posz + wallPos[k][1]);
-//                                    wallGroup.add(wall);objects.push(wall);
-//                                }
             }
             // power-up / trap blocks
             if(cells[size*i+j].cellfunction == 1)
@@ -393,8 +378,7 @@ function animate() {
                 floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.001), 0.1 + Math.abs(bar_height * 0.005), 0.1 + Math.abs(bar_height * 0.001));
                 break;
             case (2):
-//                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
-//                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+
                 for (var x = 0; x <wallarray.length; x++ )
                 {
                     for(test of wallarray[x].material.materials)

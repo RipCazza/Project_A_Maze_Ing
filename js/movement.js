@@ -1,5 +1,5 @@
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
-//var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+
 var controls = new THREE.PointerLockControls( camera );
 var timer = null;
 var velocity = new THREE.Vector3();
@@ -30,8 +30,7 @@ if ( havePointerLock ) {
         else {
             controls.enabled = false;
             paused = true;
-//            document.getElementById("pausesound").loop = false;
-//            document.getElementById("pausesound").play();
+            
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
@@ -40,7 +39,6 @@ if ( havePointerLock ) {
             clearInterval(timer);
             timer = null;
             velocity.x = 0;velocity.y=0;velocity.z=0;
-//			document.getElementById("audio" + lvl).pause();
         }
     };
 
@@ -58,19 +56,9 @@ if ( havePointerLock ) {
     document.addEventListener( 'pointerlockerror', pointerlockerror, false );
     document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
     document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
-/*     splashscreen.addEventListener( 'click', function ( event ) {
-        splashscreen.style.display = 'none';
-        document.getElementById("intromusic").pause(); document.getElementById("intromusic").currentTime = 0;
-        // Ask the browser to lock the pointer
-        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
-        element.requestPointerLock();
-        if(!timer) {timer = setInterval(setTime, 1000);}7
-        document.getElementById("timer-container").style.visibility = "visible";
-    }, false ); */
-	
+    
 	function hideSplashScreen(){
 		        splashscreen.style.display = 'none';
-        document.getElementById("audio0").pause(); document.getElementById("audio0").currentTime = 0;
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
         element.requestPointerLock();
@@ -84,7 +72,7 @@ if ( havePointerLock ) {
         // Ask the browser to lock the pointer
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
         controlsEnabled = true;
-//		document.getElementById("audio" + lvl).play();
+
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}
         paused = false;
@@ -186,8 +174,6 @@ function Move(){
             canJump = true;
         }
         prevTime = time;
-     //   console.log("positionx: " + controls.getObject().position.x);
-     //   console.log("positionz: " + controls.getObject().position.z);
 		
 		var teleX = teleZ = 15*(size-1);
 		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
@@ -208,7 +194,6 @@ function Move(){
                 size += 2;
 				controls.getObject().position.x = -15*(size-1);
                 controls.getObject().position.z = -15*(size-1);
-                document.getElementById("audio" + lvl).pause(); document.getElementById("audio" + lvl).currentTime = 0;
 				speedmodifier = 0;
 				cells = [];
 				var newseed = (seed + (lvl * 500));
