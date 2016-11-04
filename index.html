@@ -15,29 +15,6 @@
     <script src="./js/PointerLockControls.js"></script>
     <script src="./js/THREEx.FullScreen.js"></script>
     <script src="./js/mazemap/Cell.js"></script>
-    <script id="vertexShader" type="x-shader/x-vertex">
-        uniform vec3 viewVector;
-        uniform float c;
-        uniform float p;
-        varying float intensity;
-        void main()
-        {
-            vec3 vNormal = normalize( normalMatrix * normal );
-                vec3 vNormel = normalize( normalMatrix * viewVector );
-                intensity = pow( c - dot(vNormal, vNormel), p );
-
-            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-        }
-    </script>
-    <script id="fragmentShader" type="x-shader/x-vertex">
-        uniform vec3 glowColor;
-        varying float intensity;
-        void main()
-        {
-                vec3 glow = glowColor * intensity;
-            gl_FragColor = vec4( glow, 1.0 );
-        }
-    </script>
     <div id="mp3_player">
         <div id="audio_box"></div>
         <canvas id="analyser_render" style="position: fixed;"></canvas>
@@ -86,20 +63,40 @@
 	<script src="./js/stats.min.js"></script>
     <script src="./js/movement.js"></script>
     <script src="./js/audio.js"></script>
-    <audio loop id="audio0">
-         <source src="./mp3/press_start.mp3" type="audio/mpeg">
+    <audio loop id="speedpowerupsound">
+         <source src="./mp3/smw_1-up.wav" type="audio/wav">
          Your browser does not support the audio element.
     </audio>
-	<audio loop id="audio1">
-         <source src="./mp3/level1.mp3" type="audio/mpeg">
+        <audio loop id="telesound">
+         <source src="./mp3/smw_balloonmario.wav" type="audio/wav">
          Your browser does not support the audio element.
     </audio>
-    <audio loop id="audio2">
-         <source src="./mp3/level2.mp3" type="audio/mpeg">
+        <audio loop id="timepowerupsound">
+         <source src="./mp3/smw_switch_timer_ending.wav" type="audio/wav">
          Your browser does not support the audio element.
     </audio>
-	<audio loop id="audio3">
-         <source src="./mp3/level3.mp3" type="audio/mpeg">
+    <audio loop id="jumpsound">
+         <source src="./mp3/smw_jump.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="trapsound">
+         <source src="./mp3/smb_bowserfalls.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="pausesound">
+         <source src="./mp3/smb_pause.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="gameoversound">
+         <source src="./mp3/smb_mariodie.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="finishedsound">
+         <source src="./mp3/smw_course_clear.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="nextlevelsound">
+         <source src="./mp3/smw_pipe.wav" type="audio/wav">
          Your browser does not support the audio element.
     </audio>
     <script>

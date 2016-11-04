@@ -6,7 +6,8 @@
         audio.loop = true;
         audio.autoplay = true;
         // Establish all variables that your Analyser will use
-        var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height, intensity;
+        var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
+        var intensity = 0;
 
         var speedpowerupsound = new Audio('./mp3/smw_1-up.wav');
         var telesound = new Audio('./mp3/smw_balloonmario.wav');
@@ -39,7 +40,7 @@
             fbc_array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(fbc_array);
 
-            if (lvl != undefined && gamemode == 0) {
+            if (window['lvl'] != undefined && gamemode == 0) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
                 bars = 150;
@@ -59,7 +60,10 @@
                     bar_height = -(fbc_array[i]);
                     //console.log(bar_height);
                     //  fillRect( x, y, width, height ) // Explanation of the parameters below
-                    if (i == 0) {
+                    if (i == 149 && lvl == 1) {
+                        intensity = bar_height;
+                    }
+                    else if (i == 0 && (lvl == 2 || lvl == 3)) {
                         intensity = bar_height;
                     }
                     ctx.fillRect(bar_x, 0, bar_width, -bar_height/2);
