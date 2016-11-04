@@ -38,11 +38,14 @@
             gl_FragColor = vec4( glow, 1.0 );
         }
     </script>
-
+    <div id="mp3_player">
+        <div id="audio_box"></div>
+        <canvas id="analyser_render" style="position: fixed;"></canvas>
+    </div>
     <span id="timer-container">
             Time: <span id="minutes">00</span>:<span id="seconds">00</span>
     </span>
-    <div id="blocker">
+    <div id="blocker" style="position: absolute; z-index: 1">
         <span class="glyphicon glyphicon-pause" id="pauseIcon"> </span>
         <div id="splashscreen"><img src="./images/logo.png" width="602" height="375"/>
 		<div id="seed"><h2>Seed</h2>
@@ -99,6 +102,42 @@
          <source src="./mp3/level3.mp3" type="audio/mpeg">
          Your browser does not support the audio element.
     </audio>
+    <audio loop id="speedpowerupsound">
+         <source src="./mp3/smw_1-up.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+        <audio loop id="telesound">
+         <source src="./mp3/smw_balloonmario.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+        <audio loop id="timepowerupsound">
+         <source src="./mp3/smw_switch_timer_ending.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="jumpsound">
+         <source src="./mp3/smw_jump.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="trapsound">
+         <source src="./mp3/smb_bowserfalls.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="pausesound">
+         <source src="./mp3/smb_pause.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="gameoversound">
+         <source src="./mp3/smb_mariodie.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="finishedsound">
+         <source src="./mp3/smw_course_clear.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
+    <audio loop id="nextlevelsound">
+         <source src="./mp3/smw_pipe.wav" type="audio/wav">
+         Your browser does not support the audio element.
+    </audio>
     <script>
 		var size = 10;
         var seed = 0;
@@ -144,5 +183,6 @@
             history.go(0);
         });
     </script>
+    <canvas id="canvasID" style="position: fixed;"></canvas>
 </body>
 </html>
