@@ -40,7 +40,7 @@
             fbc_array = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(fbc_array);
 
-            if (window['lvl'] != undefined && gamemode == 0) {
+            if (typeof lvl != 'undefined' && gamemode == 0) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
                 bars = 150;
