@@ -115,9 +115,11 @@ function init(level) {
     // floor
 
 	initMaze();
+    var canvas = document.getElementById("canvasID");
     renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: true
+        alpha: true,
+        canvas: canvas
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor( 0xffffff, 0);
