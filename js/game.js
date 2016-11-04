@@ -509,7 +509,7 @@ function EndGame()
     elem = document.getElementById('pauseIcon');
     elem.parentNode.removeChild(elem);
     document.getElementById("end").style.visibility = 'visible';			
-    document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
+    document.getElementById("yourSeed").innerHTML = "Your seed: " + seednumber;
     document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
     document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
     // Attempt to unlock

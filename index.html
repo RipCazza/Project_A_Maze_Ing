@@ -101,7 +101,7 @@
     </audio>
     <script>
 		var size = 10;
-        var seed = 0;
+        var seednumber = 0, seed = 0;
         var gamemode = 0;
         $("#Submit").on('click',function()
         {
@@ -109,7 +109,7 @@
             {
                 gamemode = 1;
             }
-            var seednumber = document.getElementById("SeedNumber").value;
+            seednumber = document.getElementById("SeedNumber").value;
             if(seednumber != "" && $.isNumeric(seednumber))
             {
                 seed = Math.round(seednumber);
@@ -130,7 +130,7 @@
             {
                 gamemode = 1;
             } 
-			seed = Math.round(Math.random() * 1000);
+			seed = seednumber = Math.round(Math.random() * 1000);
 			console.log(seed);
 			$("body").fadeToggle(100, "linear");
 			hideSplashScreen();
