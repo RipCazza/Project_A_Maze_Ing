@@ -30,7 +30,8 @@ if ( havePointerLock ) {
         else {
             controls.enabled = false;
             paused = true;
-            
+            pausesound.loop = false;
+            pausesound.play();
             blocker.style.display = '-webkit-box';
             blocker.style.display = '-moz-box';
             blocker.style.display = 'box';
@@ -109,8 +110,8 @@ var onKeyDown = function ( event ) {
 
         case 32: // space
             if ( canJump === true ) velocity.y = 100;
-            document.getElementById("jumpsound").loop = false;
-            document.getElementById("jumpsound").play();
+            jumpsound.loop = false;
+            jumpsound.play();
             canJump = false;
             break;
     }
@@ -178,8 +179,8 @@ function Move(){
 		var teleX = teleZ = 15*(size-1);
 		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
 			if(lvl<3){
-                document.getElementById("nextlevelsound").loop = false;
-                document.getElementById("nextlevelsound").play();
+                nextlevelsound.loop = false;
+                nextlevelsound.play();
                 controlsEnabled = false;
                 velocity.x = 0;
                 velocity.z = 0;
