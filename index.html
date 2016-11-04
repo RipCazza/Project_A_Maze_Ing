@@ -38,11 +38,14 @@
             gl_FragColor = vec4( glow, 1.0 );
         }
     </script>
-
+    <div id="mp3_player">
+        <div id="audio_box"></div>
+        <canvas id="analyser_render" style="position: fixed;"></canvas>
+    </div>
     <span id="timer-container">
             Time: <span id="minutes">00</span>:<span id="seconds">00</span>
     </span>
-    <div id="blocker">
+    <div id="blocker" style="position: absolute; z-index: 1">
         <span class="glyphicon glyphicon-pause" id="pauseIcon"> </span>
         <div id="splashscreen"><img src="./images/logo.png" width="602" height="375"/>
 		<div id="seed"><h2>Seed</h2>
@@ -144,5 +147,6 @@
             history.go(0);
         });
     </script>
+    <canvas id="canvasID" style="position: fixed;"></canvas>
 </body>
 </html>
