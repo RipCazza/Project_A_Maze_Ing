@@ -8,7 +8,6 @@
         // Establish all variables that your Analyser will use
         var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
         var intensity = 0;
-        var barMod = 0;
         // Initialize the MP3 player after the page loads all of its HTML into the window
         window.addEventListener("load", initMp3Player, false);
         function initMp3Player(){
@@ -50,10 +49,11 @@
                     bar_height = -(fbc_array[i]);
                     //console.log(bar_height);
                     //  fillRect( x, y, width, height ) // Explanation of the parameters below
-                    if (i == 0) {
-                        intensity = -(barMod - bar_height) * 3 - 175;
-
-                        barMod = bar_height;
+                    if (i == 150 && lvl == 1) {
+                        intensity = bar_height;
+                    }
+                    else if (i == 0 && (lvl == 2 || lvl == 3)) {
+                        intensity = bar_height;
                     }
                     ctx.fillRect(bar_x, 0, bar_width, -bar_height/2);
                 }
