@@ -369,7 +369,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-//    checkCollision(myCell);
+    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -387,29 +387,29 @@ function animate() {
         switch (lvl)
         {
             case (1):
-                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
-                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
-                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.001),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
-                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.001), 0.1 + Math.abs(bar_height * 0.005), 0.1 + Math.abs(bar_height * 0.001));
+                wallarray[0].material.color.setRGB( Math.abs(intensity * 0.001), Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
+                wallarray[1].material.color.setRGB( Math.abs(intensity * 0.001), Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
+                traparray[0].material.color.setRGB( Math.abs(intensity * 0.001),  Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
+                floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.001), 0.1 + Math.abs(intensity * 0.005), 0.1 + Math.abs(intensity * 0.001));
                 break;
             case (2):
-//                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
-//                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+//                wallarray[0].material.color.setRGB( Math.abs(intensity * 0.0015), Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
+//                wallarray[1].material.color.setRGB( Math.abs(intensity * 0.0015), Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
                 for (var x = 0; x <wallarray.length; x++ )
                 {
                     for(test of wallarray[x].material.materials)
                     {
-                        test.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
+                        test.color.setRGB( Math.abs(intensity * 0.0015),  Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
                     }
                 }
-                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0015),  Math.abs(bar_height * 0.0015), Math.abs(bar_height * 0.005));
-                floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.0015), 0.1 + Math.abs(bar_height * 0.005));
+                traparray[0].material.color.setRGB( Math.abs(intensity * 0.0015),  Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
+                floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.0015), 0.1 + Math.abs(intensity * 0.0015), 0.1 + Math.abs(intensity * 0.005));
                 break;
             case (3):
-                wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
-                traparray[0].material.color.setRGB( Math.abs(bar_height * 0.0065), 0, 0);
-                floor.material.color.setRGB( Math.abs(bar_height * 0.005), 0, 0);
+                wallarray[0].material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
+                wallarray[1].material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
+                traparray[0].material.color.setRGB( Math.abs(intensity * 0.0065), 0, 0);
+                floor.material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
                 break
         }
         // change colors of cubes
@@ -417,7 +417,7 @@ function animate() {
         {
             for(test of powerGroup.children[x].material.materials)
             {
-                test.color.setRGB( Math.abs(bar_height * 0.005),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.005));
+                test.color.setRGB( Math.abs(intensity * 0.005),  Math.abs(intensity * 0.005), Math.abs(intensity * 0.005));
             }
         }
     }
@@ -444,15 +444,15 @@ function checkCellFunction(cellnumber)
                     speedmodifier = 1.5;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
-                    document.getElementById("speedpowerupsound").loop = false;
-                    document.getElementById("speedpowerupsound").play();
+                    speedpowerupsound.loop = false;
+                    speedpowerupsound.play();
                 }
                 break;
             case 2:
                 if (xPos >= xCell - 7.5 && xPos <= xCell +7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
                     speedmodifier = 0.75;
-                    document.getElementById("trapsound").loop = false;
-                    document.getElementById("trapsound").play();
+                    trapsound.loop = false;
+                    trapsound.play();
                 }
                 break;
             case 3:
@@ -460,16 +460,16 @@ function checkCellFunction(cellnumber)
                     sec -=10;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
-                    document.getElementById("timepowerupsound").loop = false;
-                    document.getElementById("timepowerupsound").play();
+                    timepowerupsound.loop = false;
+                    timepowerupsound.play();
                 }
                 break;
             case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
                     GameOver();
                     audio.pause();
-                    document.getElementById("gameoversound").loop = false;
-                    document.getElementById("gameoversound").play();
+                    gameoversound.loop = false;
+                    gameoversound.play();
                 }
                 break;
             case 5:
@@ -478,8 +478,8 @@ function checkCellFunction(cellnumber)
                     controls.getObject().position.z = Math.floor(Teleport() * (size - 1)) * 30 - size * 30 / 2 + 15;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
-                    document.getElementById("telesound").loop = false;
-                    document.getElementById("telesound").play();
+                    telesound.loop = false;
+                    telesound.play();
                 }
                 break;
         }
@@ -513,26 +513,27 @@ function Teleport() {
 
 function EndGame()
 {
-			audio.pause();
-            document.getElementById("finishedsound").loop = false;
-            document.getElementById("finishedsound").play();
-	        clearInterval(timer);
-            timer = null;
-	        blocker.style.display = '-webkit-box';
-            blocker.style.display = '-moz-box';
-            blocker.style.display = 'box';
-			var elem = document.getElementById('pause');
-			elem.parentNode.removeChild(elem);
-			elem = document.getElementById('pauseIcon');
-			elem.parentNode.removeChild(elem);
-            document.getElementById("end").style.visibility = 'visible';			
-			document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
-			document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
-			document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
-			// Attempt to unlock
-			document.exitPointerLock();
-			
-			}
+    audio.pause();
+    finishedsound.loop = false;
+    finishedsound.play();
+    clearInterval(timer);
+    timer = null;
+    blocker.style.display = '-webkit-box';
+    blocker.style.display = '-moz-box';
+    blocker.style.display = 'box';
+    var elem = document.getElementById('pause');
+    elem.parentNode.removeChild(elem);
+    elem = document.getElementById('pauseIcon');
+    elem.parentNode.removeChild(elem);
+    document.getElementById("end").style.visibility = 'visible';			
+    document.getElementById("yourSeed").innerHTML = "Your seed: " + seed;
+    document.getElementById("finalTime").innerHTML = "Final time: " + document.getElementById("minutes").innerHTML + " minutes and " + document.getElementById("seconds").innerHTML + " seconds";
+    document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+    // Attempt to unlock
+    document.exitPointerLock();
+
+}
+
 function GameOver(){
     blocker.style.display = '-webkit-box';
     blocker.style.display = '-moz-box';
