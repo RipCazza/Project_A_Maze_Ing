@@ -207,8 +207,8 @@ function Move(){
 				cells = [];
 				var newseed = (seed + (lvl * 500));
 				console.log(newseed);
-				GenerateMaze(newseed, size);
 				lvl++;
+                GenerateMaze(newseed, size, lvl);
 				initMaze();
 				controlsEnabled = true;
 				requestAnimationFrame(animate);

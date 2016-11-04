@@ -1,14 +1,16 @@
 //--- MAZE GENERATOR----
 //the cells of the maze
 var cells = [];
+var currentlvl;
 
-function GenerateMaze(seed, size)
+function GenerateMaze(seed, size, newlvl)
 {
 	for (i = 0; i < size; i++)
-{
+    {
     for (j = 0; j < size; j++)
         {
             cells.push(new cell(j,i));
+            currentlvl = newlvl;
         }
 }
 	
@@ -61,7 +63,7 @@ function movedirection(currentcellnr)
     // trap/power-up randomizer
     var traprandomizer = random();
 
-    if (traprandomizer < 0.25 && !(currentcellnr == 0 || currentcellnr == (size - 1) || currentcellnr == (size * (size -1)) || currentcellnr == (size * size) -1))
+    if (traprandomizer < 0.20 && !(currentcellnr == 0 || currentcellnr == (size - 1) || currentcellnr == (size * (size -1)) || currentcellnr == (size * size) -1))
     {
        if (traprandomizer < 0.05)
        {
@@ -69,20 +71,20 @@ function movedirection(currentcellnr)
            cells[currentcellnr].cellfunction = 1;
        }
 
-        else if (traprandomizer > 0.05 && traprandomizer < 0.10)
+        else if (traprandomizer > 0.05 && traprandomizer < 0.10 && currentlvl != 3)
         {
             tempcounter++;
            cells[currentcellnr].cellfunction = 2;
+        }
+        else if (traprandomizer > 0.05 && traprandomizer < 0.10 && currentlvl == 3){
+            temcounter++;
+            cells[currentcellnr].cellfunction = 4;
         }
         else if ( traprandomizer >0.10 && traprandomizer <0.15){
             temcounter++;
             cells[currentcellnr].cellfunction = 3; 
         }
-        else if (traprandomizer >0.15  && traprandomizer <0.20){
-            temcounter++;
-            cells[currentcellnr].cellfunction = 4;
-        }
-        else if (traprandomizer >0.20){
+        else if (traprandomizer >0.15){
             temcounter++;
             cells[currentcellnr].cellfunction = 5;
         }
