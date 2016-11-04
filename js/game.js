@@ -365,7 +365,7 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
-    checkCollision(myCell);
+//    checkCollision(myCell);
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
@@ -385,7 +385,6 @@ function animate() {
             case (1):
                 wallarray[0].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 wallarray[1].material.color.setRGB( Math.abs(bar_height * 0.001), Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
-                console.log(traparray[0]);
                 traparray[0].material.color.setRGB( Math.abs(bar_height * 0.001),  Math.abs(bar_height * 0.005), Math.abs(bar_height * 0.001));
                 floor.material.color.setRGB( 0.1 + Math.abs(bar_height * 0.001), 0.1 + Math.abs(bar_height * 0.005), 0.1 + Math.abs(bar_height * 0.001));
                 break;
@@ -441,11 +440,15 @@ function checkCellFunction(cellnumber)
                     speedmodifier = 1.5;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
+                    document.getElementById("speedpowerupsound").loop = false;
+                    document.getElementById("speedpowerupsound").play();
                 }
                 break;
             case 2:
                 if (xPos >= xCell - 7.5 && xPos <= xCell +7.5 && zPos >= zCell - 7.5 && zPos <= zCell +7.5 && yPos <= 10.2) {
                     speedmodifier = 0.75;
+                    document.getElementById("trapsound").loop = false;
+                    document.getElementById("trapsound").play();
                 }
                 break;
             case 3:
@@ -453,11 +456,16 @@ function checkCellFunction(cellnumber)
                     sec -=10;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
+                    document.getElementById("timepowerupsound").loop = false;
+                    document.getElementById("timepowerupsound").play();
                 }
                 break;
             case 4:
                 if (xPos>= xCell - 7.5 && xPos <= xCell + 7.5 && zPos >=zCell - 7.5 && zPos <= zCell +7.5 && yPos <=10.2){
                     GameOver();
+                    audio.pause();
+                    document.getElementById("gameoversound").loop = false;
+                    document.getElementById("gameoversound").play();
                 }
                 break;
             case 5:
@@ -466,6 +474,8 @@ function checkCellFunction(cellnumber)
                     controls.getObject().position.z = Math.floor(Teleport() * (size - 1)) * 30 - size * 30 / 2 + 15;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
+                    document.getElementById("telesound").loop = false;
+                    document.getElementById("telesound").play();
                 }
                 break;
         }
@@ -500,6 +510,8 @@ function Teleport() {
 function EndGame()
 {
 			audio.pause();
+            document.getElementById("finishedsound").loop = false;
+            document.getElementById("finishedsound").play();
 	        clearInterval(timer);
             timer = null;
 	        blocker.style.display = '-webkit-box';
