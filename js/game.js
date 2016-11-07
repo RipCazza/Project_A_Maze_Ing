@@ -92,7 +92,6 @@ function checkCollision(myCell) {
 function init(level) {
 	lvl = level;
     scene = new THREE.Scene();
-    scene.fog =  new THREE.Fog(0x000000, 0,100);
     // LIGHT
     var sunLight = new THREE.DirectionalLight(0xffeedd, 1);
     sunLight.position.set(0.3, - 1, - 1).normalize();
@@ -131,15 +130,60 @@ function init(level) {
 }
 
 function initMaze(){
+    if (seednumber == 777) {
+        scene.fog =  new THREE.Fog(0xFFC0CB, 0,100);
+    }
+    else if (lvl == 1) {
+        scene.fog =  new THREE.Fog(0x001E00, 0,100);
+    }
+    else if (lvl == 2) {
+        scene.fog =  new THREE.Fog(0x00001E, 0,100);
+    }
+    else if (lvl == 3) {
+        scene.fog =  new THREE.Fog(0x1E0000, 0,100);
+    }
     if (gamemode == 1) {
         $("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
+    }
+    else {
+        if (seednumber == 777) {
+            $("body").css("background-color", "rgb(255,192,203)");
+        }
+        else if (lvl == 1) {
+            $("body").css("background-color", "rgb(0, 30, 0)");
+        }
+        else if (lvl == 2) {
+            $("body").css("background-color", "rgb(0, 0, 30)");
+        }
+        else if (lvl == 3) {
+            $("body").css("background-color", "rgb(30, 0, 0)");
+        }
     }
 
     geometry = new THREE.PlaneGeometry( 30*size, 30*size, 100, 100 );
     geometry.rotateX( - Math.PI / 2 );
 
-	var path = "./images/level" + lvl + "/";
-    var texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
+    var path = "./images/level" + lvl + "/";
+
+    var powerupTexture, powerupunderTexture, timeupTexture, timeupunderTexture, shortwallTexture, traptexture, longwallTexture, teleTexture, teleunderTexture, texture;
+    if (seednumber == 777) {
+        powerupTexture = powerupunderTexture = timeupTexture = timeupunderTexture = shortwallTexture = traptexture = traptexture = longwallTexture = teleTexture = teleunderTexture = texture = new THREE.TextureLoader().load('images/david.png');
+    }
+    else {
+        texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
+        powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
+        powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
+        timeupTexture = new THREE.TextureLoader().load('images/Time_up.jpg');
+        timeupunderTexture = new THREE.TextureLoader().load('images/Time_up_under.jpg');
+        shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+        traptexture = new THREE.TextureLoader().load(path + 'trap.png');
+        longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
+
+
+        teleTexture = new THREE.TextureLoader().load('images/tele.jpg');
+        teleunderTexture = new THREE.TextureLoader().load('images/tele_upper.jpg');
+    }
+
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 2*size, 2*size );
@@ -152,21 +196,11 @@ function initMaze(){
 
     var posx = -15*(size-1), posz = 15*(size-1);
     var wallPos = [[0,15],[15,0],[0,-15],[-15,0]];
-	wallGroup = new THREE.Object3D();
+    wallGroup = new THREE.Object3D();
     itemGroup = new THREE.Object3D();
-	trapGroup = new THREE.Object3D();
+    trapGroup = new THREE.Object3D();
     powerGroup = new THREE.Object3D();
-    var powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
-    var powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
-    var timeupTexture = new THREE.TextureLoader().load('images/Time_up.jpg');
-    var timeupunderTexture = new THREE.TextureLoader().load('images/Time_up_under.jpg');
-	var shortwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
-    var traptexture = new THREE.TextureLoader().load(path + 'trap.png');
-	var longwallTexture = new THREE.TextureLoader().load(path + 'walltexture.png');
 
-
-    var teleTexture = new THREE.TextureLoader().load('images/tele.jpg');
-    var teleunderTexture = new THREE.TextureLoader().load('images/tele_upper.jpg');
     var telesidemat = new THREE.MeshBasicMaterial( { map: teleTexture});
     var teleundermat = new THREE.MeshBasicMaterial( { map: teleunderTexture});
     var faces = [telesidemat,telesidemat, teleundermat, teleundermat, telesidemat, telesidemat];
