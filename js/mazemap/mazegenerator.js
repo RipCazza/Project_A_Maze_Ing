@@ -2,36 +2,27 @@
 //the cells of the maze
 var cells = [];
 var currentlvl;
+var currentcell;
+var steps;
 
+// fills cells and activates movedirection
 function GenerateMaze(seed, size, newlvl)
 {
 	for (i = 0; i < size; i++)
     {
-    for (j = 0; j < size; j++)
+        for (j = 0; j < size; j++)
         {
             cells.push(new cell(j,i));
             currentlvl = newlvl;
         }
-}
-	
-	cells[((size*size)/2)].unvisited = false;
-var currentcell = ((size*size)/2);
-var steps = [-size, 1, size,-1];
-
-var temcounter = 0;
-var tempcounter = 0;
-movedirection(currentcell);
-	
-console.log ("goodthing: "  + temcounter);
-console.log ("badthing: "  + tempcounter);
-
-for (var x = 0; x < (size*size); x++)
-    {
-        if (cells[x].cellfunction)
-            {
-                console.log("cell: " + x);
-            }
     }
+	
+    cells[((size*size)/2)].unvisited = false;
+    currentcell = ((size*size)/2);
+    steps = [-size, 1, size,-1];
+
+    movedirection(currentcell);
+}
 
 // Makes a route out of the cells
 function movedirection(currentcellnr)
@@ -68,28 +59,26 @@ function movedirection(currentcellnr)
         // speed power-up
        if (traprandomizer < 0.02)
        {
-            temcounter++;
            cells[currentcellnr].cellfunction = 1;
        }
         // time power-up
-        else if ( traprandomizer >0.02 && traprandomizer <0.04){
-            temcounter++;
+        else if ( traprandomizer >0.02 && traprandomizer <0.04)
+        {
             cells[currentcellnr].cellfunction = 3; 
         }
         // slow trap
         else if (traprandomizer > 0.04 && traprandomizer < 0.08 && currentlvl != 3)
         {
-            tempcounter++;
            cells[currentcellnr].cellfunction = 2;
         }
         // dead trap
-        else if (traprandomizer > 0.04 && traprandomizer < 0.08 && currentlvl == 3){
-            temcounter++;
+        else if (traprandomizer > 0.04 && traprandomizer < 0.08 && currentlvl == 3)
+        {
             cells[currentcellnr].cellfunction = 4;
         }
         // tele trap/power-up
-        else if (traprandomizer >0.08){
-            temcounter++;
+        else if (traprandomizer >0.08)
+        {
             cells[currentcellnr].cellfunction = 5;
         }
     }
@@ -115,8 +104,4 @@ function RemoveElement(oldarray, nr)
             }
     }
     return k;
-}
-	
-}
-
-
+}	
