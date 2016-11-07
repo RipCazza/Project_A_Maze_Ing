@@ -1,3 +1,4 @@
+//--- MOVEMENT AND PAUSE SCREEN ---
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
 
 var controls = new THREE.PointerLockControls( camera );
@@ -87,7 +88,7 @@ if ( havePointerLock ) {
 else {
     splashscreen.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
 }
-
+// On key down
 var onKeyDown = function ( event ) {
 
     switch ( event.keyCode ) {
@@ -120,7 +121,7 @@ var onKeyDown = function ( event ) {
     }
 
 };
-
+// On key up
 var onKeyUp = function ( event ) {
 
     switch( event.keyCode ) {
@@ -151,7 +152,10 @@ var onKeyUp = function ( event ) {
 document.addEventListener( 'keydown', onKeyDown, false );
 document.addEventListener( 'keyup', onKeyUp, false );
 
-function Move(){
+// Movement
+function Move()
+{
+    // Checks if not in pause screen
     if ( controlsEnabled && !paused ) {
         var time = performance.now();
         var delta = ( time - prevTime ) / 1000;
@@ -180,6 +184,7 @@ function Move(){
         prevTime = time;
 		
 		var teleX = teleZ = 15*(size-1);
+        // If in teleporter then new level/ end level
 		if(Math.abs(controls.getObject().position.x - teleX) <= 3 && Math.abs(controls.getObject().position.z - teleZ) <= 3) {
 			if(lvl<3){
                 nextlevelsound.loop = false;
@@ -220,7 +225,7 @@ function Move(){
 		}
     }
 }
-
+// Timer
 function setTime() {
     sec++;
     document.getElementById("seconds").innerHTML = pad(sec % 60);

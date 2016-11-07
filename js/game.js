@@ -1,3 +1,4 @@
+// --- MAIN GAME ---
 var scene, renderer;
 var geometry, material;
 var teleport, glow;
@@ -356,7 +357,6 @@ function initMaze(){
     scene.add(powerGroup);
 	speedmodifier = 1;	
 	$("body").fadeToggle(3000);
-//	document.getElementById("audio" + lvl).play();
     document.getElementById("timer-container").style.visibility = "visible";
     // AUDIO
     audio.src = './mp3/level' + lvl + '.mp3';
@@ -379,7 +379,8 @@ function animate() {
     zPos = controls.getObject().position.z;
     yPos = controls.getObject().position.y;
     cellPos = checkCell();
-    if(cellPos >= 0 && cellPos < size * size) {
+    if(cellPos >= 0 && cellPos < size * size) 
+    {
         myCell = cells[cellPos];
     }
     xCell = (myCell.positionx - size / 2) * 30 + 15;
