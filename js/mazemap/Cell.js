@@ -1,3 +1,4 @@
+// --- CELL CLASS ---
 class cell
 {   
     constructor(i,j)
