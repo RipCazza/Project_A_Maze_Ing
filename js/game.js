@@ -293,6 +293,12 @@ function initMaze(){
                     wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                     wallGroup.add(wall);objects.push(wall);
                 }
+                else if ((k == 1) && (j == 0)&& (i == (size -1)))
+                {
+                    //shortwall
+                    wall.position.set( -15 + posx , 10, -15 + posz);
+                    wallGroup.add(wall);objects.push(wall);
+                }
             }
             // power-up / trap blocks
             if(cells[size*i+j].cellfunction == 1)
