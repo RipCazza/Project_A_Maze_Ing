@@ -206,7 +206,9 @@ function Move(){
                 velocity.z = 0;
                 controls.getObject().position.x = -15*(size-1);
                 controls.getObject().position.z = -15*(size-1);
-                myCell = (size * (size -1) );
+                myCell = cells[(size * (size -1))];
+                xCell = (myCell.positionx - size / 2) * 30 + 15;
+                zCell = -((myCell.positiony - size / 2) * 30 + 15);
 				requestAnimationFrame(animate);
 			}
 			else if(lvl==3){

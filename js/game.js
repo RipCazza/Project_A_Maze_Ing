@@ -41,7 +41,7 @@ function checkCell() {
 
 function checkCollision(myCell) {
     var walls = myCell.walls;
-
+//    console.log(walls);
     if (xPos <= xCell - 7 && walls[3] == true) {
         controls.getObject().position.x = xCell - 7;
     }
@@ -371,19 +371,17 @@ function onWindowResize() {
 
 function animate() {
     //framerate checker
-    var time = performance.now() / 1000;
+//    var time = performance.now() / 1000;
     //stats.begin();
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     
     xPos = controls.getObject().position.x;
     zPos = controls.getObject().position.z;
     yPos = controls.getObject().position.y;
-
     cellPos = checkCell();
     if(cellPos >= 0 && cellPos < size * size) {
         myCell = cells[cellPos];
     }
-    
     xCell = (myCell.positionx - size / 2) * 30 + 15;
     zCell = -((myCell.positiony - size / 2) * 30 + 15);
 
@@ -393,8 +391,10 @@ function animate() {
     zPos = controls.getObject().position.z;
     
     teleport.rotation.y += Math.PI/180;glow.rotation.y+= Math.PI/180;
+
     checkCollision(myCell);
     checkCellFunction(cellPos);
+    
     renderer.render( scene, camera );
     // framerate checker
         //stats.end();
