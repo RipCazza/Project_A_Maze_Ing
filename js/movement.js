@@ -185,8 +185,6 @@ function Move(){
                 nextlevelsound.loop = false;
                 nextlevelsound.play();
                 controlsEnabled = false;
-                velocity.x = 0;
-                velocity.z = 0;
 				cancelAnimationFrame(animate);// Stop the animation
 				$("body").fadeToggle(100);
 				scene.remove(wallGroup);
@@ -203,8 +201,12 @@ function Move(){
 				lvl++;
                 GenerateMaze(newseed, size, lvl);
 				initMaze();
-
 				controlsEnabled = true;
+                velocity.x = 0;
+                velocity.z = 0;
+                controls.getObject().position.x = -15*(size-1);
+                controls.getObject().position.z = -15*(size-1);
+                myCell = (size * (size -1) );
 				requestAnimationFrame(animate);
 			}
 			else if(lvl==3){

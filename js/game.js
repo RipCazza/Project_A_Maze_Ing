@@ -360,9 +360,6 @@ function initMaze(){
     document.getElementById("timer-container").style.visibility = "visible";
     // AUDIO
     audio.src = './mp3/level' + lvl + '.mp3';
-                    controls.getObject().position.x = -15*(size-1);
-                controls.getObject().position.z = -15*(size-1);
-
 }
 
 function onWindowResize() {
