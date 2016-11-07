@@ -130,7 +130,7 @@ function init(level) {
 }
 
 function initMaze(){
-    if (seednumber == 777) {
+    if (seednumber == 7777) {
         scene.fog =  new THREE.Fog(0xFFC0CB, 0,100);
     }
     else if (lvl == 1) {
@@ -146,7 +146,7 @@ function initMaze(){
         $("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
     }
     else {
-        if (seednumber == 777) {
+        if (seednumber == 7777) {
             $("body").css("background-color", "rgb(255,192,203)");
         }
         else if (lvl == 1) {
@@ -166,7 +166,7 @@ function initMaze(){
     var path = "./images/level" + lvl + "/";
 
     var powerupTexture, powerupunderTexture, timeupTexture, timeupunderTexture, shortwallTexture, traptexture, longwallTexture, teleTexture, teleunderTexture, texture;
-    if (seednumber == 777) {
+    if (seednumber == 7777) {
         powerupTexture = powerupunderTexture = timeupTexture = timeupunderTexture = shortwallTexture = traptexture = traptexture = longwallTexture = teleTexture = teleunderTexture = texture = new THREE.TextureLoader().load('images/david.png');
     }
     else {
