@@ -27,9 +27,9 @@ var lvl = 1;
 var powerupy = 0.02;
 
 /// Framerate checker
-var stats = new Stats();
-stats.showPanel( 0 );
-document.body.appendChild( stats.dom );
+//var stats = new Stats();
+//stats.showPanel( 0 );
+//document.body.appendChild( stats.dom );
 ///
 
 function checkCell() {
@@ -369,7 +369,7 @@ function onWindowResize() {
 function animate() {
     //framerate checker
     var time = performance.now() / 1000;
-    stats.begin();
+    //stats.begin();
     // cubeGlow.material.uniforms.viewVector.value = new THREE.Vector3().subVectors( camera.position, cubeGlow.position );
     
     xPos = controls.getObject().position.x;
@@ -394,7 +394,7 @@ function animate() {
     checkCellFunction(cellPos);
     renderer.render( scene, camera );
     // framerate checker
-        stats.end();
+        //stats.end();
     // AUDIO
     requestAnimationFrame( animate );
     
