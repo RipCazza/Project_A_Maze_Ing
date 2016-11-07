@@ -68,7 +68,6 @@ if ( havePointerLock ) {
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
         element.requestPointerLock();
         if(!timer) {timer = setInterval(setTime, 1000);}7
-        document.getElementById("timer-container").style.visibility = "visible";
 	}
 
     pauseScreen.addEventListener( 'click', function ( event ) {

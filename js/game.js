@@ -351,7 +351,7 @@ function initMaze(){
 	speedmodifier = 1;	
 	$("body").fadeToggle(3000);
 //	document.getElementById("audio" + lvl).play();
-    
+    document.getElementById("timer-container").style.visibility = "visible";
     // AUDIO
     audio.src = './mp3/level' + lvl + '.mp3';
 
