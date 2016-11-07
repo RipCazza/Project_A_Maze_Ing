@@ -293,6 +293,12 @@ function initMaze(){
                     wall.position.set( posx + wallPos[k][0], 10, posz + wallPos[k][1]);
                     wallGroup.add(wall);objects.push(wall);
                 }
+                else if ((k == 1) && (j == 0)&& (i == (size -1)))
+                {
+                    //shortwall
+                    wall.position.set( -15 + posx , 10, -15 + posz);
+                    wallGroup.add(wall);objects.push(wall);
+                }
             }
             // power-up / trap blocks
             if(cells[size*i+j].cellfunction == 1)
@@ -351,7 +357,7 @@ function initMaze(){
 	speedmodifier = 1;	
 	$("body").fadeToggle(3000);
 //	document.getElementById("audio" + lvl).play();
-    
+    document.getElementById("timer-container").style.visibility = "visible";
     // AUDIO
     audio.src = './mp3/level' + lvl + '.mp3';
                     controls.getObject().position.x = -15*(size-1);
