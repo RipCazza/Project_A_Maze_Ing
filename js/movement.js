@@ -196,8 +196,6 @@ function Move(){
                 scene.remove(powerGroup);
                 powerUpCellArray = [];
                 size += 2;
-				controls.getObject().position.x = -15*(size-1);
-                controls.getObject().position.z = -15*(size-1);
 				speedmodifier = 0;
 				cells = [];
 				var newseed = (seed + (lvl * 500));
@@ -205,6 +203,7 @@ function Move(){
 				lvl++;
                 GenerateMaze(newseed, size, lvl);
 				initMaze();
+
 				controlsEnabled = true;
 				requestAnimationFrame(animate);
 			}
