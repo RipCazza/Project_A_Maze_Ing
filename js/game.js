@@ -354,6 +354,8 @@ function initMaze(){
     
     // AUDIO
     audio.src = './mp3/level' + lvl + '.mp3';
+                    controls.getObject().position.x = -15*(size-1);
+                controls.getObject().position.z = -15*(size-1);
 
 }
 
@@ -395,48 +397,11 @@ function animate() {
         stats.end();
     // AUDIO
     requestAnimationFrame( animate );
+    
     // change color
     if (gamemode == 0)
     {
-        var wallarray = wallGroup.children;
-        var traparray = trapGroup.children;
-        var powerarray = powerGroup.children;
-        
-        //change colors per level
-        switch (lvl)
-        {
-            case (1):
-                wallarray[0].material.color.setRGB( Math.abs(intensity * 0.001), Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
-                wallarray[1].material.color.setRGB( Math.abs(intensity * 0.001), Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
-                traparray[0].material.color.setRGB( Math.abs(intensity * 0.001),  Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
-                floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.001), 0.1 + Math.abs(intensity * 0.005), 0.1 + Math.abs(intensity * 0.001));
-                break;
-            case (2):
-                for (var x = 0; x <wallarray.length; x++ )
-                {
-                    for(test of wallarray[x].material.materials)
-                    {
-                        test.color.setRGB( Math.abs(intensity * 0.0015),  Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
-                    }
-                }
-                traparray[0].material.color.setRGB( Math.abs(intensity * 0.0015),  Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
-                floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.0015), 0.1 + Math.abs(intensity * 0.0015), 0.1 + Math.abs(intensity * 0.005));
-                break;
-            case (3):
-                wallarray[0].material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
-                wallarray[1].material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
-                traparray[0].material.color.setRGB( Math.abs(intensity * 0.0065), 0, 0);
-                floor.material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
-                break
-        }
-        // change colors of cubes
-        for (var x = 0; x <powerGroup.children.length; x++ )
-        {
-            for(test of powerGroup.children[x].material.materials)
-            {
-                test.color.setRGB( Math.abs(intensity * 0.005),  Math.abs(intensity * 0.005), Math.abs(intensity * 0.005));
-            }
-        }
+        FunkyColors();
     }
     // power-up rotation
     if (powerGroup.children[0].position.y > 6 || powerGroup.children[0].position.y < 4)
@@ -458,7 +423,7 @@ function checkCellFunction(cellnumber)
         {
             case 1:
                 if (xPos >= xCell - 4.5 && xPos <= xCell +4.5 && zPos >= zCell - 4.5 && zPos <= zCell +4.5 && yPos <= 16.5) {
-                    speedmodifier = 1.5;
+                    speedmodifier = 1.3;
                     RemovePowerUp();
                     myCell.cellfunction = 0;
                     speedpowerupsound.loop = false;
@@ -533,6 +498,7 @@ function EndGame()
 {
     controlpause = false;
     audio.pause();
+    document.getElementById("timer-container").style.visibility = "hidden";
     finishedsound.loop = false;
     finishedsound.play();
     clearInterval(timer);
@@ -551,6 +517,50 @@ function EndGame()
     // Attempt to unlock
     document.exitPointerLock();
 
+}
+
+function FunkyColors()
+{
+     var wallarray = wallGroup.children;
+    var traparray = trapGroup.children;
+    var powerarray = powerGroup.children;
+
+    //change colors per level
+    switch (lvl)
+    {
+        case (1):
+            wallarray[0].material.color.setRGB( Math.abs(intensity * 0.001), Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
+            wallarray[1].material.color.setRGB( Math.abs(intensity * 0.001), Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
+            traparray[0].material.color.setRGB( Math.abs(intensity * 0.001),  Math.abs(intensity * 0.005), Math.abs(intensity * 0.001));
+            floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.001), 0.1 + Math.abs(intensity * 0.005), 0.1 + Math.abs(intensity * 0.001));
+            break;
+        case (2):
+            for (var x = 0; x <wallarray.length; x++ )
+            {
+                for(test of wallarray[x].material.materials)
+                {
+                    test.color.setRGB( Math.abs(intensity * 0.0015),  Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
+                }
+            }
+            traparray[0].material.color.setRGB( Math.abs(intensity * 0.0015),  Math.abs(intensity * 0.0015), Math.abs(intensity * 0.005));
+            floor.material.color.setRGB( 0.1 + Math.abs(intensity * 0.0015), 0.1 + Math.abs(intensity * 0.0015), 0.1 + Math.abs(intensity * 0.005));
+            break;
+        case (3):
+            wallarray[0].material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
+            wallarray[1].material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
+            traparray[0].material.color.setRGB( Math.abs(intensity * 0.0065), 0, 0);
+            floor.material.color.setRGB( Math.abs(intensity * 0.005), 0, 0);
+            break
+    }
+    // change colors of cubes
+    for (var x = 0; x <powerGroup.children.length; x++ )
+    {
+        for(test of powerGroup.children[x].material.materials)
+        {
+            test.color.setRGB( Math.abs(intensity * 0.005),  Math.abs(intensity * 0.005), Math.abs(intensity * 0.005));
+        }
+    }
+    
 }
 
 function GameOver(){

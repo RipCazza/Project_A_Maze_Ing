@@ -63,28 +63,28 @@ function movedirection(currentcellnr)
     // trap/power-up randomizer
     var traprandomizer = random();
 
-    if (traprandomizer < 0.20 && !(currentcellnr == 0 || currentcellnr == (size - 1) || currentcellnr == (size * (size -1)) || currentcellnr == (size * size) -1))
+    if (traprandomizer < 0.10 && !(currentcellnr == 0 || currentcellnr == (size - 1) || currentcellnr == (size * (size -1)) || currentcellnr == (size * size) -1))
     {
-       if (traprandomizer < 0.05)
+       if (traprandomizer < 0.025)
        {
             temcounter++;
            cells[currentcellnr].cellfunction = 1;
        }
 
-        else if (traprandomizer > 0.05 && traprandomizer < 0.10 && currentlvl != 3)
+        else if (traprandomizer > 0.025 && traprandomizer < 0.050 && currentlvl != 3)
         {
             tempcounter++;
            cells[currentcellnr].cellfunction = 2;
         }
-        else if (traprandomizer > 0.05 && traprandomizer < 0.10 && currentlvl == 3){
+        else if (traprandomizer > 0.025 && traprandomizer < 0.050 && currentlvl == 3){
             temcounter++;
             cells[currentcellnr].cellfunction = 4;
         }
-        else if ( traprandomizer >0.10 && traprandomizer <0.15){
+        else if ( traprandomizer >0.050 && traprandomizer <0.075){
             temcounter++;
             cells[currentcellnr].cellfunction = 3; 
         }
-        else if (traprandomizer >0.15){
+        else if (traprandomizer >0.075){
             temcounter++;
             cells[currentcellnr].cellfunction = 5;
         }
