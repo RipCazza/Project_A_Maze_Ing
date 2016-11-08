@@ -131,10 +131,11 @@ function init(level) {
 }
 
 function initMaze(){
-    if (seednumber == 7777) {
-        scene.fog =  new THREE.Fog(0xFFC0CB, 0,100);
-    }
-    else if (lvl == 1) {
+//    if (seednumber == 7777) {
+//        scene.fog =  new THREE.Fog(0xFFC0CB, 0,100);
+//    }
+//    else
+    if (lvl == 1) {
         scene.fog =  new THREE.Fog(0x001E00, 0,100);
     }
     else if (lvl == 2) {
@@ -147,10 +148,11 @@ function initMaze(){
         $("body").css("background-image", "url('images/level" + lvl + "/background.jpg')");
     }
     else {
-        if (seednumber == 7777) {
-            $("body").css("background-color", "rgb(255,192,203)");
-        }
-        else if (lvl == 1) {
+//        if (seednumber == 7777) {
+//            $("body").css("background-color", "rgb(255,192,203)");
+//        }
+//        else
+        if (lvl == 1) {
             $("body").css("background-color", "rgb(0, 30, 0)");
         }
         else if (lvl == 2) {
@@ -167,10 +169,9 @@ function initMaze(){
     var path = "./images/level" + lvl + "/";
 
     var powerupTexture, powerupunderTexture, timeupTexture, timeupunderTexture, shortwallTexture, traptexture, longwallTexture, teleTexture, teleunderTexture, texture;
-    if (seednumber == 7777) {
-        powerupTexture = powerupunderTexture = timeupTexture = timeupunderTexture = shortwallTexture = traptexture = traptexture = longwallTexture = teleTexture = teleunderTexture = texture = new THREE.TextureLoader().load('images/david.png');
-    }
-    else {
+//    if (seednumber == 7777) {
+//        powerupTexture = powerupunderTexture = timeupTexture = timeupunderTexture = shortwallTexture = traptexture = traptexture = longwallTexture = teleTexture = teleunderTexture = texture = new THREE.TextureLoader().load('images/david.png');
+//    }
         texture = new THREE.TextureLoader().load( path + "floortexture.jpg" );
         powerupTexture = new THREE.TextureLoader().load('images/power-up.png');
         powerupunderTexture = new THREE.TextureLoader().load('images/power-up_under.png');
@@ -183,7 +184,6 @@ function initMaze(){
 
         teleTexture = new THREE.TextureLoader().load('images/tele.jpg');
         teleunderTexture = new THREE.TextureLoader().load('images/tele_upper.jpg');
-    }
 
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
